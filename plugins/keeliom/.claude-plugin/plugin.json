@@ -1,0 +1,10 @@
+{
+  "name": "keeliom",
+  "version": "0.1.0",
+  "description": "Keeliom — a Markdown-only spec framework for LLM-driven projects.",
+  "author": {
+    "name": "khrvi"
+  },
+  "license": "MIT",
+  "keywords": ["spec", "documentation", "llm", "skills"]
+}

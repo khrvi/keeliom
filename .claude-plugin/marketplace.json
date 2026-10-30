@@ -1,0 +1,17 @@
+{
+  "name": "keeliom",
+  "owner": {
+    "name": "khrvi"
+  },
+  "description": "Keeliom — a Markdown-only spec framework for LLM-driven projects.",
+  "plugins": [
+    {
+      "name": "keeliom",
+      "source": "./plugins/keeliom",
+      "description": "Bootstrap, create, change, and import Keeliom feature specs.",
+      "license": "MIT",
+      "category": "development",
+      "tags": ["spec", "documentation", "llm"]
+    }
+  ]
+}
