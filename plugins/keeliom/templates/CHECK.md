@@ -22,9 +22,9 @@ asked.
 | M3 | Every feature has `feature.md`. `brief.md` is non-empty if present. |
 | M4 | `feature.md` has `Status` and the required sections. On 0.1.0: `Why`, `Who`, `In scope`, `Out of scope`, `Rules`, `Acceptance`, `Tasks`. On 0.2.0: also `Depends on`, `Related`, `Decisions`, `Open questions`. On 0.2.2: `Release:` is absent, `None`, or a value; `Repositories:` is absent, `None`, or a comma-separated list. |
 | M5 | `Status` is `draft`, `ready`, `in_progress`, `done` or `deprecated`. |
-| M6 | No `TBD` or `<...>` placeholders in a non-draft feature or in `app.md`. No `Keeliom: <version>` or `Date: YYYY-MM-DD` in a change entry. |
+| M6 | No `TBD` or `<...>` placeholders in a non-draft feature or in `app.md`. No `Keeliom: <version>` or `Date: YYYY-MM-DD` in a change entry. An `Open:` line in `app.md` matches `Open: <item> — owner: <name or F00xx>, due: <YYYY-MM-DD>`. An owner feature ID must exist. |
 | M7 | `Acceptance` and `Tasks` contain only checkboxes and at least one checkbox, unless `Status` is `draft`. |
-| M8 | Optional sections are non-empty or `None`. |
+| M8 | Optional sections (`Depends on`, `Data`, `API`, `Screens`, `Open questions`) are non-empty or `None`. |
 | M9 | `Depends on` references existing feature IDs or is `None`. |
 | M10 | Every feature has `changes/0001-initial.md`. |
 | M11 | Change files are sequential and contain `Date`, `Reason`, `Changed`, and a valid `Related`. For entries without `Keeliom:`, `Related` may contain code paths. On a 0.2.0 or later project, every feature has an entry with `Keeliom:`. Once a feature has an entry with `Keeliom:`, every later entry has `Keeliom:`. When an entry has `Keeliom: 0.2.0` or later, it also has `Decisions` and `Source`. |
@@ -32,7 +32,7 @@ asked.
 | M13 | Every `F\d{4}` outside `Depends on` appears in `Depends on` or `Related`. |
 | M14 | The `Depends on` graph is acyclic. When `Release:` is present and is not `None`, a feature depends only on the same or an earlier release. |
 | M15 | `done` has all Acceptance and Tasks boxes checked. |
-| M16 | When `Status` is `ready` or `done`, `later`, `TBD`, `decide with`, `as before`, `if needed`, `probably` carry an answer and a source, or a feature ID. |
+| M16 | When `Status` is `ready` or `done`, scan `Out of scope`, `Rules`, `Data`, `API` and `Tasks`. Each `later`, `TBD`, `decide with`, `as before`, `if needed` or `probably` carries an answer and a source, `Deferred to: F00xx`, or `Deferred: Not planned — <reason>`. The feature ID in `Deferred to:` must exist. |
 | M17 | `Open questions` uses `Q<n>. <question>` followed by `Recommendation:`, `Owner:` and `Status: open` or `Status: answered (D<n>)`. `None` only at zero. `Recommendation: None` requires ` — <reason>`. |
 | M18 | Every question with `Status: open` is open. Every `Status: answered (D<n>)` names an existing Decision. Every Decision has `ID`, `From` (`Q<n>`, `legacy §<section>`, or `None`), `Question`, `Answer`, `Source` and `Date` (`YYYY-MM-DD`). `From: None` is allowed only when no question exists. When `Status` is `ready` or `done`, no question has `Status: open`. |
 | M19 | Required sections depend on `KEELIOM_VERSION`. Older projects get warnings with a migration instruction. |
@@ -41,6 +41,7 @@ asked.
 | M22 | `deprecated` has `Replaced by: F00xx`. The target exists and is not deprecated. |
 | M23 | A feature's first change entry with `Keeliom: 0.2.0` or later has `Source`. If `brief.md` exists, `Source` includes `brief.md`. |
 | M24 | Every path in a feature's `Repositories:` matches a row in `app.md` `Repositories`. The line is absent when `app.md` has one row and required when it has more than one. Every `Repositories` row has a non-empty `Test commands` value. `None — <reason>` is a warning. |
+| M25 | Project-level `changes/` entries are sequential and contain `Keeliom`, `Date`, `Reason`, `Changed`, `Before`, `After`, `Related`, `Corrects`, `Decisions` and `Source`. |
 
 ## Semantic pass
 
@@ -72,7 +73,7 @@ Run only when `Repositories` is filled. If the code cannot be read, report
 
 | ID | Check |
 |---|---|
-| C1 | Every table, column, route and method in `Data`, `API` or `Rules` exists in code or is named in a Task as an addition. Run C1 once for each repository in the feature's `Repositories:`. A line marked `In <path>:` is checked against that repository only. An unmarked line is checked against every repository in the list. |
+| C1 | Every table, column, route and method in `Data`, `API` or `Rules` exists in code or is named in a Task as an addition. Run C1 once for each repository in the feature's `Repositories:`. When the line is absent, run it for the single `app.md` row. A line marked `In <path>:` is checked against that repository only. An unmarked line is checked against every repository in the list. |
 | C2 | Role values exist in code. |
 | C3 | A capability that exists in code but has no feature is reported as `import-first`. |
 
@@ -89,7 +90,7 @@ the project. They affect `Project OK` only.
 
 Assignments:
 
-- M1–M24 are `error`.
+- M1–M25 are `error`.
 - S1 is `error`.
 - S2, S4, S5, S8 and S9 are `error` when `Status` is `ready` or `done`. They
   are `warn` otherwise.
@@ -132,7 +133,8 @@ For `KEELIOM_VERSION` 0.1.0:
 
 For `KEELIOM_VERSION` 0.2.0 and 0.2.1, the 0.2.2 header fields, the Decisions
 `Date` column and the `Open questions` grammar are `warn` with a migration
-instruction. For 0.2.2 and later, the severity table above applies.
+instruction. For 0.2.2 and earlier, M25 and the `Open:` and deferral forms are
+`warn`. For 0.2.3 and later, the severity table above applies.
 
 ## Output
 
