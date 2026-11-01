@@ -1,6 +1,9 @@
 # F0003 — Edit book
 
 Status: ready
+Release: None
+Repository: None
+Replaced by: None
 
 ## Why
 
@@ -13,6 +16,10 @@ Reader.
 ## Depends on
 
 F0001, F0002
+
+## Related
+
+None
 
 ## In scope
 
@@ -35,6 +42,10 @@ F0001, F0002
 - Author is required, 1–120 characters.
 - Title and author are trimmed before validation and saving.
 - ISBN is optional; if present, it must be unique among other books.
+- ISBN is stored without spaces and hyphens before validation and saving.
+- Normalization runs before the uniqueness check.
+- Clearing the ISBN removes it from the book.
+- ISBN follows the `app.md` invariant: 10 or 13 characters after normalization.
 - The form is pre-filled with the current values.
 - On success, return to the list and show "Book updated".
 - On validation error, keep the entered values.
@@ -78,6 +89,7 @@ Errors:
 | `title_required` | 422 | title is missing or blank |
 | `author_required` | 422 | author is missing or blank |
 | `isbn_taken` | 422 | ISBN belongs to another book |
+| `isbn_invalid` | 422 | ISBN is not 10 or 13 characters after normalization |
 
 ## Screens
 
@@ -99,9 +111,13 @@ Screen: Edit book
 - [ ] The form is pre-filled with the current values.
 - [ ] Saving updates the book.
 - [ ] Leading and trailing spaces in title and author are removed before saving.
-- [ ] A book without a title is rejected with a clear error.
-- [ ] A book without an author is rejected with a clear error.
-- [ ] An ISBN used by another book is rejected.
+- [ ] ISBN spaces and hyphens are removed before saving.
+- [ ] The ISBN is checked for uniqueness after normalization.
+- [ ] Clearing the ISBN removes it from the book.
+- [ ] A book without a title is rejected with `title_required` and status `422`.
+- [ ] A book without an author is rejected with `author_required` and status `422`.
+- [ ] An ISBN used by another book is rejected with `isbn_taken` and status `422`.
+- [ ] An ISBN that is not 10 or 13 characters after normalization is rejected with `isbn_invalid` and status `422`.
 - [ ] The current book's own ISBN is accepted.
 - [ ] Cancel returns to the list without changes.
 - [ ] A missing book shows "Book not found".
@@ -114,6 +130,10 @@ Screen: Edit book
 - [ ] Add validation and error states.
 - [ ] Add tests for the acceptance criteria.
 - [ ] Update the feature status to `done`.
+
+## Decisions
+
+None
 
 ## Open questions
 
