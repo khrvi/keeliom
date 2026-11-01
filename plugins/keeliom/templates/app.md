@@ -63,6 +63,6 @@
 
 ## Repositories
 
-| Path | Role | Language | Test command |
-|---|---|---|---|
-| <path> | <role> | <language> | <exact command> |
+| Path | Role | Language | Test commands | Notes |
+|---|---|---|---|---|
+| <path> | <role> | <language> | <exact command or `None — <reason>`> | <notes> |

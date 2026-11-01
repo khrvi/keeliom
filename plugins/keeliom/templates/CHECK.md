@@ -20,7 +20,7 @@ asked.
 | M1 | `app.md` exists and has `One-liner`, `Users`, `Jobs`, `Scope`, `Non-goals`, `Glossary`, `Invariants`, `Stack`. For `KEELIOM_VERSION` 0.2 or later, also `Roles`, `Data model`, `API conventions`, `Repositories`. |
 | M2 | Feature directories match `F<4 digits>-<slug>/` and are unique. |
 | M3 | Every feature has `feature.md`. `brief.md` is non-empty if present. |
-| M4 | `feature.md` has `Status` and the required sections. On 0.1.0: `Why`, `Who`, `In scope`, `Out of scope`, `Rules`, `Acceptance`, `Tasks`. On 0.2.0: also `Depends on`, `Related`, `Decisions`, `Open questions`. |
+| M4 | `feature.md` has `Status` and the required sections. On 0.1.0: `Why`, `Who`, `In scope`, `Out of scope`, `Rules`, `Acceptance`, `Tasks`. On 0.2.0: also `Depends on`, `Related`, `Decisions`, `Open questions`. On 0.2.2: `Release:` is absent, `None`, or a value; `Repositories:` is absent, `None`, or a comma-separated list. |
 | M5 | `Status` is `draft`, `ready`, `in_progress`, `done` or `deprecated`. |
 | M6 | No `TBD` or `<...>` placeholders in a non-draft feature or in `app.md`. No `Keeliom: <version>` or `Date: YYYY-MM-DD` in a change entry. |
 | M7 | `Acceptance` and `Tasks` contain only checkboxes and at least one checkbox, unless `Status` is `draft`. |
@@ -40,7 +40,7 @@ asked.
 | M21 | `Related` values are feature IDs or `None`. Code paths appear only in `Source`. This applies to entries with `Keeliom:`; old entries may contain code paths. |
 | M22 | `deprecated` has `Replaced by: F00xx`. The target exists and is not deprecated. |
 | M23 | A feature's first change entry with `Keeliom: 0.2.0` or later has `Source`. If `brief.md` exists, `Source` includes `brief.md`. |
-| M24 | A feature's `Repository:` matches a row in `Repositories`, or is absent when there is one row. Required when `Repositories` has more than one row. |
+| M24 | Every path in a feature's `Repositories:` matches a row in `app.md` `Repositories`. The line is absent when `app.md` has one row and required when it has more than one. Every `Repositories` row has a non-empty `Test commands` value. `None — <reason>` is a warning. |
 
 ## Semantic pass
 
@@ -130,7 +130,9 @@ For `KEELIOM_VERSION` 0.1.0:
 - M6 on 0.1.0 checks only that `ready` has no `TBD`. Placeholders and `app.md`
   are `warn`.
 
-For `KEELIOM_VERSION` 0.2.0 and later, the severity table above applies.
+For `KEELIOM_VERSION` 0.2.0 and 0.2.1, the 0.2.2 header fields, the Decisions
+`Date` column and the `Open questions` grammar are `warn` with a migration
+instruction. For 0.2.2 and later, the severity table above applies.
 
 ## Output
 

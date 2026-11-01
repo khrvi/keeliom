@@ -45,7 +45,8 @@ Required sections:
 10. `Data model` — table, owning feature, key columns, notes.
 11. `API conventions` — envelope, errors, pagination, field naming, enums,
     auth, CSRF, sign-in and sign-out, idempotency, response coverage.
-12. `Repositories` — path, role, language, exact test command.
+12. `Repositories` — path, role, language, exact test commands, notes. A
+    command may be `None — <reason>`.
 
 ## 3. Feature
 
@@ -67,9 +68,9 @@ follow a template. Recommended sections:
 Every `feature.md` starts with these lines directly under the title:
 
 - `Status: <value>`
-- `Release: <value>` optional.
-- `Repository: <path>` optional; required when `Repositories` has more than
-  one row.
+- `Release: <value>` optional; `None` when no release is planned.
+- `Repositories: <path>[, <path>]` optional; required when `Repositories` has
+  more than one row.
 - `Replaced by: <F00xx>` only when `Status: deprecated`.
 
 Required sections:
