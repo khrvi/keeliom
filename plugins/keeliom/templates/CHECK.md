@@ -33,8 +33,8 @@ asked.
 | M14 | The `Depends on` graph is acyclic. When `Release:` is present and is not `None`, a feature depends only on the same or an earlier release. |
 | M15 | `done` has all Acceptance and Tasks boxes checked. |
 | M16 | When `Status` is `ready` or `done`, `later`, `TBD`, `decide with`, `as before`, `if needed`, `probably` carry an answer and a source, or a feature ID. |
-| M17 | `Open questions` uses `Q<n>`, `Recommendation`, `Owner`, `Status: open`. `None` only at zero. |
-| M18 | Every open question is open. Every Decision has a `From` that is a `Q<n>` or `None`, and a question, answer, and source. When `Status` is `ready` or `done`, `Open questions` is `None`. |
+| M17 | `Open questions` uses `Q<n>. <question>` followed by `Recommendation:`, `Owner:` and `Status: open` or `Status: answered (D<n>)`. `None` only at zero. `Recommendation: None` requires ` — <reason>`. |
+| M18 | Every question with `Status: open` is open. Every `Status: answered (D<n>)` names an existing Decision. Every Decision has `ID`, `From` (`Q<n>`, `legacy §<section>`, or `None`), `Question`, `Answer`, `Source` and `Date` (`YYYY-MM-DD`). `From: None` is allowed only when no question exists. When `Status` is `ready` or `done`, no question has `Status: open`. |
 | M19 | Required sections depend on `KEELIOM_VERSION`. Older projects get warnings with a migration instruction. |
 | M20 | Every change entry has non-empty `Before` and `After`. |
 | M21 | `Related` values are feature IDs or `None`. Code paths appear only in `Source`. This applies to entries with `Keeliom:`; old entries may contain code paths. |

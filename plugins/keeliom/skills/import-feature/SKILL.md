@@ -42,7 +42,8 @@ description: Document an existing feature from code as a Keeliom feature spec wi
    - `Repositories:` from the code paths. Mark each `Data`, `API` or `Tasks`
      line with `In <path>:` when the feature spans repositories.
 5. Add `Depends on` for existing features or shared entities.
-6. Fill `Decisions` from code with `code:path` sources.
+6. Fill `Decisions` from code with `code:path` sources. Use the
+   `ID | From | Question | Answer | Source | Date` table.
 7. Create `changes/0001-initial.md` with:
    - `Keeliom: <KEELIOM_VERSION>`;
    - `Reason: Imported from existing code.`;

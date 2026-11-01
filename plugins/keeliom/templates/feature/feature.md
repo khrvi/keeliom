@@ -54,8 +54,17 @@ None
 
 ## Decisions
 
-None
+| ID | From | Question | Answer | Source | Date |
+|---|---|---|---|---|---|
+| D1 | Q1 | <question> | <answer> | <source> | <YYYY-MM-DD> |
+
+When there are no decisions, write `None`.
 
 ## Open questions
 
-None
+Q1. <question>
+- Recommendation: <default, or None — <reason>>
+- Owner: <name>
+- Status: open
+
+An answered question keeps its number and uses `Status: answered (D<n>)`.

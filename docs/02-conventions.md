@@ -85,8 +85,9 @@ Required sections:
 8. `Acceptance` — acceptance criteria as checkboxes.
 9. `Tasks` — tasks as checkboxes.
 10. `Decisions` — table `ID | From | Question | Answer | Source | Date`.
-11. `Open questions` — `Q<n>`, `Recommendation`, `Owner`, `Status: open`, or
-    `None`.
+    `From` is `Q<n>`, `legacy §<section>`, or `None`.
+11. `Open questions` — `Q<n>. <question>` followed by `Recommendation:`,
+    `Owner:` and `Status: open` or `Status: answered (D<n>)`, or `None`.
 
 Optional sections:
 

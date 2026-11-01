@@ -51,8 +51,11 @@ When a product owner provides a brief or ticket for a new feature.
 12. Do not invent. If the owner does not answer, leave `TBD` and keep
     `Status: draft`. In unattended mode, no claim without a source.
 13. Fill `features/Fxxxx-<slug>/feature.md` with `Decisions`, `Related` and
-    structured `Open questions`. Add `Release: None`. Add `Repositories:` when
-    `app.md` has more than one row; list the paths this feature touches.
+    structured `Open questions`. Decisions use
+    `ID | From | Question | Answer | Source | Date`. Open questions use
+    `Q<n>. <question>` with indented `Recommendation:`, `Owner:` and
+    `Status: open`. Add `Release: None`. Add `Repositories:` when `app.md` has
+    more than one row; list the paths this feature touches.
 14. Create `changes/0001-initial.md` with:
     - `Keeliom: <KEELIOM_VERSION>`;
     - `Reason: Initial specification from the brief (<source>).`;

@@ -80,6 +80,6 @@ None
 ## Open questions
 
 Q1. Which name format?
-Recommendation: free text.
-Owner: reader
-Status: open
+- Recommendation: free text.
+- Owner: reader
+- Status: open
