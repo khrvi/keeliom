@@ -7,7 +7,7 @@
 
 ## 1. Principle
 
-Start simple. In v0.1:
+Start simple. In v0.2:
 
 - one app — one `app.md`;
 - one feature — one directory `features/F0001-name/`;
@@ -86,7 +86,8 @@ Start simple. In v0.1:
 5. No `TBD` in `ready`.
 6. If a decision is missing, the LLM stops and asks.
 7. If a section does not apply, write `None`; do not delete the section.
-8. Any change to `feature.md` requires a new change entry.
+8. Any edit to `feature.md` other than a checkbox or `Status` requires a new
+   change entry.
 9. Old change entries are never edited.
 10. The LLM asks only about missing decisions and offers a default.
 
@@ -136,9 +137,9 @@ Order:
 
 ## 9. When to add complexity
 
-- **v0.2** — split a feature into `data.md`, `api.md`, `ui.md`.
-- **v0.3** — split Blueprint → Canon → Living Spec.
-- **v0.4** — optional tooling.
+- **v0.3** — split a feature into `data.md`, `api.md`, `ui.md`.
+- **v0.4** — split Blueprint → Canon → Living Spec.
+- **v0.5** — optional tooling.
 
 The signal: people or LLMs start getting confused by the current simple version.
 If they do not, do not add complexity.

@@ -39,7 +39,13 @@ Required sections:
 5. `Non-goals` — what is out of scope.
 6. `Glossary` — terms.
 7. `Invariants` — what is always true.
-8. `Stack` — language, framework, database, tests.
+8. `Stack` — language, framework, database. The test command lives in
+   `Repositories`.
+9. `Roles` — exact role values and what each can do.
+10. `Data model` — table, owning feature, key columns, notes.
+11. `API conventions` — envelope, errors, pagination, field naming, enums,
+    auth, CSRF, sign-in and sign-out, idempotency, response coverage.
+12. `Repositories` — path, role, language, exact test command.
 
 ## 3. Feature
 
@@ -58,26 +64,34 @@ follow a template. Recommended sections:
 
 ### 3.2. `feature.md`
 
-Every `feature.md` starts with a `Status: <value>` line directly under the
-title.
+Every `feature.md` starts with these lines directly under the title:
+
+- `Status: <value>`
+- `Release: <value>` optional.
+- `Repository: <path>` optional; required when `Repositories` has more than
+  one row.
+- `Replaced by: <F00xx>` only when `Status: deprecated`.
 
 Required sections:
 
 1. `Why` — why the feature exists.
 2. `Who` — who uses it.
-3. `In scope` — what is included.
-4. `Out of scope` — what is excluded.
-5. `Rules` — behavior rules.
-6. `Acceptance` — acceptance criteria as checkboxes.
-7. `Tasks` — tasks as checkboxes.
+3. `Depends on` — feature IDs this feature depends on, or `None`.
+4. `Related` — feature IDs referenced outside `Depends on`, or `None`.
+5. `In scope` — what is included.
+6. `Out of scope` — what is excluded.
+7. `Rules` — behavior rules.
+8. `Acceptance` — acceptance criteria as checkboxes.
+9. `Tasks` — tasks as checkboxes.
+10. `Decisions` — table `ID | From | Question | Answer | Source | Date`.
+11. `Open questions` — `Q<n>`, `Recommendation`, `Owner`, `Status: open`, or
+    `None`.
 
 Optional sections:
 
-- `Depends on` — feature IDs this feature depends on.
 - `Data` — entities and fields.
 - `API` — endpoints.
 - `Screens` — screens and states.
-- `Open questions` — open questions.
 
 Rule: if an optional section applies, it is required. If not, write `None`.
 
@@ -112,13 +126,16 @@ Rules:
 - Following files are numbered `0002`, `0003`, ...
 - Name: `NNNN-<short-reason>.md`.
 - History is append-only: old files are never edited.
+- To correct an earlier entry, add a new entry with `Corrects: NNNN`.
 - `feature.md` is the current state; `changes/` is how it changed.
+- New entries have `Keeliom`, `Decisions` and `Source`.
 
 Change entry format:
 
 ```markdown
 # 0002 — Trim title and author
 
+- **Keeliom:** 0.2.0
 - **Date:** 2026-10-30
 - **Reason:** Readers sometimes paste values with spaces.
 - **Changed:**
@@ -127,6 +144,9 @@ Change entry format:
 - **Before:** values were saved as entered.
 - **After:** values are trimmed before saving.
 - **Related:** None
+- **Corrects:** None
+- **Decisions:** D1
+- **Source:** owner:product-owner, 2026-10-30
 ```
 
 `Reason` is required. A patch without a reason is not a change entry. A real
@@ -147,6 +167,14 @@ diff is optional in v0.1; add `## Diff` later if exactness is needed.
 ```
 draft -> ready -> in_progress -> done -> deprecated
 ```
+
+Back transitions:
+
+- `ready`, `in_progress` or `done` -> `draft` when scope or decisions change.
+- `done` -> `ready` when behavior changes and the spec is complete.
+- `done` or `ready` -> `in_progress` when implementation resumes.
+- `ready` -> `ready` and `in_progress` -> `in_progress` for a complete behavior
+  change. Add a change entry.
 
 | Status | Meaning |
 |---|---|
@@ -178,23 +206,19 @@ feature without the Keeliom repository.
 
 ## 8. `CHECK.md`
 
-v0.1 checks:
+v0.2 checks:
 
-1. `app.md` exists and has the required sections.
-2. Feature directories match `F<4 digits>-<slug>/` (`F0001`–`F9999`) and are
-   unique.
-3. Every feature has `feature.md`; `brief.md` is optional but must not be empty
-   if present.
-4. `feature.md` has a `Status: <value>` line and the required sections.
-5. `Status` is one of the allowed values.
-6. `ready` has no `TBD`.
-7. `Acceptance` and `Tasks` contain checkboxes.
-8. Optional sections are not empty if present.
-9. `Depends on` references existing features or `None`.
-10. Every feature has `changes/0001-initial.md`.
-11. Change entries are numbered sequentially, contain `Date`, `Reason`, and
-    `Changed`, and `Related` references existing features or `None`.
-12. Links are not broken.
+`CHECK.md` runs three passes:
+
+1. Mechanical (M1–M24) — sections, IDs, links, fields, status, dependencies,
+   decisions and source.
+2. Semantic (S1–S9) — contradictions, scope coverage, terminology, acceptance
+   measurability, source coverage, shared-rule drift, implicit dependency,
+   change-entry accuracy and traceability.
+3. Code (C1–C3) — entities, columns, routes and roles against the repository.
+
+`CHECK.md` reports a per-feature result and `Project OK`. See the template for
+the exact checks.
 
 `CHECK.md` is an instruction for an LLM or a human. No CLI or runtime.
 
@@ -219,7 +243,7 @@ If the project already exists:
 - `brief.md` describes **current** behavior, not desired behavior.
 - `feature.md` describes what already exists.
 - `changes/0001-initial.md` contains `Reason: Imported from existing code.`
-- `Related` may contain code paths or feature IDs.
+- `Related` holds feature IDs or `None`. `Source` holds code paths.
 - `Depends on` lists existing features and shared entities.
 - Statuses:
   - `done` — the code implements it and acceptance is verified;
@@ -231,8 +255,8 @@ If the project already exists:
 
 ## 11. What comes next
 
-- **v0.2** — `data.md`, `api.md`, `ui.md` inside a feature.
-- **v0.3** — Blueprint → Canon → Living Spec layers.
-- **v0.4** — optional tooling.
+- **v0.3** — `data.md`, `api.md`, `ui.md` inside a feature.
+- **v0.4** — Blueprint → Canon → Living Spec layers.
+- **v0.5** — optional tooling.
 
 Do not add anything that the current flow does not need before v0.2.

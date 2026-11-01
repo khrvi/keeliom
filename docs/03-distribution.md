@@ -76,15 +76,17 @@ ID is `keeliom@keeliom`.
 ## 4. New project
 
 1. Run the `bootstrap` skill in the project directory.
-2. Fill in `app.md`.
+2. Fill in `app.md`, including `Roles`, `Data model`, `API conventions` and
+   `Repositories`.
 3. Create `brief.md` and `feature.md` with `create-feature`.
 4. Run `CHECK.md`.
 5. Implement.
 
 ## 5. Existing project
 
-1. Run `bootstrap` with `mode: existing`.
-2. Fill in `app.md` **as-is**.
+1. Run `bootstrap` with `mode: existing`. It asks before overwriting any file.
+2. Fill in `app.md` **as-is**, including `Roles`, `Data model`,
+   `API conventions` and `Repositories`.
 3. Inventory: routes, controllers, models, screens, tests.
 4. Import core/shared with `import-feature`.
 5. Then use `create-feature` and `change-feature`.
@@ -116,8 +118,13 @@ They live in the installed plugin.
 2. Read `CHANGELOG.md`.
 3. If the `RULES.md`/`CHECK.md` templates changed, update them in the project.
 4. Update `KEELIOM_VERSION`.
-5. Run `CHECK.md`.
-6. Do not overwrite `app.md`, `features/`, or `src/`.
+5. Add the new `app.md` sections: `Roles`, `Data model`, `API conventions`,
+   `Repositories`. Remove `Tests` from `Stack`.
+6. Add `Decisions`, `Related` and structured `Open questions` to features.
+   New change entries carry `Keeliom`, `Decisions` and `Source`.
+7. Run `CHECK.md`. A 0.1.0 project gets warnings for the new sections.
+8. Follow [`upgrade.md`](upgrade.md).
+9. Do not overwrite `app.md`, `features/`, or `src/`.
 
 `KEELIOM_VERSION` shows which framework version the project was created with.
 
@@ -154,9 +161,14 @@ Keeliom is plain Markdown. You can:
 1. Bump `version` in `plugins/keeliom/.claude-plugin/plugin.json`.
 2. Bump `plugins/keeliom/templates/KEELIOM_VERSION` to the same value.
 3. Update `README.md` and `CHANGELOG.md`.
-4. Run `claude plugin validate ./plugins/keeliom --strict` and
+4. Diff `templates/RULES.md` and `templates/CHECK.md` against the example
+   copies.
+5. Run `CHECK.md` on `examples/generic-app`. Expect `Project OK`.
+6. Run `CHECK.md` on each fixture. Compare with `expected-findings.md`.
+7. Run `review-project` on the example.
+8. Run `claude plugin validate ./plugins/keeliom --strict` and
    `claude plugin validate . --strict`.
-5. Tag `v<version>`.
+9. Tag `v<version>`.
 
 `plugin.json` is the source of the plugin version. `templates/KEELIOM_VERSION`
 carries the same number into new projects.
