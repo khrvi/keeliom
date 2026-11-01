@@ -1,9 +1,6 @@
 # F0003 — Edit book
 
 Status: ready
-Release: None
-Repository: None
-Replaced by: None
 
 ## Why
 

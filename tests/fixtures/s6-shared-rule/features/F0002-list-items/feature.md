@@ -1,9 +1,6 @@
 # F0002 — List items
 
 Status: ready
-Release: None
-Repository: None
-Replaced by: None
 
 ## Why
 

@@ -36,7 +36,8 @@
 ### Creating a feature
 
 1. If the input is an existing `features/Fxxxx-<slug>/brief.md`, use that
-   directory and ID. Otherwise allocate the next `F<4 digits>` number.
+   directory and ID. Otherwise list `features/`, take the highest `F<4 digits>`
+   number, add one, and zero-pad to four digits. IDs are never reused.
 2. Derive the slug from the feature name: kebab-case, ASCII, no spaces.
 3. Create `features/Fxxxx-<slug>/`.
 4. Save a pasted ticket as `brief.md`.
@@ -52,18 +53,21 @@
 
 ## Implementing tasks
 
-1. Implement tasks in order.
-2. Run the test command for the feature's `Repository` row in `app.md`.
-3. After each task, run the tests and update the task checkbox.
-4. Update `Status` when the feature moves.
-5. Do not change scope.
-6. If code and spec disagree, stop and ask.
-7. When done, run the checks from `CHECK.md` again.
-8. Report the files changed and the tests run.
+1. Run the checks from `CHECK.md` first. If there are problems, stop and
+   report them.
+2. Implement tasks in order.
+3. Run the test command for the feature's `Repository` row in `app.md`.
+4. After each task, run the tests and update the task checkbox.
+5. Update `Status` when the feature moves.
+6. Do not change scope.
+7. If code and spec disagree, stop and ask.
+8. When done, run the checks from `CHECK.md` again.
+9. Report the files changed and the tests run.
 
 ## Changing a feature
 
-1. Allocate the next change number.
+1. List `changes/`, take the highest `NNNN`, add one, and zero-pad to four
+   digits. IDs are never reused.
 2. A feature describes a capability, not a change.
 3. If the same capability changes, edit `feature.md` and add the change entry.
 4. If a new user goal is added, create a new feature.
@@ -84,6 +88,7 @@
 | From | To | Condition |
 |---|---|---|
 | `draft` | `ready` | All required sections filled. No TBD or placeholders. Every open question answered or dropped. Every Decision has a source. |
+| `draft` | `draft` | The draft changed. Add a change entry. |
 | `ready` | `in_progress` | Implementation started. |
 | `in_progress` | `done` | All Acceptance and Tasks boxes checked. Tests pass when a test command exists. CHECK reports OK for the feature. |
 | any | `deprecated` | The capability is replaced. `Replaced by:` points to the new feature. |

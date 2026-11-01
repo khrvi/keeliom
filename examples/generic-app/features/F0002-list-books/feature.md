@@ -1,9 +1,6 @@
 # F0002 — List books
 
 Status: ready
-Release: None
-Repository: None
-Replaced by: None
 
 ## Why
 

@@ -1,9 +1,6 @@
 # F0001 — <Feature name>
 
 Status: draft
-Release: None
-Repository: None
-Replaced by: None
 
 ## Why
 

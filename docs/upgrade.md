@@ -22,8 +22,9 @@
    that required the move.
 5. Add `Replaced by` to deprecated features.
 6. New change entries carry `Keeliom: 0.2.0`, `Decisions` and `Source`.
-7. Run `CHECK.md`.
+7. Run `CHECK.md` under the 0.1.0 rules. Expect warnings for the new sections.
 8. Set `KEELIOM_VERSION` to `0.2.0`.
+9. Run `CHECK.md` again under the 0.2.0 rules. Expect `Project OK`.
 
 Old change entries may keep code paths in `Related`. M11 and M21 exempt entries
 without `Keeliom:`.

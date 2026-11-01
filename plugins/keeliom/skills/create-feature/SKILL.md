@@ -24,40 +24,42 @@ When a product owner provides a brief or ticket for a new feature.
 
 ## Process
 
-1. If the input is an existing `features/Fxxxx-<slug>/brief.md`, use that
-   directory and ID. Otherwise allocate the next `F<4 digits>` number.
-2. Derive the slug from the feature name: kebab-case, ASCII, no spaces.
-3. Create `features/Fxxxx-<slug>/`.
-4. If the input is a document or ticket, save it as
-   `features/Fxxxx-<slug>/brief.md` from
+1. If the code already implements the capability, use `import-feature` first
+   and stop.
+2. If the input is an existing `features/Fxxxx-<slug>/brief.md`, use that
+   directory and ID. Skip steps 3–5.
+3. Otherwise allocate the next `F<4 digits>` number: list `features/`, take the
+   highest, add one, and zero-pad to four digits. IDs are never reused.
+4. Derive the slug from the feature name: kebab-case, ASCII, no spaces.
+5. Create `features/Fxxxx-<slug>/`.
+6. If the input is a pasted ticket or an external document outside the feature
+   directory, save it as `features/Fxxxx-<slug>/brief.md` from
    `${CLAUDE_PLUGIN_ROOT}/templates/brief.md`.
-5. Extract what is already known from the brief into the template.
-6. List missing required sections or decisions.
-7. Check every entity, column, route and method named in `Data`, `API` or
+7. Extract what is already known from the brief into the template.
+8. List missing required sections or decisions.
+9. Check every entity, column, route and method named in `Data`, `API` or
    `Rules` against the repository. Missing ones go to Tasks or Open questions.
    When `Repositories: None`, skip the check and add no open question.
-8. Build a source coverage table: every brief section → the feature section
-   where it landed.
-9. If the code already implements the capability, use `import-feature` first
-   and reference the result.
-10. Ask the owner only about missing decisions. For each question:
+10. Build a source coverage table: every brief section → the feature section
+    where it landed.
+11. Ask the owner only about missing decisions. For each question:
     - give a recommended default;
     - give 1–3 alternatives;
     - explain the consequence in one line.
-11. Do not invent. If the owner does not answer, leave `TBD` and keep
+12. Do not invent. If the owner does not answer, leave `TBD` and keep
     `Status: draft`. In unattended mode, no claim without a source.
-12. Fill `features/Fxxxx-<slug>/feature.md` with `Decisions`, `Related` and
+13. Fill `features/Fxxxx-<slug>/feature.md` with `Decisions`, `Related` and
     structured `Open questions`.
-13. Create `changes/0001-initial.md` with:
+14. Create `changes/0001-initial.md` with:
     - `Keeliom: <KEELIOM_VERSION>`;
     - `Reason: Initial specification from the brief (<source>).`;
     - `Related: <feature IDs or None>`;
     - `Source: brief.md §section` when a brief exists; otherwise `code:path`
       or `owner:<name>, <date>`.
-14. Record a chat answer as `owner:<name>, <date>`.
-15. Run the checks from `CHECK.md`.
-16. If a check fails, report it and ask; do not silently fix.
-17. Do not implement code.
+15. Record a chat answer as `owner:<name>, <date>`.
+16. Run the checks from `CHECK.md`.
+17. If a check fails, report it and ask; do not silently fix.
+18. Do not implement code.
 
 ## Output
 

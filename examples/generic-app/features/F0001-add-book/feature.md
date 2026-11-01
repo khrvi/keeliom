@@ -1,9 +1,6 @@
 # F0001 — Add book
 
 Status: ready
-Release: None
-Repository: None
-Replaced by: None
 
 ## Why
 

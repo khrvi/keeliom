@@ -20,6 +20,8 @@
 5. `claude plugin validate` passes for the plugin and the marketplace.
 6. The whole-branch review found 1 Critical and 9 Important issues. All are
    fixed. The fix pass passes 48/48 verification checks.
+7. A second review pass found 11 issues. All are fixed. The second fix pass
+   passes 16/16 checks, and the first suite still passes 48/48.
 
 ## Verdict
 

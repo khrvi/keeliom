@@ -5,12 +5,13 @@ asked.
 
 ## Read order
 
-1. `app.md`
-2. every `features/F*/feature.md`
-3. every `features/F*/brief.md`
-4. every `features/F*/changes/*`
-5. `RULES.md`
-6. `CHECK.md`
+1. `KEELIOM_VERSION`
+2. `app.md`
+3. every `features/F*/feature.md`
+4. every `features/F*/brief.md`
+5. every `features/F*/changes/*`
+6. `RULES.md`
+7. `CHECK.md`
 
 ## Mechanical pass
 
@@ -22,14 +23,14 @@ asked.
 | M4 | `feature.md` has `Status` and the required sections. On 0.1.0: `Why`, `Who`, `In scope`, `Out of scope`, `Rules`, `Acceptance`, `Tasks`. On 0.2.0: also `Depends on`, `Related`, `Decisions`, `Open questions`. |
 | M5 | `Status` is `draft`, `ready`, `in_progress`, `done` or `deprecated`. |
 | M6 | No `TBD` or `<...>` placeholders in a non-draft feature or in `app.md`. No `Keeliom: <version>` or `Date: YYYY-MM-DD` in a change entry. |
-| M7 | `Acceptance` and `Tasks` contain checkboxes. |
+| M7 | `Acceptance` and `Tasks` contain only checkboxes and at least one checkbox, unless `Status` is `draft`. |
 | M8 | Optional sections are non-empty or `None`. |
 | M9 | `Depends on` references existing feature IDs or is `None`. |
 | M10 | Every feature has `changes/0001-initial.md`. |
 | M11 | Change files are sequential and contain `Date`, `Reason`, `Changed`, and a valid `Related`. For entries without `Keeliom:`, `Related` may contain code paths. On a 0.2.0 or later project, every feature has an entry with `Keeliom:`. Once a feature has an entry with `Keeliom:`, every later entry has `Keeliom:`. When an entry has `Keeliom: 0.2.0` or later, it also has `Decisions` and `Source`. |
 | M12 | Relative Markdown links to `.md` files resolve. |
 | M13 | Every `F\d{4}` outside `Depends on` appears in `Depends on` or `Related`. |
-| M14 | The `Depends on` graph is acyclic. When `Release:` is present, a feature depends only on the same or an earlier release. |
+| M14 | The `Depends on` graph is acyclic. When `Release:` is present and is not `None`, a feature depends only on the same or an earlier release. |
 | M15 | `done` has all Acceptance and Tasks boxes checked. |
 | M16 | When `Status` is `ready` or `done`, `later`, `TBD`, `decide with`, `as before`, `if needed`, `probably` carry an answer and a source, or a feature ID. |
 | M17 | `Open questions` uses `Q<n>`, `Recommendation`, `Owner`, `Status: open`. `None` only at zero. |
@@ -39,7 +40,7 @@ asked.
 | M21 | `Related` values are feature IDs or `None`. Code paths appear only in `Source`. This applies to entries with `Keeliom:`; old entries may contain code paths. |
 | M22 | `deprecated` has `Replaced by: F00xx`. The target exists and is not deprecated. |
 | M23 | A feature's first change entry with `Keeliom: 0.2.0` or later has `Source`. If `brief.md` exists, `Source` includes `brief.md`. |
-| M24 | A feature's `Repository:` matches a row in `Repositories`. Required when `Repositories` has more than one row. |
+| M24 | A feature's `Repository:` matches a row in `Repositories`, or is absent when there is one row. Required when `Repositories` has more than one row. |
 
 ## Semantic pass
 
