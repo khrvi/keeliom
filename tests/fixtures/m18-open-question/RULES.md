@@ -32,8 +32,8 @@
     `ID | From | Question | Answer | Source | Date`. An answered question
     keeps its number and moves to `Status: answered (D<n>)` in
     `## Open questions`. The change entry lists the Decision IDs.
-11. `Source` is `path §section`, `code:path`, or `owner:<name>, <date>`. For a
-    decision adopted from a recommendation, use
+11. `Source` is `path`, `path §section`, `code:path`, or
+    `owner:<name>, <date>`. For a decision adopted from a recommendation, use
     `feature.md §Open questions Q<n>`.
 12. Every new change entry has `Keeliom: <KEELIOM_VERSION>`.
 

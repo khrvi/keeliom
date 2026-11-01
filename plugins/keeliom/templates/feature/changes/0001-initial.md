@@ -10,4 +10,4 @@
 - **Related:** None
 - **Corrects:** None
 - **Decisions:** None
-- **Source:** <path §section, code:path, or owner:<name>, <date>>
+- **Source:** <path, path §section, code:path, or owner:<name>, <date>>

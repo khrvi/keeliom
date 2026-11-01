@@ -8,7 +8,7 @@
 
 - Run the `upgrade` skill in the project. This page is the manual fallback.
 - Commit or back up the project.
-- Read the 0.2.0 entry in `CHANGELOG.md`.
+- Read the 0.2.2 entry in `CHANGELOG.md`.
 - Do not edit an existing change entry.
 
 ## Steps
