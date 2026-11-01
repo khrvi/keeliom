@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.2.3 — 2026-11-02
+
+### Added
+
+- `M25` project-level `changes/` check.
+- `Open:` form in `app.md`.
+- `Deferred to: F00xx` and `Deferred: Not planned — <reason>`.
+- `test:<name>` reference in S9.
+- Data model `Readers` column.
+- API `Single resource`, `Collection` and `Search` rules.
+- `TODO.md` for `import-first` findings.
+- `tests/run.sh` fixture runner.
+
+### Changed
+
+- M16 scans only `Out of scope`, `Rules`, `Data`, `API` and `Tasks`.
+- S5 falls back to the first change entry's `Source`.
+- S7 covers `In scope`, `Data`, `API` and `Screens`.
+- C1 accepts a Task only when it says `add ...`.
+- `review-project` runs for features that touch shared behavior.
+- 37 checks: M1–M25, S1–S9, C1–C3.
+
 ## 0.2.2 — 2026-11-02
 
 ### Added

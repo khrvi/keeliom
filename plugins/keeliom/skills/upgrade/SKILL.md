@@ -27,7 +27,7 @@ description: Upgrade an existing Keeliom project to the 0.2.0 sections and check
 
 ## Process
 
-1. Read `KEELIOM_VERSION`. If it is 0.2.2 or later, report "already current"
+1. Read `KEELIOM_VERSION`. If it is 0.2.3 or later, report "already current"
    and stop.
 2. `mode` is `report` (default) or `apply`. In `report`, list every change and
    stop without writing. In `apply`, ask once for confirmation, then write.
@@ -40,6 +40,7 @@ description: Upgrade an existing Keeliom project to the 0.2.0 sections and check
      code;
    - remove `Tests` from `Stack`;
    - use the `Path | Role | Language | Test commands | Notes` table;
+   - add a project-level `changes/` entry for the `app.md` changes;
    - keep the existing content.
 5. For each feature:
    - add `Related` if missing;

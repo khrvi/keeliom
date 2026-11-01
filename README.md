@@ -1,14 +1,14 @@
 # Keeliom
 
-- **Status:** v0.2.2
-- **Version:** 0.2.2
+- **Status:** v0.2.3
+- **Version:** 0.2.3
 - **Date:** 2026-11-02
 - **Location:** standalone repository.
 - **Name:** Keeliom — Keel (stability) + Axiom (foundational truths).
 
 ## Status
 
-v0.2.2 was released on 2026-11-02. See [`CHANGELOG.md`](CHANGELOG.md) and
+v0.2.3 was released on 2026-11-02. See [`CHANGELOG.md`](CHANGELOG.md) and
 [`REVIEW-v0.2.md`](REVIEW-v0.2.md).
 
 ## Idea
@@ -129,14 +129,14 @@ at it or copy the plugin's `skills/` and `templates/`.
 ## Roadmap
 
 - **v0.1** — first release.
-- **v0.2** — system contracts in `app.md`, decisions and sources, 36 checks,
+- **v0.2** — system contracts in `app.md`, decisions and sources, 37 checks,
   fixtures, `review-project`. The `data.md`/`api.md`/`ui.md` split moves to
   v0.3.
 - **v0.2.1** — `upgrade` skill for existing projects.
 - **v0.2.2** — `Release` and `Repositories` headers, multi-repo features,
   one Decisions/Open questions grammar, one Source grammar, a safe upgrade.
 - **v0.2.3** — scoped M16, wider S5 and S7, C1 additions, API and Data model
-  details, a fixture runner.
+  details, a project change log, `TODO.md`, a fixture runner.
 - **v0.3** — split a feature into `data.md`, `api.md`, `ui.md`.
 - **v0.4** — Blueprint → Canon → Living Spec layers.
 - **v0.5** — optional tooling, only if needed.

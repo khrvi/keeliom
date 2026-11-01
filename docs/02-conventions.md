@@ -214,12 +214,12 @@ feature without the Keeliom repository.
 
 ## 8. `CHECK.md`
 
-v0.2 checks:
+v0.2.3 checks:
 
 `CHECK.md` runs three passes:
 
-1. Mechanical (M1–M24) — sections, IDs, links, fields, status, dependencies,
-   decisions and source.
+1. Mechanical (M1–M25) — sections, IDs, links, fields, status, dependencies,
+   decisions, source and project changes.
 2. Semantic (S1–S9) — contradictions, scope coverage, terminology, acceptance
    measurability, source coverage, shared-rule drift, implicit dependency,
    change-entry accuracy and traceability.
