@@ -10,4 +10,4 @@
 - **Related:** None
 - **Corrects:** None
 - **Decisions:** None
-- **Source:** app.md §Scope
+- **Source:** owner:fixture, 2026-11-02

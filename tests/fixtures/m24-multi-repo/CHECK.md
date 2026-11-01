@@ -29,7 +29,7 @@ asked.
 | M10 | Every feature has `changes/0001-initial.md`. |
 | M11 | Change files are sequential and contain `Date`, `Reason`, `Changed`, and a valid `Related`. For entries without `Keeliom:`, `Related` may contain code paths. On a 0.2.0 or later project, every feature has an entry with `Keeliom:`. Once a feature has an entry with `Keeliom:`, every later entry has `Keeliom:`. When an entry has `Keeliom: 0.2.0` or later, it also has `Decisions` and `Source`. |
 | M12 | Relative Markdown links to `.md` files resolve. |
-| M13 | Every `F\d{4}` outside `Depends on` appears in `Depends on` or `Related`. |
+| M13 | In `feature.md`, every `F\d{4}` outside `Depends on` appears in `Depends on` or `Related`. |
 | M14 | The `Depends on` graph is acyclic. When `Release:` is present and is not `None`, a feature depends only on the same or an earlier release. |
 | M15 | `done` has all Acceptance and Tasks boxes checked. |
 | M16 | When `Status` is `ready` or `done`, scan `Out of scope`, `Rules`, `Data`, `API` and `Tasks`. Each `later`, `TBD`, `decide with`, `as before`, `if needed` or `probably` carries an answer and a source, `Deferred to: F00xx`, or `Deferred: Not planned — <reason>`. The feature ID in `Deferred to:` must exist. |
