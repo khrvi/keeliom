@@ -16,6 +16,7 @@ Keeliom spec framework plugin for Claude Code.
 - `create-feature` — create a feature spec from a brief or ticket.
 - `change-feature` — change a feature and record the reason.
 - `import-feature` — document an existing feature from code.
+- `review-project` — run a project-wide second pass over the spec and code.
 
 ## Templates
 
