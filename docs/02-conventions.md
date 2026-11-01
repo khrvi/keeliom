@@ -42,9 +42,11 @@ Required sections:
 8. `Stack` — language, framework, database. The test command lives in
    `Repositories`.
 9. `Roles` — exact role values and what each can do.
-10. `Data model` — table, owning feature, key columns, notes.
-11. `API conventions` — envelope, errors, pagination, field naming, enums,
-    auth, CSRF, sign-in and sign-out, idempotency, response coverage.
+10. `Data model` — table, owner feature, reader features, comma-separated key
+    columns, notes.
+11. `API conventions` — single-resource shape, collection shape, errors, search
+    pagination, field naming, enums, auth, CSRF, sign-in and sign-out,
+    idempotency, response coverage.
 12. `Repositories` — path, role, language, exact test commands, notes. A
     command may be `None — <reason>`.
 

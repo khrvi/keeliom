@@ -44,15 +44,16 @@
 
 ## Data model
 
-| Table | Owner feature | Key columns | Notes |
-|---|---|---|---|
-| <table> | <F00xx> | <columns> | <notes> |
+| Table | Owner | Readers | Key columns | Notes |
+|---|---|---|---|---|
+| <table> | <F00xx> | <F00xx[, F00xx]> | <comma-separated columns> | <notes> |
 
 ## API conventions
 
-- Envelope: <shape>
+- Single resource: <shape>
+- Collection: <shape>
 - Errors: `Code | Status | When`
-- Pagination: <rule>
+- Search: <pagination rule>
 - Field naming: <rule>
 - Enums: <rule>
 - Auth: <rule>

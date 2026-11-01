@@ -53,15 +53,16 @@ A small personal library where a reader can add books and see what they own.
 
 ## Data model
 
-| Table | Owner feature | Key columns | Notes |
-|---|---|---|---|
-| Book | F0001-add-book | id, title, author, isbn, created_at | F0002 reads it; F0003 updates it; F0004 deletes it. |
+| Table | Owner | Readers | Key columns | Notes |
+|---|---|---|---|---|
+| Book | F0001-add-book | F0002, F0003, F0004 | id, title, author, isbn, created_at | |
 
 ## API conventions
 
-- Envelope: JSON object; lists are JSON arrays.
+- Single resource: JSON object.
+- Collection: JSON array.
 - Errors: `Code | Status | When`
-- Pagination: none.
+- Search: none.
 - Field naming: snake_case.
 - Enums: none.
 - Auth: none.
