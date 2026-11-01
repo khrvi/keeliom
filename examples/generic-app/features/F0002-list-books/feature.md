@@ -1,6 +1,9 @@
 # F0002 — List books
 
 Status: ready
+Release: None
+Repository: None
+Replaced by: None
 
 ## Why
 
@@ -13,6 +16,10 @@ Reader.
 ## Depends on
 
 F0001
+
+## Related
+
+None
 
 ## In scope
 
@@ -72,9 +79,9 @@ Response `200`:
 
 Errors:
 
-| Code | When |
-|---|---|
-| `books_unavailable` | the list cannot be loaded |
+| Code | Status | When |
+|---|---|---|
+| `books_unavailable` | 503 | the list cannot be loaded |
 
 ## Screens
 
@@ -90,6 +97,7 @@ Screen: Book list
 ## Acceptance
 
 - [ ] The reader sees all books.
+- [ ] A book added through F0001 appears in the list.
 - [ ] Each row shows title and author.
 - [ ] ISBN is shown only when present.
 - [ ] Books are sorted newest first.
@@ -103,6 +111,10 @@ Screen: Book list
 - [ ] Add loading, empty, and error states.
 - [ ] Add tests for the acceptance criteria.
 - [ ] Update the feature status to `done`.
+
+## Decisions
+
+None
 
 ## Open questions
 
