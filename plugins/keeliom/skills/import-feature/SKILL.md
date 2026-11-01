@@ -40,18 +40,21 @@ description: Document an existing feature from code as a Keeliom feature spec wi
    - `Acceptance` from existing tests or observable behavior;
    - `Tasks` as verification tasks, not implementation tasks.
 5. Add `Depends on` for existing features or shared entities.
-6. Create `changes/0001-initial.md`:
-   - `Reason: Imported from existing code.`
-   - `Changed: all sections: documented current behavior.`
-   - `Related: code paths or feature IDs.`
-7. Status:
+6. Fill `Decisions` from code with `code:path` sources.
+7. Create `changes/0001-initial.md` with:
+   - `Keeliom: <KEELIOM_VERSION>`;
+   - `Reason: Imported from existing code.`;
+   - `Changed: all sections: documented current behavior.`;
+   - `Related: feature IDs or None`;
+   - `Source: code:path`.
+8. Status:
    - `done` if the code implements it and acceptance is verified;
    - `in_progress` if there are gaps or unverified behavior;
    - `draft` if documentation is incomplete.
    - Do not use `ready` for imported code.
-8. Run `CHECK.md`.
-9. Do not change code.
-10. Report: code paths, verified behavior, gaps.
+9. Run `CHECK.md`.
+10. Do not change code.
+11. Report: code paths, verified behavior, gaps.
 
 ## Output
 

@@ -18,9 +18,10 @@ When an existing feature needs a change.
 
 1. `app.md`
 2. `features/Fxxxx-<slug>/feature.md`
-3. `features/Fxxxx-<slug>/changes/*`
-4. `RULES.md`
-5. `CHECK.md`
+3. `features/Fxxxx-<slug>/brief.md` if present
+4. `features/Fxxxx-<slug>/changes/*`
+5. `RULES.md`
+6. `CHECK.md`
 
 ## Process
 
@@ -29,14 +30,20 @@ When an existing feature needs a change.
 2. Decide: edit the existing feature or create a new one. Use the change rules
    in `RULES.md`.
 3. If editing:
-   - create `changes/NNNN-<slug>.md` with `Date`, `Reason`, `Changed`,
-     `Before`, `After`, `Related`;
+   - create `changes/NNNN-<slug>.md` with `Keeliom`, `Date`, `Reason`,
+     `Changed`, `Before`, `After`, `Related`, `Corrects`, `Decisions`, and
+     `Source`;
    - update `feature.md`;
-   - if behavior changed, move `Status` back to
-     `draft`/`ready`/`in_progress`.
-4. Never edit an existing change entry.
-5. Run the checks from `CHECK.md`.
-6. Do not implement code.
+   - move `Status` with the table in `RULES.md`.
+4. Never edit an existing change entry. To correct one, add a new entry with
+   `Corrects: NNNN`.
+5. Record a chat answer as `owner:<name>, <date>`.
+6. When moving to `ready`: re-read the source, verify each claim, write
+   Decisions with sources, and run the S and C passes from `CHECK.md`.
+7. Every new change entry has `Keeliom: <KEELIOM_VERSION>`, Decision IDs and
+   `Source`.
+8. Run the checks from `CHECK.md`.
+9. Do not implement code.
 
 ## Output
 
