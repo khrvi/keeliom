@@ -45,8 +45,9 @@ description: Upgrade an existing Keeliom project to the 0.2.0 sections and check
    - do not edit old change entries;
    - add one migration change entry with `Keeliom` (the template version),
      `Date`, `Reason`, `Changed`, `Before`, `After`, `Related`,
-     `Corrects: None`, `Decisions: None`, and `Source` (`brief.md` when
-     present, otherwise `owner:<name>, <date>` or the upgrade guide);
+     `Corrects: None`, `Decisions: None`, and `Source`
+     (`owner:<name>, <date>` for the upgrade decision, plus `code:path` for
+     each fact read from code);
    - add `Repository: <path>` when `Repositories` has more than one row;
    - add `Replaced by` when the feature is deprecated.
 6. Ask only about facts the code cannot answer. In unattended mode, leave `TBD`

@@ -1,4 +1,4 @@
-# Upgrade to 0.2.0
+# Upgrade to 0.2.2
 
 - **Status:** draft
 - **Date:** 2026-11-01
@@ -18,16 +18,16 @@
    to `app.md`. Remove `Tests` from `Stack`.
 3. Add `Decisions`, `Related` and structured `Open questions` to every feature.
 4. Do not edit old change entries. Add one migration change entry per feature
-   with `Keeliom: 0.2.0` or later (the plugin's template version) that records
-   the move. Its `Source` includes
-   `brief.md` when the feature has one, and points to this guide or the change
-   that required the move.
+   with `Keeliom: 0.2.2`. Its `Source` is `owner:<name>, <date>` for the
+   upgrade decision and `code:path` for each fact read from code.
 5. Add `Replaced by` to deprecated features.
-6. New change entries carry `Keeliom: 0.2.0`, `Decisions` and `Source`.
+6. New change entries carry `Keeliom: 0.2.2`, `Decisions` and `Source`.
 7. Run `CHECK.md` under the 0.1.0 rules. Expect warnings for the new sections.
 8. Set `KEELIOM_VERSION` to the value in the plugin's
-   `templates/KEELIOM_VERSION` (0.2.1).
-9. Run `CHECK.md` again under the 0.2.0 rules. Expect `Project OK`.
+   `templates/KEELIOM_VERSION` (0.2.2).
+9. Run `CHECK.md` again under the 0.2.2 rules. `Project OK` is required only
+   when no owner action remains. Otherwise list every finding and the owner
+   action.
 
 Old change entries may keep code paths in `Related`. M11 and M21 exempt entries
 without `Keeliom:`.
