@@ -17,7 +17,8 @@ description: Bootstrap Keeliom in a new or existing project by writing the minim
 
 ## Process
 
-1. Check for an existing `app.md`. If present, ask before overwriting.
+1. Check for existing `app.md`, `RULES.md`, `CHECK.md` or `KEELIOM_VERSION`.
+   Ask before overwriting any of them.
 2. Write these files from `${CLAUDE_PLUGIN_ROOT}/templates/`:
    - `app.md` from `${CLAUDE_PLUGIN_ROOT}/templates/app.md`
    - `RULES.md` from `${CLAUDE_PLUGIN_ROOT}/templates/RULES.md`
@@ -25,9 +26,10 @@ description: Bootstrap Keeliom in a new or existing project by writing the minim
    - `KEELIOM_VERSION` from `${CLAUDE_PLUGIN_ROOT}/templates/KEELIOM_VERSION`
 3. Create `features/`.
 4. If mode is `existing`:
-   - fill `app.md` from the code **as-is**;
+   - fill `app.md` from the code **as-is**, including `Roles`, `Data model`,
+     `API conventions` and `Repositories`;
    - do not create features yet;
-   - suggest `import-feature` for core/shared capabilities.
+   - suggest `import-feature` for core and shared capabilities.
 5. Do not write code.
 6. Run the checks from `CHECK.md` when `app.md` is filled.
 7. Report next steps.
