@@ -45,7 +45,7 @@
 2. Derive the slug from the feature name: kebab-case, ASCII, no spaces.
 3. Create `features/Fxxxx-<slug>/`.
 4. Save a pasted ticket as `brief.md`.
-5. Extract what is already known into the template.
+5. Extract what is already known into the sections required by `CHECK.md` M4.
 6. List the missing decisions.
 7. Ask only about the missing items: recommended default, 1–3 alternatives,
    one-line consequence.
@@ -124,6 +124,8 @@
   is skipped.
 - The feature's CHECK result has zero errors, including S6 or S7 findings that
   name it.
+- For a feature that touches a shared entity or another feature's behavior,
+  `review-project` has run.
 - `Status: done`.
 
 ## Unattended mode
