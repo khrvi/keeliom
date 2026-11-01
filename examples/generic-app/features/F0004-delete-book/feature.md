@@ -32,6 +32,7 @@ None
 - Bulk delete.
 - Undo.
 - Restoring a deleted book.
+- Per-user permissions; there are no accounts.
 
 ## Rules
 
@@ -44,7 +45,7 @@ None
 
 ## Data
 
-Deletes `Book` by `id`.
+Deletes `Book` by `id`. See F0001 for write rules.
 
 ## API
 

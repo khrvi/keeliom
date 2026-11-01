@@ -82,6 +82,7 @@ Errors:
 | `title_required` | 422 | title is missing or blank |
 | `author_required` | 422 | author is missing or blank |
 | `isbn_taken` | 422 | ISBN already exists |
+| `isbn_invalid` | 422 | ISBN is not 10 or 13 characters after normalization |
 
 ## Screens
 
@@ -104,6 +105,7 @@ Screen: Add book
 - [ ] A book without a title is rejected with `title_required` and status `422`.
 - [ ] A book without an author is rejected with `author_required` and status `422`.
 - [ ] A duplicate ISBN is rejected with `isbn_taken` and status `422`.
+- [ ] An ISBN that is not 10 or 13 characters after normalization is rejected with `isbn_invalid` and status `422`.
 - [ ] The form keeps values after a validation error.
 - [ ] The form is cleared after success.
 

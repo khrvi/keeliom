@@ -47,7 +47,7 @@ None
 
 ## Data
 
-Reads `Book`:
+Reads `Book` (see F0001 for write rules):
 
 | Field | Type | Used for |
 |---|---|---|

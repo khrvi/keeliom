@@ -54,7 +54,7 @@ None
 
 ## Data
 
-Reads and updates `Book`:
+Reads and updates `Book` (see F0001 for the base write rules):
 
 | Field | Type | Used for |
 |---|---|---|
