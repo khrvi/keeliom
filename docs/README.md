@@ -10,10 +10,9 @@
    history, validation rules.
 3. [`03-distribution.md`](03-distribution.md) — the Claude Code plugin, new and
    existing projects, updates.
-4. [`04-v0.2-plan.md`](04-v0.2-plan.md) — the v0.2 design and check catalog.
-5. [`../plugins/keeliom/skills/`](../plugins/keeliom/skills/) — `bootstrap`,
+4. [`../plugins/keeliom/skills/`](../plugins/keeliom/skills/) — `bootstrap`,
    `create-feature`, `change-feature`, `import-feature`, `review-project`.
-6. [`../plugins/keeliom/templates/`](../plugins/keeliom/templates/) —
+5. [`../plugins/keeliom/templates/`](../plugins/keeliom/templates/) —
    `app.md`, `brief.md`, `feature/feature.md`,
    `feature/changes/0001-initial.md`, `RULES.md`, `CHECK.md`.
 
@@ -24,10 +23,9 @@
 | `01-flow.md` | draft |
 | `02-conventions.md` | draft |
 | `03-distribution.md` | draft |
-| `04-v0.2-plan.md` | approved |
-| `05-determinism.md` | later |
-| `06-generation-protocol.md` | later |
-| `07-roadmap.md` | later |
+| `04-determinism.md` | later |
+| `05-generation-protocol.md` | later |
+| `06-roadmap.md` | later |
 
 ## Rule
 

@@ -24,7 +24,7 @@ None
 ## In scope
 
 - Create an item.
-- Delete an item.
+- Rename an item.
 
 ## Out of scope
 
@@ -33,6 +33,7 @@ None
 ## Rules
 
 - The name is required.
+- On success, return `201` with the item and show "Item created".
 
 ## Data
 

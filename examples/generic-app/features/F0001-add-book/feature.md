@@ -42,6 +42,8 @@ None
 - ISBN is optional; if present, it must be unique.
 - ISBN is stored without spaces and hyphens.
 - ISBN follows the `app.md` invariant: 10 or 13 characters after normalization.
+- The form starts empty.
+- While submitting, the button is disabled.
 - On success, the form is cleared and a confirmation is shown.
 - On validation error, the form keeps the entered values.
 
@@ -82,7 +84,7 @@ Errors:
 | `title_required` | 422 | title is missing or blank |
 | `author_required` | 422 | author is missing or blank |
 | `isbn_taken` | 422 | ISBN already exists |
-| `isbn_invalid` | 422 | ISBN is not 10 or 13 characters after normalization |
+| `isbn_invalid` | 422 | ISBN is not 10 or 13 valid characters after normalization |
 
 ## Screens
 

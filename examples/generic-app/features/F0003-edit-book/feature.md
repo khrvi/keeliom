@@ -46,7 +46,9 @@ None
 - Normalization runs before the uniqueness check.
 - Clearing the ISBN removes it from the book.
 - ISBN follows the `app.md` invariant: 10 or 13 characters after normalization.
+- While loading, show a skeleton.
 - The form is pre-filled with the current values.
+- While submitting, the button is disabled.
 - On success, return to the list and show "Book updated".
 - On validation error, keep the entered values.
 - If the book does not exist, show "Book not found".
@@ -89,7 +91,7 @@ Errors:
 | `title_required` | 422 | title is missing or blank |
 | `author_required` | 422 | author is missing or blank |
 | `isbn_taken` | 422 | ISBN belongs to another book |
-| `isbn_invalid` | 422 | ISBN is not 10 or 13 characters after normalization |
+| `isbn_invalid` | 422 | ISBN is not 10 or 13 valid characters after normalization |
 
 ## Screens
 

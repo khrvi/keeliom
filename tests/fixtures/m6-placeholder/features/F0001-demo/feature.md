@@ -32,6 +32,7 @@ None
 ## Rules
 
 - The <name> is required.
+- On success, return `201` with the item and show "Item created".
 
 ## Data
 

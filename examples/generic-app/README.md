@@ -18,23 +18,27 @@ generic-app/
         0001-initial.md
         0002-trim-title.md
         0003-correct-reason.md
+        0004-isbn-invalid.md
     F0002-list-books/
       feature.md
       changes/
         0001-initial.md
         0002-error-status.md
+        0003-data-reference.md
     F0003-edit-book/
       feature.md
       changes/
         0001-initial.md
         0002-trim-title.md
         0003-isbn-rules.md
+        0004-data-reference.md
     F0004-delete-book/
       brief.md
       feature.md
       changes/
         0001-initial.md
         0002-success-and-failure.md
+        0003-data-reference.md
 ```
 
 The Keeliom plugin is installed separately (see

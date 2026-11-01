@@ -33,6 +33,7 @@ None
 
 - The name is required.
 - Later we decide the name format.
+- On success, return `201` with the item and show "Item created".
 
 ## Data
 

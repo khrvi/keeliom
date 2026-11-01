@@ -28,7 +28,7 @@ When a product owner provides a brief or ticket for a new feature.
    directory and ID. Otherwise allocate the next `F<4 digits>` number.
 2. Derive the slug from the feature name: kebab-case, ASCII, no spaces.
 3. Create `features/Fxxxx-<slug>/`.
-4. If the input is a pasted ticket, write it to
+4. If the input is a document or ticket, save it as
    `features/Fxxxx-<slug>/brief.md` from
    `${CLAUDE_PLUGIN_ROOT}/templates/brief.md`.
 5. Extract what is already known from the brief into the template.
@@ -52,7 +52,8 @@ When a product owner provides a brief or ticket for a new feature.
     - `Keeliom: <KEELIOM_VERSION>`;
     - `Reason: Initial specification from the brief (<source>).`;
     - `Related: <feature IDs or None>`;
-    - `Source: <path §section, code:path, or owner:<name>, <date>>`.
+    - `Source: brief.md §section` when a brief exists; otherwise `code:path`
+      or `owner:<name>, <date>`.
 14. Record a chat answer as `owner:<name>, <date>`.
 15. Run the checks from `CHECK.md`.
 16. If a check fails, report it and ask; do not silently fix.

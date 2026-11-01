@@ -103,7 +103,7 @@
 - Every open question answered or dropped.
 - Every Decision has a source.
 - M and S checks pass for the feature.
-- C checks pass, or are `unverifiable` with the gap recorded in Open questions.
+- C checks pass, or are `unverifiable` with the gap recorded in `Decisions`.
   C checks are skipped only when `Repositories: None`.
 
 ## Definition of done

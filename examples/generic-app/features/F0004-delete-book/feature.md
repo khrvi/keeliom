@@ -37,6 +37,7 @@ None
 ## Rules
 
 - Ask for confirmation before deleting.
+- While deleting, the Delete button is disabled.
 - Delete the book by id.
 - After success, remove the book from the list and show "Book deleted".
 - If the book does not exist, show "Book not found".

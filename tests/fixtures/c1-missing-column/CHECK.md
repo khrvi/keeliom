@@ -26,7 +26,7 @@ asked.
 | M8 | Optional sections are non-empty or `None`. |
 | M9 | `Depends on` references existing feature IDs or is `None`. |
 | M10 | Every feature has `changes/0001-initial.md`. |
-| M11 | Change files are sequential and contain `Date`, `Reason`, `Changed`, and a valid `Related`. On a 0.2.0 project, every feature has an entry with `Keeliom:`. Once a feature has an entry with `Keeliom:`, every later entry has `Keeliom:`. When an entry has `Keeliom: 0.2.0` or later, it also has `Decisions` and `Source`. |
+| M11 | Change files are sequential and contain `Date`, `Reason`, `Changed`, and a valid `Related`. For entries without `Keeliom:`, `Related` may contain code paths. On a 0.2.0 or later project, every feature has an entry with `Keeliom:`. Once a feature has an entry with `Keeliom:`, every later entry has `Keeliom:`. When an entry has `Keeliom: 0.2.0` or later, it also has `Decisions` and `Source`. |
 | M12 | Relative Markdown links to `.md` files resolve. |
 | M13 | Every `F\d{4}` outside `Depends on` appears in `Depends on` or `Related`. |
 | M14 | The `Depends on` graph is acyclic. When `Release:` is present, a feature depends only on the same or an earlier release. |
@@ -36,9 +36,9 @@ asked.
 | M18 | Every open question is open. Every Decision has a `From` that is a `Q<n>` or `None`, and a question, answer, and source. When `Status` is `ready` or `done`, `Open questions` is `None`. |
 | M19 | Required sections depend on `KEELIOM_VERSION`. Older projects get warnings with a migration instruction. |
 | M20 | Every change entry has non-empty `Before` and `After`. |
-| M21 | `Related` values are feature IDs or `None`. Code paths appear only in `Source`. |
+| M21 | `Related` values are feature IDs or `None`. Code paths appear only in `Source`. This applies to entries with `Keeliom:`; old entries may contain code paths. |
 | M22 | `deprecated` has `Replaced by: F00xx`. The target exists and is not deprecated. |
-| M23 | A feature's first change entry with `Keeliom: 0.2.0` or later has `Source`. If `brief.md` exists, it points to it. |
+| M23 | A feature's first change entry with `Keeliom: 0.2.0` or later has `Source`. If `brief.md` exists, `Source` includes `brief.md`. |
 | M24 | A feature's `Repository:` matches a row in `Repositories`. Required when `Repositories` has more than one row. |
 
 ## Semantic pass
@@ -52,13 +52,13 @@ Do not invent content. Report contradictions with quoted evidence.
 |---|---|
 | S1 | Contradictions: `In scope` vs `Out of scope`; `Rules` vs `Out of scope`; `In scope` vs `API`; `Data` vs `API`; `Acceptance` vs `Rules`; `Who` vs `Roles`. Error tables have `Code`, `Status`, `When`. API responses cover generated and returned `Data` fields. |
 | S2 | Scope coverage: every `In scope` bullet has a Task, an Acceptance line, or `(F00xx)` delegation. |
-| S3 | Terminology and naming: role values match `Roles`; table names match `Data model`; column names match the owning feature's `Data`; route names match the owning feature's `API`; synonyms such as `status`/`state` and `logo`/`logo_url` are not mixed. |
+| S3 | Terminology and naming: role values match `Roles`; table names match `Data model`; column names match the owning feature's `Data`; route names match the owning feature's `API`; a term used for the same concept is not mixed (for example, a game status must not also be called state). |
 | S4 | Acceptance measurability: each criterion names an observable output (a status code, an error code, a message, a field value, or a visible state), an action with an observable result, a threshold with a unit, or a test reference. Vague words such as `clear`, `fast` and `correct` need a concrete output. |
 | S5 | Source coverage: every brief section lands in a feature section. |
 | S6 | Shared-rule drift: a rule attached to a shared entity in one feature appears in every feature that touches the entity, or references the owning feature. |
 | S7 | Implicit dependency: an Acceptance criterion or Rule that names behavior owned by another feature must be in `Depends on`. |
 | S8 | Change-entry accuracy: each entry's `Reason`, `Before` and `After` are consistent with the entry before it. An entry named in a later entry's `Corrects` field is treated as corrected. |
-| S9 | Traceability: every Screen state and Acceptance criterion has a Rule. Every Rule has a matching Acceptance criterion. A Task alone is not enough. |
+| S9 | Traceability: every Screen state and Acceptance criterion has a Rule. Every Rule has a matching Acceptance criterion or a named Screen state. A Task alone is not enough. |
 
 S6 and S7 are project-level checks. CHECK runs them once for the project. A
 finding names both features and counts against each named feature's result and
@@ -124,6 +124,10 @@ For `KEELIOM_VERSION` 0.1.0:
 - M4 on 0.1.0 requires only the old sections.
 - M11 on 0.1.0 requires only the old fields.
 - M24 is required only when `Repositories` has more than one row.
+- On 0.1.0, S1's error-table, `Roles` and response-coverage clauses are `warn`;
+  the contradiction clauses are `error`.
+- M6 on 0.1.0 checks only that `ready` has no `TBD`. Placeholders and `app.md`
+  are `warn`.
 
 For `KEELIOM_VERSION` 0.2.0 and later, the severity table above applies.
 

@@ -37,7 +37,7 @@ A small personal library where a reader can add books and see what they own.
 
 - A book always has a title.
 - A book always has an author.
-- If an ISBN is present, it is 10 or 13 characters after normalization and unique.
+- If an ISBN is present, it is 10 or 13 characters after normalization: digits, with `X` allowed as the last character of an ISBN-10, and unique.
 
 ## Stack
 
@@ -49,7 +49,7 @@ A small personal library where a reader can add books and see what they own.
 
 | Role | Can do |
 |---|---|
-| Reader | Adds books and views the list. |
+| Reader | Adds, views, edits and deletes books. |
 
 ## Data model
 

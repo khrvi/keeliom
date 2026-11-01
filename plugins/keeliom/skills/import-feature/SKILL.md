@@ -46,7 +46,7 @@ description: Document an existing feature from code as a Keeliom feature spec wi
    - `Reason: Imported from existing code.`;
    - `Changed: all sections: documented current behavior.`;
    - `Related: feature IDs or None`;
-   - `Source: code:path`.
+   - `Source: brief.md, code:path`.
 8. Status:
    - `done` if the code implements it and acceptance is verified;
    - `in_progress` if there are gaps or unverified behavior;

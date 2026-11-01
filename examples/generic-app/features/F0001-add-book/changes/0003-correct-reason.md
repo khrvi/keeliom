@@ -13,4 +13,4 @@
 - **Related:** None
 - **Corrects:** 0002
 - **Decisions:** D1
-- **Source:** docs/04-v0.2-plan.md §3.5
+- **Source:** CHANGELOG.md §0.2.0
