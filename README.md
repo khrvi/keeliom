@@ -1,14 +1,14 @@
 # Keeliom
 
-- **Status:** v0.2.1
-- **Version:** 0.2.1
-- **Date:** 2026-11-01
+- **Status:** v0.2.2
+- **Version:** 0.2.2
+- **Date:** 2026-11-02
 - **Location:** standalone repository.
 - **Name:** Keeliom — Keel (stability) + Axiom (foundational truths).
 
 ## Status
 
-v0.2.1 was released on 2026-11-01. See [`CHANGELOG.md`](CHANGELOG.md) and
+v0.2.2 was released on 2026-11-02. See [`CHANGELOG.md`](CHANGELOG.md) and
 [`REVIEW-v0.2.md`](REVIEW-v0.2.md).
 
 ## Idea
@@ -22,7 +22,8 @@ terminal, or env. An LLM or a human reads the files and works from them.
    `Repositories`.
 2. The product owner writes `brief.md` or provides a ticket.
 3. The LLM uses `create-feature` to fill `feature.md`, asking only about missing
-   decisions. Answers go in `Decisions`; sources are recorded.
+   decisions. Answers go in `Decisions`; sources are recorded. The header has
+   `Status`, `Release` and `Repositories`.
 4. Create `changes/0001-initial.md` with `Keeliom` and `Source`.
 5. Run `CHECK.md`.
 6. The LLM/developer reads `app.md`, `brief.md`, `feature.md`, and `RULES.md`,
@@ -89,7 +90,7 @@ The plugin bundles six skills:
 - `change-feature` — change a feature and record the reason.
 - `import-feature` — document an existing feature from code.
 - `review-project` — run a project-wide second pass over the spec and code.
-- `upgrade` — migrate an existing project to the 0.2.0 sections and checks.
+- `upgrade` — migrate an existing project to the current sections and checks.
 
 Skills live in `plugins/keeliom/skills/`, templates in
 `plugins/keeliom/templates/`. For local development, run these from the directory that contains `keeliom/`,
@@ -123,6 +124,7 @@ at it or copy the plugin's `skills/` and `templates/`.
 5. [Plugin templates](plugins/keeliom/templates/)
 6. [CHANGELOG](CHANGELOG.md)
 7. [Review v0.1](REVIEW-v0.1.md)
+8. [Upgrade guide](docs/upgrade.md)
 
 ## Roadmap
 
@@ -131,6 +133,10 @@ at it or copy the plugin's `skills/` and `templates/`.
   fixtures, `review-project`. The `data.md`/`api.md`/`ui.md` split moves to
   v0.3.
 - **v0.2.1** — `upgrade` skill for existing projects.
+- **v0.2.2** — `Release` and `Repositories` headers, multi-repo features,
+  one Decisions/Open questions grammar, one Source grammar, a safe upgrade.
+- **v0.2.3** — scoped M16, wider S5 and S7, C1 additions, API and Data model
+  details, a fixture runner.
 - **v0.3** — split a feature into `data.md`, `api.md`, `ui.md`.
 - **v0.4** — Blueprint → Canon → Living Spec layers.
 - **v0.5** — optional tooling, only if needed.

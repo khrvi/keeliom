@@ -12,7 +12,7 @@ Start simple. In v0.2:
 - one app — one `app.md`;
 - one feature — one directory `features/F0001-name/`;
 - input — `brief.md` or a ticket;
-- current state — `feature.md`;
+- current state — `feature.md`, with `Status`, `Release` and `Repositories`;
 - history — `changes/0001-initial.md`, `0002-...md`;
 - `RULES.md` — generation;
 - `CHECK.md` — validation;
@@ -90,6 +90,7 @@ Start simple. In v0.2:
    change entry.
 9. Old change entries are never edited.
 10. The LLM asks only about missing decisions and offers a default.
+11. A feature that spans repositories lists them in `Repositories:`.
 
 ## 6. Layers later
 

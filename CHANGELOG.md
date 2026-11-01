@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.2.2 — 2026-11-02
+
+### Added
+
+- `feature.md` `Release` and `Repositories` header lines.
+- `Repositories` table `Test commands` and `Notes` columns.
+- Decisions table `Date` column.
+- `Status: answered (D<n>)` for answered questions.
+- `legacy §<section>` in a Decision's `From`.
+
+### Changed
+
+- A feature may name more than one repository. C1 runs per repository.
+- `Open questions` uses `Q<n>. <question>` with indented fields.
+- `Source` has three forms. The upgrade guide is not a source.
+- The `upgrade` skill defaults to `report` and has a failure path.
+
+### Fixed
+
+- The 0.2.0 entry listed `Release`, `Repository` and `Replaced by` as template
+  fields. The template did not have them. 0.2.2 adds `Release` and
+  `Repositories`; `Replaced by` is required by M22 only when a feature is
+  deprecated.
+
 ## 0.2.1 — 2026-11-01
 
 ### Added
@@ -12,7 +36,8 @@
 ### Added
 
 - `app.md` `Roles`, `Data model`, `API conventions`, `Repositories`.
-- `feature.md` `Decisions`, `Related`, `Release`, `Repository`, `Replaced by`.
+- `feature.md` `Decisions` and `Related`. `Replaced by` is required by M22
+  when a feature is deprecated.
 - Change entries `Keeliom`, `Corrects`, `Decisions`, `Source`.
 - `CHECK.md` with 36 checks: M1–M24, S1–S9, C1–C3.
 - `review-project` skill.

@@ -1,6 +1,6 @@
 {
   "name": "keeliom",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Keeliom — a Markdown-only spec framework for LLM-driven projects.",
   "author": {
     "name": "khrvi"

@@ -10,9 +10,10 @@
    history, validation rules.
 3. [`03-distribution.md`](03-distribution.md) — the Claude Code plugin, new and
    existing projects, updates.
-4. [`../plugins/keeliom/skills/`](../plugins/keeliom/skills/) — `bootstrap`,
+4. [`upgrade.md`](upgrade.md) — the manual upgrade path.
+5. [`../plugins/keeliom/skills/`](../plugins/keeliom/skills/) — `bootstrap`,
    `create-feature`, `change-feature`, `import-feature`, `review-project`.
-5. [`../plugins/keeliom/templates/`](../plugins/keeliom/templates/) —
+6. [`../plugins/keeliom/templates/`](../plugins/keeliom/templates/) —
    `app.md`, `brief.md`, `feature/feature.md`,
    `feature/changes/0001-initial.md`, `RULES.md`, `CHECK.md`.
 
