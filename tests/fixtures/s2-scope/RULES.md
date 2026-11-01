@@ -28,9 +28,13 @@
 8. Never edit an existing change entry. History is append-only. To correct an
    entry, add a new entry with `Corrects: NNNN`.
 9. `feature.md` is the current state. `changes/` is the history.
-10. A decision is written only in `## Decisions`. An answered open question
-    moves there. The change entry lists the Decision IDs.
-11. `Source` is `path §section`, `code:path`, or `owner:<name>, <date>`.
+10. A decision is written only in `## Decisions`, using
+    `ID | From | Question | Answer | Source | Date`. An answered question
+    keeps its number and moves to `Status: answered (D<n>)` in
+    `## Open questions`. The change entry lists the Decision IDs.
+11. `Source` is `path §section`, `code:path`, or `owner:<name>, <date>`. For a
+    decision adopted from a recommendation, use
+    `feature.md §Open questions Q<n>`.
 12. Every new change entry has `Keeliom: <KEELIOM_VERSION>`.
 
 ### Creating a feature
@@ -56,7 +60,9 @@
 1. Run the checks from `CHECK.md` first. If there are problems, stop and
    report them.
 2. Implement tasks in order.
-3. Run the test command for the feature's `Repository` row in `app.md`.
+3. Run the test command for every repository in the feature's `Repositories:`
+   line, and for every `In <path>:` task. When the feature has one repository,
+   run that repository's command.
 4. After each task, run the tests and update the task checkbox.
 5. Update `Status` when the feature moves.
 6. Do not change scope.
