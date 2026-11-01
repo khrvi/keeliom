@@ -48,7 +48,8 @@ description: Upgrade an existing Keeliom project to the 0.2.0 sections and check
    - add the Decisions table header when missing;
    - normalize `Open questions` to `Q<n>. <question>` with indented
      `Recommendation:`, `Owner:` and `Status: open` or `answered (D<n>)`;
-     move answered questions into `Decisions` and keep their number;
+     record an answered question in `Decisions` and mark it in place, keeping
+     its number;
    - add `Replaced by` when the feature is deprecated;
    - do not edit old change entries;
    - add one migration change entry with `Keeliom` (the template version),
