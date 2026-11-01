@@ -1,6 +1,9 @@
 # F0004 — Delete book
 
 Status: ready
+Release: None
+Repository: None
+Replaced by: None
 
 ## Why
 
@@ -13,6 +16,10 @@ Reader.
 ## Depends on
 
 F0001, F0002
+
+## Related
+
+None
 
 ## In scope
 
@@ -30,8 +37,9 @@ F0001, F0002
 
 - Ask for confirmation before deleting.
 - Delete the book by id.
-- After success, remove the book from the list.
+- After success, remove the book from the list and show "Book deleted".
 - If the book does not exist, show "Book not found".
+- If the request fails, keep the book in the list and show an error.
 - Cancel does not delete anything.
 
 ## Data
@@ -81,6 +89,10 @@ Screen: Delete book
 - [ ] Add error handling.
 - [ ] Add tests for the acceptance criteria.
 - [ ] Update the feature status to `done`.
+
+## Decisions
+
+None
 
 ## Open questions
 
