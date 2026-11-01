@@ -35,4 +35,34 @@
 - Language: <language>
 - Framework: <framework>
 - Database: <database>
-- Tests: <test runner or command>
+
+## Roles
+
+| Role | Can do |
+|---|---|
+| <role> | <what this role can do> |
+
+## Data model
+
+| Table | Owner feature | Key columns | Notes |
+|---|---|---|---|
+| <table> | <F00xx> | <columns> | <notes> |
+
+## API conventions
+
+- Envelope: <shape>
+- Errors: `Code | Status | When`
+- Pagination: <rule>
+- Field naming: <rule>
+- Enums: <rule>
+- Auth: <rule>
+- CSRF: <rule>
+- Sign-in and sign-out: <rule>
+- Idempotency: <rule>
+- Response coverage: every generated and returned `Data` field appears in a response.
+
+## Repositories
+
+| Path | Role | Language | Test command |
+|---|---|---|---|
+| <path> | <role> | <language> | <exact command> |
