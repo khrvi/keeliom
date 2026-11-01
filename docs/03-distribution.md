@@ -116,8 +116,9 @@ They live in the installed plugin.
 
 1. Update the plugin.
 2. Read `CHANGELOG.md`.
-3. Run the `upgrade` skill in the project. It updates `RULES.md`, `CHECK.md`,
-   `app.md` and each feature, then runs `CHECK.md`.
+3. Run the `upgrade` skill in the project. It reports the changes first. On
+   confirmation it updates `RULES.md`, `CHECK.md`, `app.md` and each feature,
+   then runs `CHECK.md`.
 4. If the skill cannot run, follow [`upgrade.md`](upgrade.md) by hand.
 5. Do not overwrite `app.md`, `features/`, or `src/`.
 

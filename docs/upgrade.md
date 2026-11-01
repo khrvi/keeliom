@@ -40,5 +40,5 @@ only after the steps are complete.
 
 ## Rollback
 
-Keep the old `RULES.md`, `CHECK.md` and `KEELIOM_VERSION` until `CHECK.md`
-reports `Project OK`.
+Keep the backup until the new CHECK result is recorded and every error has
+either a fix, a `draft` status, or a recorded deviation.

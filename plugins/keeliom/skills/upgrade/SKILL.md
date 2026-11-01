@@ -13,7 +13,7 @@ description: Upgrade an existing Keeliom project to the 0.2.0 sections and check
 ## Input
 
 - target path (default: current directory)
-- mode: `apply` (default) or `report`
+- mode: `report` (default) or `apply`
 
 ## Read order
 
@@ -27,42 +27,55 @@ description: Upgrade an existing Keeliom project to the 0.2.0 sections and check
 
 ## Process
 
-1. If `KEELIOM_VERSION` is 0.2.0 or later, report "already current" and stop.
-2. Ask before overwriting any existing file. Keep a backup of `RULES.md`,
-   `CHECK.md` and `KEELIOM_VERSION`.
+1. Read `KEELIOM_VERSION`. If it is 0.2.2 or later, report "already current"
+   and stop.
+2. `mode` is `report` (default) or `apply`. In `report`, list every change and
+   stop without writing. In `apply`, ask once for confirmation, then write.
+   Back up `RULES.md`, `CHECK.md`, `KEELIOM_VERSION`, `app.md` and every
+   `feature.md`.
 3. Replace `RULES.md` and `CHECK.md` from
    `${CLAUDE_PLUGIN_ROOT}/templates/`.
 4. Update `app.md`:
    - add `Roles`, `Data model`, `API conventions` and `Repositories` from the
      code;
    - remove `Tests` from `Stack`;
+   - use the `Path | Role | Language | Test commands | Notes` table;
    - keep the existing content.
 5. For each feature:
    - add `Related` if missing;
-   - add `Decisions` if missing;
-   - restructure `Open questions` to `Q<n>`, `Recommendation`, `Owner`,
-     `Status: open`. Move answered questions into `Decisions`;
+   - add `Release: None` when missing;
+   - add `Repositories:` when missing and `app.md` has more than one row;
+   - add the Decisions table header when missing;
+   - normalize `Open questions` to `Q<n>. <question>` with indented
+     `Recommendation:`, `Owner:` and `Status: open` or `answered (D<n>)`;
+     move answered questions into `Decisions` and keep their number;
+   - add `Replaced by` when the feature is deprecated;
    - do not edit old change entries;
    - add one migration change entry with `Keeliom` (the template version),
      `Date`, `Reason`, `Changed`, `Before`, `After`, `Related`,
      `Corrects: None`, `Decisions: None`, and `Source`
      (`owner:<name>, <date>` for the upgrade decision, plus `code:path` for
-     each fact read from code);
-   - add `Repository: <path>` when `Repositories` has more than one row;
-   - add `Replaced by` when the feature is deprecated.
+     each fact read from code).
 6. Ask only about facts the code cannot answer. In unattended mode, leave `TBD`
    and keep the feature `draft`.
 7. Run `CHECK.md` under the old version. Report the warnings.
 8. Set `KEELIOM_VERSION` to the value in
    `${CLAUDE_PLUGIN_ROOT}/templates/KEELIOM_VERSION`.
-9. Run `CHECK.md` again. Report `Project OK` or the remaining findings.
-10. Do not implement code. Do not edit old change entries.
+9. Run `CHECK.md` again.
+10. If the new CHECK has errors: fix what the skill can from existing content;
+    move features with missing owner decisions to `draft` and list the gap;
+    record an accepted deviation in `Decisions` with a source; otherwise keep
+    the backup and stop.
+11. Report `Project OK` only when no owner action remains. Otherwise list each
+    finding and the owner action.
+12. Do not implement code. Do not edit old change entries.
 
 ## Safety
 
 - Do not delete content.
 - Do not overwrite `features/` or `src/`.
-- Keep the backup until `CHECK.md` reports `Project OK`.
+- Keep the backup until every error has a fix, a `draft` status, or a recorded
+  deviation.
 - If a file cannot be read, report it and stop.
 
 ## Output
@@ -71,3 +84,4 @@ description: Upgrade an existing Keeliom project to the 0.2.0 sections and check
 - One migration change entry per feature.
 - A report of the warnings, the remaining findings, and every fact that needs
   an owner decision.
+- In `report` mode, the same report and no file changes.
