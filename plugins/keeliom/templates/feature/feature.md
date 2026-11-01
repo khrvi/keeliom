@@ -1,6 +1,9 @@
 # F0001 — <Feature name>
 
 Status: draft
+Release: None
+Repository: None
+Replaced by: None
 
 ## Why
 
@@ -11,6 +14,10 @@ Status: draft
 <Who uses it.>
 
 ## Depends on
+
+None
+
+## Related
 
 None
 
@@ -45,6 +52,10 @@ None
 ## Tasks
 
 - [ ] <implementation step>
+
+## Decisions
+
+None
 
 ## Open questions
 
