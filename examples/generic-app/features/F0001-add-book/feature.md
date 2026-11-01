@@ -1,6 +1,9 @@
 # F0001 — Add book
 
 Status: ready
+Release: None
+Repository: None
+Replaced by: None
 
 ## Why
 
@@ -11,6 +14,10 @@ The reader needs to record a book they own.
 Reader.
 
 ## Depends on
+
+None
+
+## Related
 
 None
 
@@ -34,6 +41,7 @@ None
 - Title and author are trimmed before validation and saving.
 - ISBN is optional; if present, it must be unique.
 - ISBN is stored without spaces and hyphens.
+- ISBN follows the `app.md` invariant: 10 or 13 characters after normalization.
 - On success, the form is cleared and a confirmation is shown.
 - On validation error, the form keeps the entered values.
 
@@ -64,16 +72,16 @@ Request:
 Response `201`:
 
 ```json
-{ "id": 1, "title": "Dune", "author": "Frank Herbert", "isbn": "9780441013593" }
+{ "id": 1, "title": "Dune", "author": "Frank Herbert", "isbn": "9780441013593", "created_at": "2026-10-30T12:00:00Z" }
 ```
 
 Errors:
 
-| Code | When |
-|---|---|
-| `title_required` | title is missing or blank |
-| `author_required` | author is missing or blank |
-| `isbn_taken` | ISBN already exists |
+| Code | Status | When |
+|---|---|---|
+| `title_required` | 422 | title is missing or blank |
+| `author_required` | 422 | author is missing or blank |
+| `isbn_taken` | 422 | ISBN already exists |
 
 ## Screens
 
@@ -89,12 +97,13 @@ Screen: Add book
 
 ## Acceptance
 
-- [ ] A reader can add a book with title and author.
+- [ ] A reader can add a book with title and author and receives `201` with the book.
 - [ ] Leading and trailing spaces in title and author are removed before saving.
-- [ ] The book is saved and appears in the list.
-- [ ] A book without a title is rejected with a clear error.
-- [ ] A book without an author is rejected with a clear error.
-- [ ] A duplicate ISBN is rejected with a clear error.
+- [ ] ISBN spaces and hyphens are removed before saving.
+- [ ] The book is saved and returned by `POST /books`.
+- [ ] A book without a title is rejected with `title_required` and status `422`.
+- [ ] A book without an author is rejected with `author_required` and status `422`.
+- [ ] A duplicate ISBN is rejected with `isbn_taken` and status `422`.
 - [ ] The form keeps values after a validation error.
 - [ ] The form is cleared after success.
 
@@ -106,6 +115,12 @@ Screen: Add book
 - [ ] Add success and error states.
 - [ ] Add tests for the acceptance criteria.
 - [ ] Update the feature status to `done`.
+
+## Decisions
+
+| ID | From | Question | Answer | Source | Date |
+|---|---|---|---|---|---|
+| D1 | None | Should title and author be trimmed? | Yes, before validation and saving. | changes/0002-trim-title.md | 2026-10-30 |
 
 ## Open questions
 
