@@ -96,6 +96,9 @@ Optional sections:
 
 Rule: if an optional section applies, it is required. If not, write `None`.
 
+A `Data`, `API` or `Tasks` line may start with `In <path>:` when the claim
+belongs to one repository. C1 checks that line against that repository.
+
 ### 3.3. Intake
 
 1. The LLM reads `app.md`, `brief.md`, the template, `RULES.md`, and `CHECK.md`.

@@ -72,7 +72,7 @@ Run only when `Repositories` is filled. If the code cannot be read, report
 
 | ID | Check |
 |---|---|
-| C1 | Every table, column, route and method in `Data`, `API` or `Rules` exists in code or is named in a Task as an addition. |
+| C1 | Every table, column, route and method in `Data`, `API` or `Rules` exists in code or is named in a Task as an addition. Run C1 once for each repository in the feature's `Repositories:`. A line marked `In <path>:` is checked against that repository only. An unmarked line is checked against every repository in the list. |
 | C2 | Role values exist in code. |
 | C3 | A capability that exists in code but has no feature is reported as `import-first`. |
 

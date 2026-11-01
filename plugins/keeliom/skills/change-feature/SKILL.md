@@ -34,6 +34,7 @@ When an existing feature needs a change.
      `Changed`, `Before`, `After`, `Related`, `Corrects`, `Decisions`, and
      `Source`;
    - update `feature.md`;
+   - update `Repositories:` when the set of repositories changes;
    - move `Status` with the table in `RULES.md`.
 4. Never edit an existing change entry. To correct one, add a new entry with
    `Corrects: NNNN`.

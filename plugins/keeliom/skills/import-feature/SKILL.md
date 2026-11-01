@@ -38,7 +38,9 @@ description: Document an existing feature from code as a Keeliom feature spec wi
    - `API` from routes/controllers;
    - `Screens` from views/components;
    - `Acceptance` from existing tests or observable behavior;
-   - `Tasks` as verification tasks, not implementation tasks.
+   - `Tasks` as verification tasks, not implementation tasks;
+   - `Repositories:` from the code paths. Mark each `Data`, `API` or `Tasks`
+     line with `In <path>:` when the feature spans repositories.
 5. Add `Depends on` for existing features or shared entities.
 6. Fill `Decisions` from code with `code:path` sources.
 7. Create `changes/0001-initial.md` with:

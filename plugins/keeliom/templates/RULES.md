@@ -56,7 +56,9 @@
 1. Run the checks from `CHECK.md` first. If there are problems, stop and
    report them.
 2. Implement tasks in order.
-3. Run the test command for the feature's `Repository` row in `app.md`.
+3. Run the test command for every repository in the feature's `Repositories:`
+   line, and for every `In <path>:` task. When the feature has one repository,
+   run that repository's command.
 4. After each task, run the tests and update the task checkbox.
 5. Update `Status` when the feature moves.
 6. Do not change scope.

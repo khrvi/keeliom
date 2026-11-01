@@ -38,8 +38,10 @@ When a product owner provides a brief or ticket for a new feature.
 7. Extract what is already known from the brief into the template.
 8. List missing required sections or decisions.
 9. Check every entity, column, route and method named in `Data`, `API` or
-   `Rules` against the repository. Missing ones go to Tasks or Open questions.
-   When `Repositories: None`, skip the check and add no open question.
+   `Rules` against the repository named by `In <path>:`. Check an unmarked
+   claim against every repository in the feature's list. Missing ones go to
+   Tasks or Open questions. When `Repositories: None`, skip the check and add
+   no open question.
 10. Build a source coverage table: every brief section → the feature section
     where it landed.
 11. Ask the owner only about missing decisions. For each question:
@@ -49,7 +51,8 @@ When a product owner provides a brief or ticket for a new feature.
 12. Do not invent. If the owner does not answer, leave `TBD` and keep
     `Status: draft`. In unattended mode, no claim without a source.
 13. Fill `features/Fxxxx-<slug>/feature.md` with `Decisions`, `Related` and
-    structured `Open questions`.
+    structured `Open questions`. Add `Release: None`. Add `Repositories:` when
+    `app.md` has more than one row; list the paths this feature touches.
 14. Create `changes/0001-initial.md` with:
     - `Keeliom: <KEELIOM_VERSION>`;
     - `Reason: Initial specification from the brief (<source>).`;
