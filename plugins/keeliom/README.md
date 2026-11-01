@@ -17,6 +17,7 @@ Keeliom spec framework plugin for Claude Code.
 - `change-feature` — change a feature and record the reason.
 - `import-feature` — document an existing feature from code.
 - `review-project` — run a project-wide second pass over the spec and code.
+- `upgrade` — migrate an existing project to the 0.2.0 sections and checks.
 
 ## Templates
 

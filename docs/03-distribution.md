@@ -116,17 +116,12 @@ They live in the installed plugin.
 
 1. Update the plugin.
 2. Read `CHANGELOG.md`.
-3. If the `RULES.md`/`CHECK.md` templates changed, update them in the project.
-4. Update `KEELIOM_VERSION`.
-5. Add the new `app.md` sections: `Roles`, `Data model`, `API conventions`,
-   `Repositories`. Remove `Tests` from `Stack`.
-6. Add `Decisions`, `Related` and structured `Open questions` to features.
-   New change entries carry `Keeliom`, `Decisions` and `Source`.
-7. Run `CHECK.md`. A 0.1.0 project gets warnings for the new sections.
-8. Follow [`upgrade.md`](upgrade.md).
-9. Do not overwrite `app.md`, `features/`, or `src/`.
+3. Run the `upgrade` skill in the project. It updates `RULES.md`, `CHECK.md`,
+   `app.md` and each feature, then runs `CHECK.md`.
+4. If the skill cannot run, follow [`upgrade.md`](upgrade.md) by hand.
+5. Do not overwrite `app.md`, `features/`, or `src/`.
 
-`KEELIOM_VERSION` shows which framework version the project was created with.
+`KEELIOM_VERSION` shows which framework version the project uses.
 
 ## 8. Non-Claude Code
 

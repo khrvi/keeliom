@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.1 — 2026-11-01
+
+### Added
+
+- `upgrade` skill: migrate an existing project to the 0.2.0 sections and
+  checks.
+
 ## 0.2.0 — 2026-11-01
 
 ### Added

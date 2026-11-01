@@ -1,14 +1,14 @@
 # Keeliom
 
-- **Status:** v0.2.0
-- **Version:** 0.2.0
+- **Status:** v0.2.1
+- **Version:** 0.2.1
 - **Date:** 2026-11-01
 - **Location:** standalone repository.
 - **Name:** Keeliom — Keel (stability) + Axiom (foundational truths).
 
 ## Status
 
-v0.2.0 was released on 2026-11-01. See [`CHANGELOG.md`](CHANGELOG.md) and
+v0.2.1 was released on 2026-11-01. See [`CHANGELOG.md`](CHANGELOG.md) and
 [`REVIEW-v0.2.md`](REVIEW-v0.2.md).
 
 ## Idea
@@ -82,13 +82,14 @@ Keeliom is a Claude Code plugin marketplace:
 /plugin install keeliom@keeliom
 ```
 
-The plugin bundles five skills:
+The plugin bundles six skills:
 
 - `bootstrap` — create the project files.
 - `create-feature` — create a feature from a brief/ticket.
 - `change-feature` — change a feature and record the reason.
 - `import-feature` — document an existing feature from code.
 - `review-project` — run a project-wide second pass over the spec and code.
+- `upgrade` — migrate an existing project to the 0.2.0 sections and checks.
 
 Skills live in `plugins/keeliom/skills/`, templates in
 `plugins/keeliom/templates/`. For local development, run these from the directory that contains `keeliom/`,
@@ -129,6 +130,7 @@ at it or copy the plugin's `skills/` and `templates/`.
 - **v0.2** — system contracts in `app.md`, decisions and sources, 36 checks,
   fixtures, `review-project`. The `data.md`/`api.md`/`ui.md` split moves to
   v0.3.
+- **v0.2.1** — `upgrade` skill for existing projects.
 - **v0.3** — split a feature into `data.md`, `api.md`, `ui.md`.
 - **v0.4** — Blueprint → Canon → Living Spec layers.
 - **v0.5** — optional tooling, only if needed.
