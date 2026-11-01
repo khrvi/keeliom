@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.2.0 — 2026-11-01
+
+### Added
+
+- `app.md` `Roles`, `Data model`, `API conventions`, `Repositories`.
+- `feature.md` `Decisions`, `Related`, `Release`, `Repository`, `Replaced by`.
+- Change entries `Keeliom`, `Corrects`, `Decisions`, `Source`.
+- `CHECK.md` with 36 checks: M1–M24, S1–S9, C1–C3.
+- `review-project` skill.
+- Fixtures for the new checks.
+- `docs/upgrade.md`.
+
+### Changed
+
+- The test command lives in `Repositories`. `Tests` is removed from `Stack`.
+- `Related` holds feature IDs. Code paths go in `Source`.
+- Status transitions include back transitions.
+- The `data.md`/`api.md`/`ui.md` split moves to v0.3.
+
+### Fixed
+
+- The example's F0001–F0004 specs and history.
+- The append-only rule with `Corrects`.
+
 ## 0.1.0 — 2026-10-30
 
 First release.

@@ -1,28 +1,29 @@
 # Keeliom
 
-- **Status:** v0.1.0
-- **Version:** 0.1.0
-- **Date:** 2026-10-30
+- **Status:** v0.2.0
+- **Version:** 0.2.0
+- **Date:** 2026-11-01
 - **Location:** standalone repository.
 - **Name:** Keeliom — Keel (stability) + Axiom (foundational truths).
 
 ## Status
 
-v0.1.0 was released on 2026-10-30. See [`CHANGELOG.md`](CHANGELOG.md) and
-[`REVIEW-v0.1.md`](REVIEW-v0.1.md).
+v0.2.0 was released on 2026-11-01. See [`CHANGELOG.md`](CHANGELOG.md) and
+[`REVIEW-v0.2.md`](REVIEW-v0.2.md).
 
 ## Idea
 
 Keeliom is a set of Markdown files, skills, and conventions. No CLI, Ruby, Node,
 terminal, or env. An LLM or a human reads the files and works from them.
 
-## Flow v0.1
+## Flow v0.2
 
-1. Fill in `app.md`.
+1. Fill in `app.md`, including `Roles`, `Data model`, `API conventions` and
+   `Repositories`.
 2. The product owner writes `brief.md` or provides a ticket.
 3. The LLM uses `create-feature` to fill `feature.md`, asking only about missing
-   decisions.
-4. Create `changes/0001-initial.md`.
+   decisions. Answers go in `Decisions`; sources are recorded.
+4. Create `changes/0001-initial.md` with `Keeliom` and `Source`.
 5. Run `CHECK.md`.
 6. The LLM/developer reads `app.md`, `brief.md`, `feature.md`, and `RULES.md`,
    then implements the tasks.
@@ -54,8 +55,9 @@ copy the Keeliom repository; the plugin provides the skills and templates.
 
 - `feature.md` is the current state.
 - `changes/0001-initial.md`, `0002-...md` are append-only history.
-- Each change contains `Date`, `Reason`, `Changed`, `Before`, `After`,
-  `Related`.
+- Each new change contains `Keeliom`, `Date`, `Reason`, `Changed`, `Before`,
+  `After`, `Related`, `Corrects`, `Decisions`, `Source`.
+- To correct an entry, add a new entry with `Corrects: NNNN`.
 - Old change entries are never edited.
 - If a change relates to a dependency, record it in `Related`.
 
@@ -80,16 +82,17 @@ Keeliom is a Claude Code plugin marketplace:
 /plugin install keeliom@keeliom
 ```
 
-The plugin bundles four skills:
+The plugin bundles five skills:
 
 - `bootstrap` — create the project files.
 - `create-feature` — create a feature from a brief/ticket.
 - `change-feature` — change a feature and record the reason.
 - `import-feature` — document an existing feature from code.
+- `review-project` — run a project-wide second pass over the spec and code.
 
 Skills live in `plugins/keeliom/skills/`, templates in
-`plugins/keeliom/templates/`. For local development, add the repository as a
-local marketplace:
+`plugins/keeliom/templates/`. For local development, run these from the directory that contains `keeliom/`,
+or pass the absolute path:
 
 ```bash
 claude plugin marketplace add ./keeliom
@@ -106,9 +109,9 @@ at it or copy the plugin's `skills/` and `templates/`.
 
 ## What comes later
 
-- Split a feature into `data.md`, `api.md`, `ui.md`.
-- Blueprint → Canon → Living Spec layers.
-- Optional tooling, only if needed.
+- v0.3: split a feature into `data.md`, `api.md`, `ui.md`.
+- v0.4: Blueprint → Canon → Living Spec layers.
+- v0.5: optional tooling, only if needed.
 
 ## Documents
 
@@ -122,11 +125,13 @@ at it or copy the plugin's `skills/` and `templates/`.
 
 ## Roadmap
 
-- **v0.1** — `app.md`, `brief.md`, `features/F0001-name/feature.md`,
-  `changes/`, `RULES.md`, `CHECK.md`, skills, example, plugin distribution.
-- **v0.2** — split a feature into `data.md`, `api.md`, `ui.md`.
-- **v0.3** — Blueprint → Canon → Living Spec layers.
-- **v0.4** — optional tooling, only if needed.
+- **v0.1** — first release.
+- **v0.2** — system contracts in `app.md`, decisions and sources, 36 checks,
+  fixtures, `review-project`. The `data.md`/`api.md`/`ui.md` split moves to
+  v0.3.
+- **v0.3** — split a feature into `data.md`, `api.md`, `ui.md`.
+- **v0.4** — Blueprint → Canon → Living Spec layers.
+- **v0.5** — optional tooling, only if needed.
 
 ## License
 

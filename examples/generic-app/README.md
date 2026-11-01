@@ -1,6 +1,6 @@
 # Generic example — Book Library
 
-This is a neutral example for Keeliom v0.1. It is not a real app and is not tied
+This is a neutral example for Keeliom v0.2. It is not a real app and is not tied
 to any project.
 
 ## Structure
@@ -17,20 +17,24 @@ generic-app/
       changes/
         0001-initial.md
         0002-trim-title.md
+        0003-correct-reason.md
     F0002-list-books/
       feature.md
       changes/
         0001-initial.md
+        0002-error-status.md
     F0003-edit-book/
       feature.md
       changes/
         0001-initial.md
         0002-trim-title.md
+        0003-isbn-rules.md
     F0004-delete-book/
       brief.md
       feature.md
       changes/
         0001-initial.md
+        0002-success-and-failure.md
 ```
 
 The Keeliom plugin is installed separately (see
@@ -52,7 +56,7 @@ copied into the example.
 
 Ask the LLM to read `CHECK.md` and validate the project. Expected result:
 
-    OK
+    Project OK
 
 If there are problems, the LLM returns lines like:
 

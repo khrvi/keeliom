@@ -2,7 +2,7 @@
 
 - **Date:** 2026-10-30
 - **Version:** 0.1.0
-- **Status:** frozen
+- **Status:** frozen; superseded by 0.2.0
 
 ## What was checked
 
