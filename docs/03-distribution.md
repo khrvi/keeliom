@@ -100,6 +100,8 @@ ID is `keeliom@keeliom`.
 - `CHECK.md`
 - `KEELIOM_VERSION`
 - `features/`
+- `changes/` for `app.md` changes
+- `TODO.md` for `import-first` findings
 - `src/`
 
 Not copied:

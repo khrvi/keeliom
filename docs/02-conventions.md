@@ -105,7 +105,8 @@ belongs to one repository. C1 checks that line against that repository.
 ### 3.3. Intake
 
 1. The LLM reads `app.md`, `brief.md`, the template, `RULES.md`, and `CHECK.md`.
-2. It extracts what is already known into the template.
+2. It extracts what is already known into the sections required by `CHECK.md`
+   M4.
 3. It lists the missing decisions.
 4. It asks only about the missing items:
    - recommended default;

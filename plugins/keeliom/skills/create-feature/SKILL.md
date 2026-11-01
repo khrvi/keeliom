@@ -35,7 +35,8 @@ When a product owner provides a brief or ticket for a new feature.
 6. If the input is a pasted ticket or an external document outside the feature
    directory, save it as `features/Fxxxx-<slug>/brief.md` from
    `${CLAUDE_PLUGIN_ROOT}/templates/brief.md`.
-7. Extract what is already known from the brief into the template.
+7. Extract what is already known from the brief into the sections required by
+   `CHECK.md` M4.
 8. List missing required sections or decisions.
 9. Check every entity, column, route and method named in `Data`, `API` or
    `Rules` against the repository named by `In <path>:`. Check an unmarked

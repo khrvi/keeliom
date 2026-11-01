@@ -68,7 +68,8 @@ description: Upgrade an existing Keeliom project to the 0.2.0 sections and check
     record an accepted deviation in `Decisions` with a source; otherwise keep
     the backup and stop.
 11. Report `Project OK` only when no owner action remains. Otherwise list each
-    finding and the owner action.
+    finding and the owner action. Run `review-project` when the project has
+    more than one feature.
 12. Do not implement code. Do not edit old change entries.
 
 ## Safety
