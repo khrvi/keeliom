@@ -51,16 +51,20 @@ When a product owner provides a brief or ticket for a new feature.
     - explain the consequence in one line.
 12. Do not invent. If the owner does not answer, leave `TBD` and keep
     `Status: draft`. In unattended mode, no claim without a source.
-13. Fill `features/Fxxxx-<slug>/feature.md` with `Decisions`, `Related` and
-    structured `Open questions`. Decisions use
-    `ID | From | Question | Answer | Source | Date`. Open questions use
-    `Q<n>. <question>` with indented `Recommendation:`, `Owner:` and
-    `Status: open`. Add `Release: None`. Add `Repositories:` when `app.md` has
-    more than one row; list the paths this feature touches.
+13. Fill `features/Fxxxx-<slug>/feature.md` with `Depends on`, `Reads`,
+    `Decisions`, `Related` and structured `Open questions`. `Reads` follows
+    `Depends on` and is `None` when the feature reads no other feature's data.
+    Decisions use `ID | From | Question | Answer | Source | Status | Date`.
+    A decision adopted from a recommendation uses `Status: assumed`; an owner
+    answer uses `Status: approved`. Open questions use `Q<n>. <question>` with
+    indented `Recommendation:`, `Owner:` and `Status: open`. Add
+    `Release: None`. Add `Repositories:` when `app.md` has more than one row;
+    list the paths this feature touches.
 14. Create `changes/0001-initial.md` with:
     - `Keeliom: <KEELIOM_VERSION>`;
+    - `Date: <YYYY-MM-DD>`;
     - `Reason: Initial specification from the brief (<source>).`;
-    - `Related: <feature IDs or None>`;
+    - `Related: <feature IDs from Depends on and Reads, or None>`;
     - `Source: brief.md §section` when a brief exists; otherwise `code:path`
       or `owner:<name>, <date>`.
 15. Record a chat answer as `owner:<name>, <date>`.

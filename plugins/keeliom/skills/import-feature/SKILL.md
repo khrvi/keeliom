@@ -41,9 +41,11 @@ description: Document an existing feature from code as a Keeliom feature spec wi
    - `Tasks` as verification tasks, not implementation tasks;
    - `Repositories:` from the code paths. Mark each `Data`, `API` or `Tasks`
      line with `In <path>:` when the feature spans repositories.
-5. Add `Depends on` for existing features or shared entities.
-6. Fill `Decisions` from code with `code:path` sources. Use the
-   `ID | From | Question | Answer | Source | Date` table.
+5. Add `Depends on` for existing features or shared entities. Add `Reads` for
+   shared data, derived from the old `Readers` column when it exists.
+6. Fill `Decisions` from code with `code:path` sources and
+   `Status: approved`. Use the `ID | From | Question | Answer | Source |
+   Status | Date` table.
 7. Create `changes/0001-initial.md` with:
    - `Keeliom: <KEELIOM_VERSION>`;
    - `Reason: Imported from existing code.`;

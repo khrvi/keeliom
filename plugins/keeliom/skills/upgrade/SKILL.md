@@ -1,6 +1,6 @@
 ---
 name: upgrade
-description: Upgrade an existing Keeliom project to the 0.2.0 sections and checks without editing every file by hand.
+description: Upgrade an existing Keeliom project to the current sections and checks.
 ---
 
 # Upgrade
@@ -8,7 +8,7 @@ description: Upgrade an existing Keeliom project to the 0.2.0 sections and check
 ## When to use
 
 - The project has `KEELIOM_VERSION` 0.1.0 or older.
-- The owner wants the 0.2.0 sections and checks without editing every file.
+- The owner wants the current sections and checks without editing every file.
 
 ## Input
 
@@ -27,23 +27,33 @@ description: Upgrade an existing Keeliom project to the 0.2.0 sections and check
 
 ## Process
 
-1. Read `KEELIOM_VERSION`. If it is 0.2.3 or later, report "already current"
+1. Read `KEELIOM_VERSION`. If it is 0.3.0 or later, report "already current"
    and stop.
 2. `mode` is `report` (default) or `apply`. In `report`, list every change and
    stop without writing. In `apply`, ask once for confirmation, then write.
    Back up `RULES.md`, `CHECK.md`, `KEELIOM_VERSION`, `app.md` and every
    `feature.md`.
+2a. Run `CHECK.md` before the migration. Keep the result as the baseline.
 3. Replace `RULES.md` and `CHECK.md` from
    `${CLAUDE_PLUGIN_ROOT}/templates/`.
 4. Update `app.md`:
    - add `Roles`, `Data model`, `API conventions` and `Repositories` from the
      code;
+   - set `Status: ready` when no `TBD` remains; otherwise `draft`;
+   - write `Users` as a `| User | Description |` table;
+   - write `Data model` with `Entity | Owner | Key fields | Notes`;
+   - remove `Readers` and copy it into each feature's `Reads`;
+   - add `Locales: None` and `Accessibility: None` when missing;
    - remove `Tests` from `Stack`;
    - use the `Path | Role | Language | Test commands | Notes` table;
-   - add a project-level `changes/` entry for the `app.md` changes;
+   - create `changes/` when missing and add a project-level entry for the
+     `app.md` changes;
    - keep the existing content.
 5. For each feature:
    - add `Related` if missing;
+   - add `Reads: None` when missing;
+   - add the Decisions `Status` column and mark every existing decision
+     `approved`;
    - add `Release: None` when missing;
    - add `Repositories:` when missing and `app.md` has more than one row;
    - add the Decisions table header when missing;
@@ -58,20 +68,23 @@ description: Upgrade an existing Keeliom project to the 0.2.0 sections and check
      `Corrects: None`, `Decisions: None`, and `Source`
      (`owner:<name>, <date>` for the upgrade decision, plus `code:path` for
      each fact read from code).
+
+List decisions whose `Source` is not `owner:` or `code:` in the migration
+report as "confirm approval". Do not move a feature to `draft` because of the
+migration.
 6. Ask only about facts the code cannot answer. In unattended mode, leave `TBD`
    and keep the feature `draft`.
-7. Run `CHECK.md` under the old version. Report the warnings.
-8. Set `KEELIOM_VERSION` to the value in
+7. Set `KEELIOM_VERSION` to the value in
    `${CLAUDE_PLUGIN_ROOT}/templates/KEELIOM_VERSION`.
-9. Run `CHECK.md` again.
-10. If the new CHECK has errors: fix what the skill can from existing content;
-    move features with missing owner decisions to `draft` and list the gap;
-    record an accepted deviation in `Decisions` with a source; otherwise keep
-    the backup and stop.
-11. Report `Project OK` only when no owner action remains. Otherwise list each
+8. Run `CHECK.md` after the version bump.
+9. If the new CHECK has errors: fix what the skill can from existing content;
+   move features with missing owner decisions to `draft` and list the gap;
+   record an accepted deviation in `Decisions` with a source; otherwise keep
+   the backup and stop.
+10. Report `Project OK` only when no owner action remains. Otherwise list each
     finding and the owner action. Run `review-project` when the project has
     more than one feature.
-12. Do not implement code. Do not edit old change entries.
+11. Do not implement code. Do not edit old change entries.
 
 ## Safety
 

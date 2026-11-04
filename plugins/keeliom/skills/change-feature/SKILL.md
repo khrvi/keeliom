@@ -33,7 +33,11 @@ When an existing feature needs a change.
    - create `changes/NNNN-<slug>.md` with `Keeliom`, `Date`, `Reason`,
      `Changed`, `Before`, `After`, `Related`, `Corrects`, `Decisions`, and
      `Source`;
-   - update `feature.md`, including the Decisions table;
+   - quote the changed text in backticks in `Before` and `After`;
+   - update `feature.md`, including `Depends on`, `Reads` and the Decisions
+     table;
+   - set the Decision `Status` to `assumed` or `approved` when an answer is
+     recorded;
    - update `Repositories:` when the set of repositories changes;
    - move `Status` with the table in `RULES.md`.
 4. Never edit an existing change entry. To correct one, add a new entry with

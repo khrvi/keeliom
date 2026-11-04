@@ -33,7 +33,8 @@ description: Run a project-wide Keeliom review as a second opinion over the spec
    - C2 role values in code;
    - C3 capability without a feature.
 2. Run S3 terminology across features.
-3. Run the full S pass with file and line evidence.
+3. Run the full S pass with a section anchor and a quoted line for every
+   finding. Use the output format from `CHECK.md`.
 4. Name both features in an S6 or S7 finding.
 5. Output severity-ranked findings. Do not print `Project OK`; CHECK is the
    gate.

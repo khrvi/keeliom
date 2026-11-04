@@ -24,10 +24,14 @@ description: Bootstrap Keeliom in a new or existing project by writing the minim
    - `RULES.md` from `${CLAUDE_PLUGIN_ROOT}/templates/RULES.md`
    - `CHECK.md` from `${CLAUDE_PLUGIN_ROOT}/templates/CHECK.md`
    - `KEELIOM_VERSION` from `${CLAUDE_PLUGIN_ROOT}/templates/KEELIOM_VERSION`
-3. Create `features/` and `TODO.md`.
+   The `app.md` template starts with `Status: draft` and `TBD` markers.
+3. Create `features/`, `changes/` and `TODO.md`.
 4. If mode is `existing`:
    - fill `app.md` from the code **as-is**, including `Roles`, `Data model`,
      `API conventions` and `Repositories`;
+   - write `Users` as a `| User | Description |` table;
+   - write `Data model` with `Entity | Owner | Key fields | Notes`;
+   - set `Status: ready` when no `TBD` remains; otherwise keep `draft`;
    - do not create features yet;
    - suggest `import-feature` for core and shared capabilities.
 5. Do not write code.
@@ -41,6 +45,7 @@ description: Bootstrap Keeliom in a new or existing project by writing the minim
 - `CHECK.md`
 - `KEELIOM_VERSION`
 - `features/`
+- `changes/`
 - `TODO.md`
 
 The project does not receive the Keeliom plugin, `docs/`, or `examples/`.
