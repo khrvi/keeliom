@@ -59,14 +59,14 @@ Do not invent content. Report contradictions with quoted evidence.
 
 | ID | Check |
 |---|---|
-| S1 | Contradictions: `In scope` vs `Out of scope`; `Rules` vs `Out of scope`; `In scope` vs `API`; `Data` vs `API`; `Acceptance` vs `Rules`; `Who` vs `Roles`. Error tables have `Code`, `Status`, `When`. API responses cover generated and returned `Data` fields. Every `API` response follows the `API conventions` single-resource or collection shape. Every search endpoint follows the `Search` rule. |
+| S1 | Contradictions: `In scope` vs `Out of scope`; `Rules` vs `Out of scope`; `In scope` vs `API`; `Data` vs `API`; `Acceptance` vs `Rules`; `Who` vs `Users`. Error tables have `Code`, `Status`, `When`. API responses cover generated and returned `Data` fields. Every `API` response follows the `API conventions` single-resource or collection shape. Every search endpoint follows the `Search` rule. |
 | S2 | Scope coverage: every `In scope` bullet has a Task, an Acceptance line, or `(F00xx)` delegation. |
-| S3 | Terminology and naming: role values match `Roles`; table names match `Data model`; column names match the owning feature's `Data`; route names match the owning feature's `API`; a term used for the same concept is not mixed (for example, a game status must not also be called state). |
+| S3 | Terminology and naming: role values match `Roles`; entity names match `Data model`; field names match the owning feature's `Data`; route names match the owning feature's `API`; a term used for the same concept is not mixed (for example, a game status must not also be called state). |
 | S4 | Acceptance measurability: each criterion names an observable output (a status code, an error code, a message, a field value, or a visible state), an action with an observable result, a threshold with a unit, or a test reference. Vague words such as `clear`, `fast` and `correct` need a concrete output. |
 | S5 | Source coverage: every section of `brief.md` lands in a feature section. When `brief.md` is absent, every section of the document named in the first change entry's `Source` lands in a feature section. |
 | S6 | Shared-rule drift: a rule attached to a shared entity in one feature appears in every feature that touches the entity, or references the owning feature. |
-| S7 | Implicit dependency: an `In scope`, `Rules`, `Data`, `API`, `Screens` or `Acceptance` line that names behavior owned by another feature must be in `Depends on`. |
-| S8 | Change-entry accuracy: each entry's `Reason`, `Before` and `After` are consistent with the entry before it. An entry named in a later entry's `Corrects` field is treated as corrected. |
+| S7 | Implicit dependency: an `In scope`, `Rules`, `API`, `Screens` or `Acceptance` line that names behavior owned by another feature must be in `Depends on`. A `Data` or `API` line that names an entity owned by another feature must be in `Reads`. |
+| S8 | Change-entry accuracy: each entry's `Reason`, `Before` and `After` are consistent with the entry before it. For the newest follow-up entry with `Keeliom: 0.3.0` or later in each `changes/` directory, the `After` quote appears in the current `feature.md`; for a project-level entry, it appears in the current `app.md`. `Before` is not checked. An entry named in a later entry's `Corrects` field is treated as corrected. |
 | S9 | Traceability: every Screen state and Acceptance criterion has a Rule. Every Rule has a matching Acceptance criterion, a named Screen state, or a `test:<name>` reference. A Task alone is not enough. |
 
 S6 and S7 are project-level checks. CHECK runs them once for the project. A
@@ -80,7 +80,7 @@ Run only when `Repositories` is filled. If the code cannot be read, report
 
 | ID | Check |
 |---|---|
-| C1 | Every table, column, route and method in `Data`, `API` or `Rules` exists in code or is named in a Task that says `add <column>`, `add <table>`, `add <route>` or `add <method>`. A Task that only mentions the name is not an addition. Run C1 once for each repository in the feature's `Repositories:`. When the line is absent, run it for the single `app.md` row. A line marked `In <path>:` is checked against that repository only. An unmarked line is checked against every repository in the list. |
+| C1 | Every entity, field, route and method in `Data`, `API` or `Rules` exists in code or is named in a Task that says `add <field>`, `add <entity>`, `add <route>` or `add <method>`. A Task that only mentions the name is not an addition. Run C1 once for each repository in the feature's `Repositories:`. When the line is absent, run it for the single `app.md` row. A line marked `In <path>:` is checked against that repository only. An unmarked line is checked against every repository in the list. |
 | C2 | Role values exist in code. |
 | C3 | A capability that exists in code but has no feature is reported as `import-first` and recorded in `TODO.md` as `- import: <capability> — <path>`. |
 
@@ -97,7 +97,7 @@ the project. They affect `Project OK` only.
 
 Assignments:
 
-- M1–M25 are `error`.
+- M1–M18 and M20–M25 are `error`.
 - S1 is `error`.
 - S2, S4, S5, S8 and S9 are `error` when `Status` is `ready` or `done`. They
   are `warn` otherwise.
@@ -125,13 +125,15 @@ Warnings and unverifiable findings are listed after `OK`.
 
 Findings use:
 
-    file: section: check-id: severity: problem
+    path §section [check-id] severity: message
+
+Every message quotes the text it refers to. Sort findings by path, then section, then check ID. Do not print line numbers.
 
 Results use:
 
     OK features/F0001-add-book
     OK features/F0002-list-books
-    features/F0003-edit-book/feature.md: Rules: S3: warn: "status" is used for "state"
+    features/F0003-edit-book/feature.md §Rules [S3] warn: "status" is used for "state"
     OK features/F0003-edit-book
     OK features/F0004-delete-book
     0 errors, 1 warning, 0 unverifiable
@@ -139,4 +141,4 @@ Results use:
 
 - `error` blocks `ready` and `done`.
 - `warn` reports only.
-- Every finding quotes the text it refers to.
+- `unverifiable` counts as a warning.
