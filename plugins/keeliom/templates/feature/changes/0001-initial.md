@@ -1,7 +1,7 @@
 # 0001 — Initial
 
-- **Keeliom:** 0.2.0
-- **Date:** YYYY-MM-DD
+- **Keeliom:** 0.3.0
+- **Date:** TBD — date
 - **Reason:** Initial specification.
 - **Changed:**
   - all sections: created the feature.
@@ -10,4 +10,4 @@
 - **Related:** None
 - **Corrects:** None
 - **Decisions:** None
-- **Source:** <path, path §section, code:path, or owner:<name>, <date>>
+- **Source:** TBD — source

@@ -1,69 +1,81 @@
-# <App name>
+# TBD — app name
+
+Status: draft
 
 ## One-liner
 
-<What the app does in one sentence.>
+TBD — what the app does in one sentence.
 
 ## Users
 
-- <role>: <what this person does>
+| User | Description |
+|---|---|
+| TBD | TBD — what this user does |
 
 ## Jobs
 
-- <job to be done>
+- TBD — job to be done
 
 ## Scope
 
-- <what is in scope>
+- TBD — what is in scope
 
 ## Non-goals
 
-- <what is explicitly out of scope>
+- TBD — what is explicitly out of scope
 
 ## Glossary
 
 | Term | Meaning |
 |---|---|
-| <term> | <meaning> |
+| TBD | TBD |
 
 ## Invariants
 
-- <what is always true>
+- TBD — what is always true
 
 ## Stack
 
-- Language: <language>
-- Framework: <framework>
-- Database: <database>
+- Language: TBD
+- Framework: TBD
+- Database: TBD
 
 ## Roles
 
 | Role | Can do |
 |---|---|
-| <role> | <what this role can do> |
+| TBD | TBD — what this access role can do |
 
 ## Data model
 
-| Table | Owner | Readers | Key columns | Notes |
-|---|---|---|---|---|
-| <table> | <F00xx> | <F00xx[, F00xx]> | <comma-separated columns> | <notes> |
+| Entity | Owner | Key fields | Notes |
+|---|---|---|---|
+| TBD | TBD | TBD | TBD — table, collection, document or key namespace |
 
 ## API conventions
 
-- Single resource: <shape>
-- Collection: <shape>
+- Single resource: TBD — shape
+- Collection: TBD — shape
 - Errors: `Code | Status | When`
-- Search: <pagination rule>
-- Field naming: <rule>
-- Enums: <rule>
-- Auth: <rule>
-- CSRF: <rule>
-- Sign-in and sign-out: <rule>
-- Idempotency: <rule>
+- Search: TBD — pagination rule
+- Field naming: TBD — rule
+- Enums: TBD — rule
+- Auth: TBD — rule
+- CSRF: TBD — rule
+- Sign-in and sign-out: TBD — rule
+- Idempotency: TBD — rule
 - Response coverage: every generated and returned `Data` field appears in a response.
+
+## Locales
+
+None
+
+## Accessibility
+
+None
 
 ## Repositories
 
 | Path | Role | Language | Test commands | Notes |
 |---|---|---|---|---|
-| <path> | <role> | <language> | <exact command or `None — <reason>`> | <notes> |
+| TBD | TBD | TBD | TBD — exact command or `None — <reason>` | TBD |

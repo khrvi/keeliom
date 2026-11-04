@@ -1,4 +1,4 @@
-# F0001 — <Feature name>
+# F0001 — TBD — feature name
 
 Status: draft
 Release: None
@@ -6,13 +6,17 @@ Repositories: None
 
 ## Why
 
-<Why this feature exists.>
+TBD — why this feature exists.
 
 ## Who
 
-<Who uses it.>
+TBD — who uses it.
 
 ## Depends on
+
+None
+
+## Reads
 
 None
 
@@ -22,15 +26,15 @@ None
 
 ## In scope
 
-- <what is included>
+- TBD — what is included
 
 ## Out of scope
 
-- <what is excluded>
+- TBD — what is excluded
 
 ## Rules
 
-- <behavior rule>
+- TBD — behavior rule
 
 ## Data
 
@@ -46,25 +50,25 @@ None
 
 ## Acceptance
 
-- [ ] <observable result>
+- [ ] TBD — observable result
 
 ## Tasks
 
-- [ ] <implementation step>
+- [ ] TBD — implementation step
 
 ## Decisions
 
-| ID | From | Question | Answer | Source | Date |
-|---|---|---|---|---|---|
-| D1 | Q1 | <question> | <answer> | <source> | <YYYY-MM-DD> |
+| ID | From | Question | Answer | Source | Status | Date |
+|---|---|---|---|---|---|---|
+| D1 | None | TBD — question | TBD — answer | TBD — source | assumed | TBD — date |
 
 When there are no decisions, write `None`.
 
 ## Open questions
 
-Q1. <question>
-- Recommendation: <default, or None — <reason>>
-- Owner: <name>
+Q1. TBD — question
+- Recommendation: TBD — default
+- Owner: TBD — owner
 - Status: open
 
 An answered question keeps its number and uses `Status: answered (D<n>)`.
