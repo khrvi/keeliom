@@ -1,20 +1,20 @@
-# Brief — <Feature name>
+# Brief — TBD — feature name
 
 ## Source
 
-- Ticket: <link or ID>
-- Author: <name>
+- Ticket: TBD — link or ID
+- Author: TBD — name
 
 The initial change entry's `Source` points to this brief.
 
 ## Raw description
 
-<The product owner's text.>
+TBD — the product owner's text.
 
 ## Known constraints
 
-- <constraint>
+- TBD — constraint
 
 ## Acceptance ideas
 
-- <observable result>
+- TBD — observable result

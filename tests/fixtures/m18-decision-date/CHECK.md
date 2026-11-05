@@ -14,20 +14,20 @@ asked.
 7. `RULES.md`
 8. `CHECK.md`
 
-`KEELIOM_VERSION` names the project version. If it is older than the template
-version, run the current checks and add `Upgrade required: run the upgrade
-skill.`
+This `CHECK.md` is for Keeliom 0.3.0. `KEELIOM_VERSION` names the project
+version. If it is older, run these checks and print
+`Upgrade required: run the upgrade skill.`
 
 ## Mechanical pass
 
 | ID | Check |
 |---|---|
-| M1 | `app.md` exists and has `Status` (`draft` or `ready`) and the sections `One-liner`, `Users`, `Jobs`, `Scope`, `Non-goals`, `Glossary`, `Invariants`, `Stack`, `Roles`, `Data model`, `API conventions`, `Repositories`. Every `Data model` row has exactly one owner feature; `TBD` is allowed while `Status: draft`. |
+| M1 | `app.md` exists and has `Status` (`draft` or `ready`) and the sections `One-liner`, `Users`, `Jobs`, `Scope`, `Non-goals`, `Glossary`, `Invariants`, `Stack`, `Roles`, `Data model`, `API conventions`, `Repositories`. Every `Data model` row has exactly one owner feature; `TBD` is allowed while `Status: draft`. A feature with `Status` `ready`, `in_progress` or `done` requires `app.md` `Status: ready`. |
 | M2 | Feature directories match `F<4 digits>-<slug>/` and are unique. |
 | M3 | Every feature has `feature.md`. `brief.md` is non-empty if present. |
 | M4 | `feature.md` has `Status` and the sections `Why`, `Who`, `Depends on`, `Reads`, `Related`, `In scope`, `Out of scope`, `Rules`, `Acceptance`, `Tasks`, `Decisions`, `Open questions`. `Release:` is absent, `None`, or a value. `Repositories:` is absent, `None`, or a comma-separated list. |
 | M5 | `Status` is `draft`, `ready`, `in_progress`, `done` or `deprecated`. |
-| M6 | No `TBD` in a non-draft feature or in `app.md` with `Status: ready`. No `TBD` in a change entry except inside a backtick quote in `Before` or `After`. An `Open:` line in `app.md` matches `Open: <item> — owner: <name or F00xx>, due: <YYYY-MM-DD>`. An owner feature ID must exist. |
+| M6 | No `TBD` in a non-draft feature or in `app.md` with `Status: ready`. No `TBD` in a change entry with `Keeliom: 0.3.0` or later, except inside a backtick quote in `Before` or `After`. An `Open:` line in `app.md` matches `Open: <item> — owner: <name or F00xx>, due: <YYYY-MM-DD>`. An owner feature ID must exist. |
 | M7 | `Acceptance` and `Tasks` contain only checkboxes and at least one checkbox, unless `Status` is `draft`. |
 | M8 | Optional sections are non-empty or `None`: `Locales` and `Accessibility` in `app.md`; `Data`, `API` and `Screens` in `feature.md`. |
 | M9 | `Depends on` and `Reads` reference existing feature IDs or are `None`. |
@@ -142,3 +142,7 @@ Results use:
 - `error` blocks `ready` and `done`.
 - `warn` reports only.
 - `unverifiable` counts as a warning.
+
+When `KEELIOM_VERSION` is older than the version above, print
+`Upgrade required: run the upgrade skill.` as the last line. It does not count
+in the totals.

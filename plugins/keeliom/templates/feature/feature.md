@@ -58,11 +58,9 @@ None
 
 ## Decisions
 
-| ID | From | Question | Answer | Source | Status | Date |
-|---|---|---|---|---|---|---|
-| D1 | None | TBD — question | TBD — answer | TBD — source | assumed | TBD — date |
+None
 
-When there are no decisions, write `None`.
+When a decision exists, use the table `ID | From | Question | Answer | Source | Status | Date`.
 
 ## Open questions
 

@@ -99,7 +99,7 @@
 
 | From | To | Condition |
 |---|---|---|
-| `draft` | `ready` | All required sections filled. No TBD or placeholders. Every open question answered or dropped. Every Decision is `approved`. |
+| `draft` | `ready` | All required sections filled. No `TBD`. `app.md` is `Status: ready`. Every open question answered or dropped. Every Decision is `approved`. |
 | `draft` | `draft` | The draft changed. Add a change entry. |
 | `ready` | `in_progress` | Implementation started. |
 | `in_progress` | `done` | All Acceptance and Tasks boxes checked. Tests pass when a test command exists. CHECK reports OK for the feature. |
@@ -116,7 +116,8 @@
 
 - `Status: ready`.
 - All required sections filled.
-- No TBD or placeholders.
+- No `TBD`.
+- `app.md` is `Status: ready`.
 - Every open question answered or dropped.
 - Every Decision is `approved` and has a source.
 - M and S checks pass for the feature.
