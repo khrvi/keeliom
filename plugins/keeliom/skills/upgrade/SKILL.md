@@ -7,7 +7,8 @@ description: Upgrade an existing Keeliom project to the current sections and che
 
 ## When to use
 
-- The project has `KEELIOM_VERSION` 0.1.0 or older.
+- The project's `KEELIOM_VERSION` is older than
+  `${CLAUDE_PLUGIN_ROOT}/templates/KEELIOM_VERSION`.
 - The owner wants the current sections and checks without editing every file.
 
 ## Input
@@ -19,11 +20,12 @@ description: Upgrade an existing Keeliom project to the current sections and che
 
 1. `KEELIOM_VERSION`
 2. `app.md`
-3. every `features/F*/feature.md`
-4. every `features/F*/brief.md`
-5. every `features/F*/changes/*`
-6. `RULES.md`
-7. `CHECK.md`
+3. `changes/*` if present
+4. every `features/F*/feature.md`
+5. every `features/F*/brief.md`
+6. every `features/F*/changes/*`
+7. `RULES.md`
+8. `CHECK.md`
 
 ## Process
 
@@ -33,13 +35,15 @@ description: Upgrade an existing Keeliom project to the current sections and che
    stop without writing. In `apply`, ask once for confirmation, then write.
    Back up `RULES.md`, `CHECK.md`, `KEELIOM_VERSION`, `app.md` and every
    `feature.md`.
-2a. Run `CHECK.md` before the migration. Keep the result as the baseline.
-3. Replace `RULES.md` and `CHECK.md` from
+3. Run `CHECK.md` before the migration. Keep the result as the baseline.
+4. Replace `RULES.md` and `CHECK.md` from
    `${CLAUDE_PLUGIN_ROOT}/templates/`.
-4. Update `app.md`:
+5. Update `app.md`:
    - add `Roles`, `Data model`, `API conventions` and `Repositories` from the
      code;
    - set `Status: ready` when no `TBD` remains; otherwise `draft`;
+   - keep every feature's status when `app.md` is `draft`, and list each
+     remaining `TBD` in `app.md` as an owner action;
    - write `Users` as a `| User | Description |` table;
    - write `Data model` with `Entity | Owner | Key fields | Notes`;
    - remove `Readers` and copy it into each feature's `Reads`;
@@ -47,16 +51,18 @@ description: Upgrade an existing Keeliom project to the current sections and che
    - remove `Tests` from `Stack`;
    - use the `Path | Role | Language | Test commands | Notes` table;
    - create `changes/` when missing and add a project-level entry for the
-     `app.md` changes;
+     `app.md` changes, quoting the changed text in backticks in `Before` and
+     `After`;
    - keep the existing content.
-5. For each feature:
+6. For each feature:
    - add `Related` if missing;
    - add `Reads: None` when missing;
    - add the Decisions `Status` column and mark every existing decision
      `approved`;
+   - write `None` in `Decisions` when there are no decisions; otherwise add the
+     table header;
    - add `Release: None` when missing;
    - add `Repositories:` when missing and `app.md` has more than one row;
-   - add the Decisions table header when missing;
    - normalize `Open questions` to `Q<n>. <question>` with indented
      `Recommendation:`, `Owner:` and `Status: open` or `answered (D<n>)`;
      record an answered question in `Decisions` and mark it in place, keeping
@@ -67,24 +73,23 @@ description: Upgrade an existing Keeliom project to the current sections and che
      `Date`, `Reason`, `Changed`, `Before`, `After`, `Related`,
      `Corrects: None`, `Decisions: None`, and `Source`
      (`owner:<name>, <date>` for the upgrade decision, plus `code:path` for
-     each fact read from code).
-
-List decisions whose `Source` is not `owner:` or `code:` in the migration
-report as "confirm approval". Do not move a feature to `draft` because of the
-migration.
-6. Ask only about facts the code cannot answer. In unattended mode, leave `TBD`
+     each fact read from code). Quote the changed text in backticks in `After`.
+   - list decisions whose `Source` is not `owner:` or `code:` in the migration
+     report as "confirm approval". Do not move a feature to `draft` because of
+     the migration.
+7. Ask only about facts the code cannot answer. In unattended mode, leave `TBD`
    and keep the feature `draft`.
-7. Set `KEELIOM_VERSION` to the value in
+8. Set `KEELIOM_VERSION` to the value in
    `${CLAUDE_PLUGIN_ROOT}/templates/KEELIOM_VERSION`.
-8. Run `CHECK.md` after the version bump.
-9. If the new CHECK has errors: fix what the skill can from existing content;
-   move features with missing owner decisions to `draft` and list the gap;
-   record an accepted deviation in `Decisions` with a source; otherwise keep
-   the backup and stop.
-10. Report `Project OK` only when no owner action remains. Otherwise list each
+9. Run `CHECK.md` after the version bump.
+10. If the new CHECK has errors: fix what the skill can from existing content;
+    move features with missing owner decisions to `draft` and list the gap;
+    record an accepted deviation in `Decisions` with a source; otherwise keep
+    the backup and stop.
+11. Report `Project OK` only when no owner action remains. Otherwise list each
     finding and the owner action. Run `review-project` when the project has
     more than one feature.
-11. Do not implement code. Do not edit old change entries.
+12. Do not implement code. Do not edit old change entries.
 
 ## Safety
 

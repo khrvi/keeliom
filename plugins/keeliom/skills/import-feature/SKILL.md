@@ -48,6 +48,7 @@ description: Document an existing feature from code as a Keeliom feature spec wi
    Status | Date` table.
 7. Create `changes/0001-initial.md` with:
    - `Keeliom: <KEELIOM_VERSION>`;
+   - `Date: <YYYY-MM-DD>`;
    - `Reason: Imported from existing code.`;
    - `Changed: all sections: documented current behavior.`;
    - `Related: feature IDs or None`;

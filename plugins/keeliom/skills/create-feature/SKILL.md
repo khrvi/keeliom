@@ -54,7 +54,9 @@ When a product owner provides a brief or ticket for a new feature.
 13. Fill `features/Fxxxx-<slug>/feature.md` with `Depends on`, `Reads`,
     `Decisions`, `Related` and structured `Open questions`. `Reads` follows
     `Depends on` and is `None` when the feature reads no other feature's data.
-    Decisions use `ID | From | Question | Answer | Source | Status | Date`.
+    When a decision exists, add the table header
+    `ID | From | Question | Answer | Source | Status | Date`; otherwise write
+    `None`.
     A decision adopted from a recommendation uses `Status: assumed`; an owner
     answer uses `Status: approved`. Open questions use `Q<n>. <question>` with
     indented `Recommendation:`, `Owner:` and `Status: open`. Add

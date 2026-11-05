@@ -71,7 +71,7 @@ Ask the LLM to read `CHECK.md` and validate the project. Expected result:
 
 If there are problems, the LLM returns lines like:
 
-    features/F0001-add-book/feature.md §Rules [M4] error: missing section
+    features/F0001-add-book/feature.md §Screens [S3] warn: "status" is used for "state"
 
 ## Question
 
