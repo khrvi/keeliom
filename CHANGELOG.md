@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.3.0 — 2026-11-04
+
+### Added
+
+- `app.md` `Status` and optional `Locales` and `Accessibility`.
+- `feature.md` `Reads` for shared data.
+- Decisions `Status` (`approved` or `assumed`).
+- Project-level `changes/` created by `bootstrap`.
+- `TBD` as the only placeholder marker.
+
+### Changed
+
+- `Depends on` is behavior only. `Reads` is data only. `Reads` may be cyclic.
+- `Data model` uses `Entity | Owner | Key fields | Notes`.
+- `Users` is a table. `Roles` is access roles only.
+- Findings use `path §section [check-id] severity: message` with a quote.
+- Change entries quote the changed text in `After`.
+- One rule set; M19 and the version gate are removed. M20–M25 keep their IDs.
+
+### Removed
+
+- The `<...>` placeholder check.
+- Per-version check rules.
+
 ## 0.2.3 — 2026-11-02
 
 ### Added

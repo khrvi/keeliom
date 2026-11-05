@@ -12,7 +12,8 @@ Start simple. In v0.2:
 - one app — one `app.md`;
 - one feature — one directory `features/F0001-name/`;
 - input — `brief.md` or a ticket;
-- current state — `feature.md`, with `Status`, `Release` and `Repositories`;
+- current state — `feature.md`, with `Status`, `Release`, `Repositories`,
+  `Depends on`, `Reads` and Decisions `Status`;
 - history — `changes/0001-initial.md`, `0002-...md`;
 - `RULES.md` — generation;
 - `CHECK.md` — validation;
@@ -23,7 +24,7 @@ Start simple. In v0.2:
 
 ```
 0. brief.md or ticket
-1. app.md
+1. app.md with Status, Users table and Data model
 2. create-feature -> feature.md
 3. changes/0001-initial.md
 4. CHECK.md
@@ -33,6 +34,8 @@ Start simple. In v0.2:
 8. CHECK.md
 9. next feature
 ```
+
+Project-level `changes/` records `app.md` changes.
 
 ### Intake
 
@@ -83,7 +86,7 @@ Start simple. In v0.2:
 2. Fixed sections.
 3. `Acceptance` uses checkboxes.
 4. `Tasks` uses checkboxes.
-5. No `TBD` in `ready`.
+5. No `TBD` in `ready`. Every Decision is `approved`.
 6. If a decision is missing, the LLM stops and asks.
 7. If a section does not apply, write `None`; do not delete the section.
 8. Any edit to `feature.md` other than a checkbox or `Status` requires a new
@@ -91,6 +94,7 @@ Start simple. In v0.2:
 9. Old change entries are never edited.
 10. The LLM asks only about missing decisions and offers a default.
 11. A feature that spans repositories lists them in `Repositories:`.
+12. `Depends on` holds behavior calls. `Reads` holds shared data.
 
 ## 6. Layers later
 
@@ -138,7 +142,7 @@ Order:
 
 ## 9. When to add complexity
 
-- **v0.3** — split a feature into `data.md`, `api.md`, `ui.md`.
+- **v0.3** — simplification: one rule set, `Reads`, Decisions `Status`.
 - **v0.4** — split Blueprint → Canon → Living Spec.
 - **v0.5** — optional tooling.
 

@@ -12,6 +12,7 @@
   RULES.md
   CHECK.md
   KEELIOM_VERSION
+  changes/
   features/
     F0001-games-list/
       brief.md
@@ -30,10 +31,12 @@
 
 ## 2. `app.md`
 
+`Status: draft` or `Status: ready`.
+
 Required sections:
 
 1. `One-liner` — one sentence about the app.
-2. `Users` — who the users are.
+2. `Users` — a `| User | Description |` table of domain users.
 3. `Jobs` — what jobs they need to do.
 4. `Scope` — what is in scope.
 5. `Non-goals` — what is out of scope.
@@ -41,14 +44,16 @@ Required sections:
 7. `Invariants` — what is always true.
 8. `Stack` — language, framework, database. The test command lives in
    `Repositories`.
-9. `Roles` — exact role values and what each can do.
-10. `Data model` — table, owner feature, reader features, comma-separated key
-    columns, notes.
+9. `Roles` — exact access-role values and what each can do.
+10. `Data model` — `| Entity | Owner | Key fields | Notes |`. One entity has
+    one owner feature. The store type goes in `Stack` and `Notes`.
 11. `API conventions` — single-resource shape, collection shape, errors, search
     pagination, field naming, enums, auth, CSRF, sign-in and sign-out,
     idempotency, response coverage.
 12. `Repositories` — path, role, language, exact test commands, notes. A
     command may be `None — <reason>`.
+
+Optional sections: `Locales` and `Accessibility`. If not used, write `None`.
 
 ## 3. Feature
 
@@ -79,16 +84,20 @@ Required sections:
 
 1. `Why` — why the feature exists.
 2. `Who` — who uses it.
-3. `Depends on` — feature IDs this feature depends on, or `None`.
-4. `Related` — feature IDs referenced outside `Depends on`, or `None`.
-5. `In scope` — what is included.
-6. `Out of scope` — what is excluded.
-7. `Rules` — behavior rules.
-8. `Acceptance` — acceptance criteria as checkboxes.
-9. `Tasks` — tasks as checkboxes.
-10. `Decisions` — table `ID | From | Question | Answer | Source | Date`.
-    `From` is `Q<n>`, `legacy §<section>`, or `None`.
-11. `Open questions` — `Q<n>. <question>` followed by `Recommendation:`,
+3. `Depends on` — feature IDs whose behavior this feature calls, or `None`.
+4. `Reads` — feature IDs whose data this feature reads or writes, or `None`.
+5. `Related` — feature IDs referenced outside `Depends on` and `Reads`, or
+   `None`.
+6. `In scope` — what is included.
+7. `Out of scope` — what is excluded.
+8. `Rules` — behavior rules.
+9. `Acceptance` — acceptance criteria as checkboxes.
+10. `Tasks` — tasks as checkboxes.
+11. `Decisions` — table
+    `ID | From | Question | Answer | Source | Status | Date`. `From` is `Q<n>`,
+    `legacy §<section>`, or `None`. `From: None` means the decision has no
+    predecessor question. `Status` is `approved` or `assumed`.
+12. `Open questions` — `Q<n>. <question>` followed by `Recommendation:`,
     `Owner:` and `Status: open` or `Status: answered (D<n>)`, or `None`.
 
 Optional sections:
@@ -137,6 +146,8 @@ Rules:
 - To correct an earlier entry, add a new entry with `Corrects: NNNN`.
 - `feature.md` is the current state; `changes/` is how it changed.
 - New entries have `Keeliom`, `Decisions` and `Source`.
+- `Before` and `After` quote the changed text in backticks.
+- The project root has a `changes/` directory for `app.md` changes.
 
 Change entry format:
 
@@ -187,7 +198,7 @@ Back transitions:
 | Status | Meaning |
 |---|---|
 | `draft` | The feature is being written |
-| `ready` | All sections are filled, no TBD |
+| `ready` | The spec is complete and implementation has not started. Every Decision is `approved` |
 | `in_progress` | Implementation is underway |
 | `done` | Acceptance is met, tasks are closed |
 | `deprecated` | The capability was replaced; the feature links to its replacement |
@@ -206,24 +217,27 @@ Back transitions:
 - IDs never change and are never reused.
 - If behavior changes, move the status back to
   `draft`/`ready`/`in_progress`.
-- Add `Depends on` only when the dependency is real.
-- If a change relates to a dependency, write it in `Related`.
+- Add `Depends on` for behavior calls and `Reads` for shared data.
+- If a change relates to a dependency or read, write it in `Related`.
 
 These rules are copied into the project's `RULES.md`, so a project can change a
 feature without the Keeliom repository.
 
 ## 8. `CHECK.md`
 
-v0.2.3 checks:
+v0.3.0 checks:
 
 `CHECK.md` runs three passes:
 
-1. Mechanical (M1–M25) — sections, IDs, links, fields, status, dependencies,
-   decisions, source and project changes.
+1. Mechanical (M1–M18 and M20–M25) — sections, IDs, links, fields, status,
+   relations, decisions, source and project changes.
 2. Semantic (S1–S9) — contradictions, scope coverage, terminology, acceptance
    measurability, source coverage, shared-rule drift, implicit dependency,
    change-entry accuracy and traceability.
-3. Code (C1–C3) — entities, columns, routes and roles against the repository.
+3. Code (C1–C3) — entities, fields, routes and roles against the repository.
+
+36 checks: 24 mechanical, 9 semantic, 3 code. One rule set applies to every
+project. `KEELIOM_VERSION` only tells `upgrade` whether migration is needed.
 
 `CHECK.md` reports a per-feature result and `Project OK`. See the template for
 the exact checks.
@@ -252,7 +266,7 @@ If the project already exists:
 - `feature.md` describes what already exists.
 - `changes/0001-initial.md` contains `Reason: Imported from existing code.`
 - `Related` holds feature IDs or `None`. `Source` holds code paths.
-- `Depends on` lists existing features and shared entities.
+- `Depends on` lists behavior calls. `Reads` lists shared data.
 - Statuses:
   - `done` — the code implements it and acceptance is verified;
   - `in_progress` — there are gaps or unverified behavior;
@@ -263,7 +277,7 @@ If the project already exists:
 
 ## 11. What comes next
 
-- **v0.3** — `data.md`, `api.md`, `ui.md` inside a feature.
+- **v0.3.0** — simplification: one rule set, `Reads`, Decisions `Status`.
 - **v0.4** — Blueprint → Canon → Living Spec layers.
 - **v0.5** — optional tooling.
 

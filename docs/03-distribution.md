@@ -76,8 +76,9 @@ ID is `keeliom@keeliom`.
 ## 4. New project
 
 1. Run the `bootstrap` skill in the project directory.
-2. Fill in `app.md`, including `Roles`, `Data model`, `API conventions` and
-   `Repositories`.
+2. Fill in `app.md`, including `Status`, the `Users` table, `Roles`, `Data
+   model` with `Entity | Owner | Key fields | Notes`, `API conventions`,
+   optional `Locales` and `Accessibility`, and `Repositories`.
 3. Create `brief.md` and `feature.md` with `create-feature`.
 4. Run `CHECK.md`.
 5. Implement.
@@ -85,8 +86,9 @@ ID is `keeliom@keeliom`.
 ## 5. Existing project
 
 1. Run `bootstrap` with `mode: existing`. It asks before overwriting any file.
-2. Fill in `app.md` **as-is**, including `Roles`, `Data model`,
-   `API conventions` and `Repositories`.
+2. Fill in `app.md` **as-is**, including `Status`, the `Users` table, `Roles`,
+   `Data model` with `Entity | Owner | Key fields | Notes`, `API conventions`,
+   optional `Locales` and `Accessibility`, and `Repositories`.
 3. Inventory: routes, controllers, models, screens, tests.
 4. Import core/shared with `import-feature`.
 5. Then use `create-feature` and `change-feature`.
@@ -159,10 +161,11 @@ Keeliom is plain Markdown. You can:
 1. Bump `version` in `plugins/keeliom/.claude-plugin/plugin.json`.
 2. Bump `plugins/keeliom/templates/KEELIOM_VERSION` to the same value.
 3. Update `README.md` and `CHANGELOG.md`.
-4. Diff `templates/RULES.md` and `templates/CHECK.md` against the example
-   copies.
+4. Diff `templates/RULES.md` and `templates/CHECK.md` against the example and
+   every fixture copy.
 5. Run `CHECK.md` on `examples/generic-app`. Expect `Project OK`.
-6. Run `CHECK.md` on each fixture. Compare with `expected-findings.md`.
+6. Run `bash tests/run.sh`. Every expected check ID appears, and every `- none`
+   fixture prints `NO FINDINGS`.
 7. Run `review-project` on the example.
 8. Run `claude plugin validate ./plugins/keeliom --strict` and
    `claude plugin validate . --strict`.
