@@ -14,6 +14,10 @@ Reader.
 
 F0001, F0002
 
+## Reads
+
+F0001
+
 ## Related
 
 None
@@ -35,16 +39,17 @@ None
 
 ## Rules
 
-- Title is required, 1–120 characters.
-- Author is required, 1–120 characters.
+- Title is required, 1–120 characters. See `test:title_length`.
+- Author is required, 1–120 characters. See `test:author_length`.
 - Title and author are trimmed before validation and saving.
 - ISBN is optional; if present, it must be unique among other books.
 - ISBN is stored without spaces and hyphens before validation and saving.
 - Normalization runs before the uniqueness check.
 - Clearing the ISBN removes it from the book.
-- ISBN follows the `app.md` invariant: 10 or 13 characters after normalization.
+- ISBN follows the `app.md` invariant: 10 or 13 characters after normalization, digits with `X` allowed as the last character of an ISBN-10, and unique.
 - While loading, show a skeleton.
 - The form is pre-filled with the current values.
+- The reader opens the edit screen from the book list.
 - While submitting, the button is disabled.
 - On success, return to the list and show "Book updated".
 - On validation error, keep the entered values.
@@ -65,16 +70,23 @@ Reads and updates `Book` (see F0001 for the base write rules):
 ## API
 
 ```
+GET /books/:id
 PATCH /books/:id
 ```
 
-Request:
+Response `200` for `GET /books/:id`:
+
+```json
+{ "id": 1, "title": "Dune", "author": "Frank Herbert", "isbn": "9780441013593" }
+```
+
+Request for `PATCH /books/:id`:
 
 ```json
 { "title": "Dune", "author": "Frank Herbert", "isbn": "9780441013593" }
 ```
 
-Response `200`:
+Response `200` for `PATCH /books/:id`:
 
 ```json
 { "id": 1, "title": "Dune", "author": "Frank Herbert", "isbn": "9780441013593" }
@@ -111,7 +123,7 @@ Screen: Edit book
 - [ ] Saving updates the book.
 - [ ] Leading and trailing spaces in title and author are removed before saving.
 - [ ] ISBN spaces and hyphens are removed before saving.
-- [ ] The ISBN is checked for uniqueness after normalization.
+- [ ] The ISBN is checked for uniqueness after normalization. See `test:isbn_normalization`.
 - [ ] Clearing the ISBN removes it from the book.
 - [ ] A book without a title is rejected with `title_required` and status `422`.
 - [ ] A book without an author is rejected with `author_required` and status `422`.

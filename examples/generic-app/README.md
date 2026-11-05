@@ -1,6 +1,6 @@
 # Generic example — Book Library
 
-This is a neutral example for Keeliom v0.2.2. It is not a real app and is not
+This is a neutral example for Keeliom v0.3.0. It is not a real app and is not
 tied to any project.
 
 ## Structure
@@ -11,6 +11,9 @@ generic-app/
   RULES.md
   CHECK.md
   KEELIOM_VERSION
+  changes/
+    0001-data-model-readers.md
+    0002-app-0.3.0.md
   features/
     F0001-add-book/
       feature.md
@@ -19,12 +22,14 @@ generic-app/
         0002-trim-title.md
         0003-correct-reason.md
         0004-isbn-invalid.md
+        0005-migrate-0.3.0.md
     F0002-list-books/
       feature.md
       changes/
         0001-initial.md
         0002-error-status.md
         0003-data-reference.md
+        0004-migrate-0.3.0.md
     F0003-edit-book/
       feature.md
       changes/
@@ -32,6 +37,7 @@ generic-app/
         0002-trim-title.md
         0003-isbn-rules.md
         0004-data-reference.md
+        0005-migrate-0.3.0.md
     F0004-delete-book/
       brief.md
       feature.md
@@ -39,6 +45,7 @@ generic-app/
         0001-initial.md
         0002-success-and-failure.md
         0003-data-reference.md
+        0004-migrate-0.3.0.md
 ```
 
 The Keeliom plugin is installed separately (see
@@ -64,7 +71,7 @@ Ask the LLM to read `CHECK.md` and validate the project. Expected result:
 
 If there are problems, the LLM returns lines like:
 
-    features/F0001-add-book/feature.md: Rules: missing section
+    features/F0001-add-book/feature.md §Rules [M4] error: missing section
 
 ## Question
 

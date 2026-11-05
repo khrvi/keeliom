@@ -14,6 +14,10 @@ Reader.
 
 None
 
+## Reads
+
+None
+
 ## Related
 
 None
@@ -33,12 +37,14 @@ None
 
 ## Rules
 
-- Title is required, 1–120 characters.
-- Author is required, 1–120 characters.
+- Title is required, 1–120 characters. See `test:title_length`.
+- Author is required, 1–120 characters. See `test:author_length`.
 - Title and author are trimmed before validation and saving.
 - ISBN is optional; if present, it must be unique.
 - ISBN is stored without spaces and hyphens.
-- ISBN follows the `app.md` invariant: 10 or 13 characters after normalization.
+- ISBN follows the `app.md` invariant: 10 or 13 characters after normalization, digits with `X` allowed as the last character of an ISBN-10, and unique.
+- Normalization runs before the uniqueness check.
+- On success, `POST /books` saves the book and returns `201` with the book.
 - The form starts empty.
 - While submitting, the button is disabled.
 - On success, the form is cleared and a confirmation is shown.
@@ -100,6 +106,7 @@ Screen: Add book
 - [ ] A reader can add a book with title and author and receives `201` with the book.
 - [ ] Leading and trailing spaces in title and author are removed before saving.
 - [ ] ISBN spaces and hyphens are removed before saving.
+- [ ] An ISBN is normalized before the uniqueness check. See `test:isbn_normalization`.
 - [ ] The book is saved and returned by `POST /books`.
 - [ ] A book without a title is rejected with `title_required` and status `422`.
 - [ ] A book without an author is rejected with `author_required` and status `422`.
@@ -119,9 +126,9 @@ Screen: Add book
 
 ## Decisions
 
-| ID | From | Question | Answer | Source | Date |
-|---|---|---|---|---|---|
-| D1 | None | Should title and author be trimmed? | Yes, before validation and saving. | changes/0002-trim-title.md | 2026-10-30 |
+| ID | From | Question | Answer | Source | Status | Date |
+|---|---|---|---|---|---|---|
+| D1 | None | Should title and author be trimmed? | Yes, before validation and saving. | changes/0002-trim-title.md | approved | 2026-10-30 |
 
 ## Open questions
 

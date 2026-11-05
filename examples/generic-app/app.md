@@ -1,12 +1,16 @@
 # Book Library
 
+Status: ready
+
 ## One-liner
 
 A small personal library where a reader can add books and see what they own.
 
 ## Users
 
-- Reader: adds books and views the list.
+| User | Description |
+|---|---|
+| Reader | Adds books and views the list. |
 
 ## Jobs
 
@@ -53,9 +57,9 @@ A small personal library where a reader can add books and see what they own.
 
 ## Data model
 
-| Table | Owner | Readers | Key columns | Notes |
-|---|---|---|---|---|
-| Book | F0001-add-book | F0002, F0003, F0004 | id, title, author, isbn, created_at | |
+| Entity | Owner | Key fields | Notes |
+|---|---|---|---|
+| Book | F0001-add-book | id, title, author, isbn, created_at | SQLite table. |
 
 ## API conventions
 
@@ -70,6 +74,14 @@ A small personal library where a reader can add books and see what they own.
 - Sign-in and sign-out: not applicable.
 - Idempotency: `POST /books` is not idempotent; `PATCH` and `DELETE` are idempotent by id.
 - Response coverage: every generated and returned `Data` field appears in a response.
+
+## Locales
+
+None
+
+## Accessibility
+
+None
 
 ## Repositories
 

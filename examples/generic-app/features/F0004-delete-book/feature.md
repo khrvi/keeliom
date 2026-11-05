@@ -4,7 +4,8 @@ Status: ready
 
 ## Why
 
-The reader needs to remove a book they no longer own.
+The reader needs to remove a book they no longer own. Ticket BOOK-4 from the
+product owner.
 
 ## Who
 
@@ -13,6 +14,10 @@ Reader.
 ## Depends on
 
 F0001, F0002
+
+## Reads
+
+F0001
 
 ## Related
 
