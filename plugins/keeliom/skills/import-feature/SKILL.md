@@ -58,6 +58,8 @@ description: Document an existing feature from code as a Keeliom feature spec wi
    - `in_progress` if there are gaps or unverified behavior;
    - `draft` if documentation is incomplete.
    - Do not use `ready` for imported code.
+   - When `app.md` is `draft`, keep this status and list each remaining `TBD`
+     in `app.md` as an owner action.
 9. Run `CHECK.md`.
 10. Do not change code.
 11. Report: code paths, verified behavior, gaps.
