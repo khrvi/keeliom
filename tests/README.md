@@ -15,9 +15,8 @@ bash tests/run.sh
 The runner needs the `claude` CLI. It is optional; the framework itself has no
 runtime.
 
-`- none` in an `expected-findings.md` means the fixture must print exactly
-`NO FINDINGS`.
+`- none` in an `expected-findings.md` means the fixture must print `Project OK`
+and no finding line.
 
-`_base/` is a clean fixture. Its `expected-findings.md` says `- none`, so the
-runner requires it to print `NO FINDINGS`. It is the starting point for new
-fixtures and runs with the rest.
+`_base/` is a clean fixture. Its `expected-findings.md` says `- none`. It is the
+starting point for new fixtures and runs with the rest.

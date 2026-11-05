@@ -11,10 +11,10 @@ for fixture in "$root"/tests/fixtures/*/; do
 
   actual="$(mktemp)"
   echo "== $name =="
-  claude -p "Read $fixture/CHECK.md and run it on the project in $fixture. Use the Output format in CHECK.md. If there are no findings, print exactly NO FINDINGS. Do not modify any file." > "$actual"
+  claude -p "Read $fixture/CHECK.md and run it on the project in $fixture. Use the Output format in CHECK.md. Do not modify any file." > "$actual"
 
   if grep -q '^- none$' "$expected"; then
-    if grep -qx 'NO FINDINGS' "$actual"; then
+    if grep -qE '^[[:space:]*]*Project OK[[:space:]*]*$' "$actual" && ! grep -qE '\[[MSC][0-9]+\] (error|warn|unverifiable):' "$actual"; then
       echo "ok: none"
     else
       echo "unexpected finding"
@@ -24,14 +24,22 @@ for fixture in "$root"/tests/fixtures/*/; do
     continue
   fi
 
+  ids="$(grep -oE '\b[MSC][0-9]+\b' "$expected" | sort -u)"
+  if [ -z "$ids" ]; then
+    echo "no check IDs in $expected"
+    fail=1
+    rm -f "$actual"
+    continue
+  fi
+
   while IFS= read -r id; do
-    if grep -q "$id" "$actual"; then
+    if grep -qF "[$id]" "$actual"; then
       echo "ok: $id"
     else
       echo "missing: $id"
       fail=1
     fi
-  done < <(grep -oE '\b[MS][0-9]+\b' "$expected" | sort -u)
+  done <<< "$ids"
 
   if [ "$name" = "old-version" ]; then
     if grep -q 'Upgrade required' "$actual"; then
