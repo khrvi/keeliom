@@ -3,11 +3,12 @@
 ## Read order
 
 1. `app.md`
-2. `features/Fxxxx-<slug>/feature.md`
-3. `features/Fxxxx-<slug>/brief.md` if present
-4. `features/Fxxxx-<slug>/changes/*` if present
-5. `RULES.md`
-6. `CHECK.md`
+2. `changes/*` if present
+3. `features/Fxxxx-<slug>/feature.md`
+4. `features/Fxxxx-<slug>/brief.md` if present
+5. `features/Fxxxx-<slug>/changes/*` if present
+6. `RULES.md`
+7. `CHECK.md`
 
 ## Writing specs
 
@@ -29,13 +30,17 @@
    entry, add a new entry with `Corrects: NNNN`.
 9. `feature.md` is the current state. `changes/` is the history.
 10. A decision is written only in `## Decisions`, using
-    `ID | From | Question | Answer | Source | Date`. An answered question
-    keeps its number and moves to `Status: answered (D<n>)` in
+    `ID | From | Question | Answer | Source | Status | Date`. An answered
+    question keeps its number and moves to `Status: answered (D<n>)` in
     `## Open questions`. The change entry lists the Decision IDs.
 11. `Source` is `path`, `path §section`, `code:path`, or
     `owner:<name>, <date>`. For a decision adopted from a recommendation, use
     `feature.md §Open questions Q<n>`.
-12. Every new change entry has `Keeliom: <KEELIOM_VERSION>`.
+12. `Status` is `approved` when the owner accepted the answer and `assumed`
+    when the spec author chose it. A decision adopted from a recommendation
+    has `From: Q<n>` and `Status: assumed`. `ready` and `done` require
+    `approved`.
+13. Every new change entry has `Keeliom: <KEELIOM_VERSION>`.
 
 ### Creating a feature
 
@@ -84,7 +89,8 @@
 7. A cross-cutting change is a new platform feature or an `app.md` update.
 8. IDs never change and are never reused.
 9. If behavior changes, move `Status` with the table below.
-10. Add `Depends on` only when the dependency is real.
+10. `Depends on` holds behavior calls only. `Reads` holds shared data reads
+    and writes only. Add each only when it is real.
 11. If a change relates to a dependency, write it in `Related`.
 12. When moving to `ready`, re-read the source, verify each claim, write
     Decisions with sources, and run the S and C passes.
@@ -93,7 +99,7 @@
 
 | From | To | Condition |
 |---|---|---|
-| `draft` | `ready` | All required sections filled. No TBD or placeholders. Every open question answered or dropped. Every Decision has a source. |
+| `draft` | `ready` | All required sections filled. No TBD or placeholders. Every open question answered or dropped. Every Decision is `approved`. |
 | `draft` | `draft` | The draft changed. Add a change entry. |
 | `ready` | `in_progress` | Implementation started. |
 | `in_progress` | `done` | All Acceptance and Tasks boxes checked. Tests pass when a test command exists. CHECK reports OK for the feature. |
@@ -112,10 +118,10 @@
 - All required sections filled.
 - No TBD or placeholders.
 - Every open question answered or dropped.
-- Every Decision has a source.
+- Every Decision is `approved` and has a source.
 - M and S checks pass for the feature.
-- C checks pass, or are `unverifiable` with the gap recorded in `Decisions`.
-  C checks are skipped only when `Repositories: None`.
+- C checks pass when `Repositories` is not `None`. A missing entity, field,
+  route or method is allowed only when a Task says `add ...`.
 
 ## Definition of done
 
@@ -126,6 +132,7 @@
   name it.
 - For a feature that touches a shared entity or another feature's behavior,
   `review-project` has run.
+- Every Decision is `approved`.
 - `Status: done`.
 
 ## Unattended mode

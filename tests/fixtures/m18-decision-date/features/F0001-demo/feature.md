@@ -16,6 +16,10 @@ Reader.
 
 None
 
+## Reads
+
+None
+
 ## Related
 
 None
@@ -77,9 +81,9 @@ Screen: Create item
 
 ## Decisions
 
-| ID | From | Question | Answer | Source | Date |
-|---|---|---|---|---|---|
-| D1 | Q1 | Which name format? | Free text. | owner:reader, 2026-11-01 | |
+| ID | From | Question | Answer | Source | Status | Date |
+|---|---|---|---|---|---|---|
+| D1 | Q1 | Which name format? | Free text. | owner:reader, 2026-11-01 | approved | |
 
 ## Open questions
 

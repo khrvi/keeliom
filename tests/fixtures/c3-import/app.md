@@ -1,12 +1,16 @@
 # Fixture
 
+Status: ready
+
 ## One-liner
 
 A fixture.
 
 ## Users
 
-- Reader: uses it.
+| User | Description |
+|---|---|
+| Reader | Uses it. |
 
 ## Jobs
 
@@ -44,15 +48,16 @@ A fixture.
 
 ## Data model
 
-| Table | Owner feature | Key columns | Notes |
+| Entity | Owner | Key fields | Notes |
 |---|---|---|---|
 | Item | F0001-demo | id, name | F0001 owns it. |
 
 ## API conventions
 
-- Envelope: JSON object.
+- Single resource: a JSON object.
+- Collection: a JSON array.
 - Errors: `Code | Status | When`
-- Pagination: none.
+- Search: none.
 - Field naming: snake_case.
 - Enums: none.
 - Auth: none.
@@ -60,6 +65,14 @@ A fixture.
 - Sign-in and sign-out: not applicable.
 - Idempotency: `POST /items` is not idempotent.
 - Response coverage: every generated and returned `Data` field appears in a response.
+
+## Locales
+
+None
+
+## Accessibility
+
+None
 
 ## Repositories
 

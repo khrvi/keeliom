@@ -11,7 +11,18 @@ for fixture in "$root"/tests/fixtures/*/; do
 
   actual="$(mktemp)"
   echo "== $name =="
-  claude -p "Read $fixture/CHECK.md and run it on the project in $fixture. Output one line per finding in the form 'CHECK-ID: file: section: problem'. Do not modify any file." > "$actual"
+  claude -p "Read $fixture/CHECK.md and run it on the project in $fixture. Use the Output format in CHECK.md. If there are no findings, print exactly NO FINDINGS. Do not modify any file." > "$actual"
+
+  if grep -q '^- none$' "$expected"; then
+    if grep -qx 'NO FINDINGS' "$actual"; then
+      echo "ok: none"
+    else
+      echo "unexpected finding"
+      fail=1
+    fi
+    rm -f "$actual"
+    continue
+  fi
 
   while IFS= read -r id; do
     if grep -q "$id" "$actual"; then
@@ -21,6 +32,15 @@ for fixture in "$root"/tests/fixtures/*/; do
       fail=1
     fi
   done < <(grep -oE '\b[MS][0-9]+\b' "$expected" | sort -u)
+
+  if [ "$name" = "old-version" ]; then
+    if grep -q 'Upgrade required' "$actual"; then
+      echo "ok: upgrade"
+    else
+      echo "missing: upgrade"
+      fail=1
+    fi
+  fi
 
   rm -f "$actual"
 done

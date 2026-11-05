@@ -1,0 +1,93 @@
+# F0001 — Demo
+
+Status: ready
+Release: None
+Repositories: None
+
+## Why
+
+The reader needs the item.
+
+## Who
+
+Reader.
+
+## Depends on
+
+None
+
+## Reads
+
+None
+
+## Related
+
+None
+
+## In scope
+
+- Create an item.
+
+## Out of scope
+
+- Delete an item.
+
+## Rules
+
+- The name is required.
+- On success, return `201` with the item and show "Item created".
+
+## Data
+
+| Field | Type | Rules |
+|---|---|---|
+| `id` | integer | generated |
+| `name` | string | required |
+
+## API
+
+```
+POST /items
+```
+
+Response `201`:
+
+```json
+{ "id": 1, "name": "Thing" }
+```
+
+Errors:
+
+| Code | Status | When |
+|---|---|---|
+| `name_required` | 422 | name is missing |
+
+## Screens
+
+Screen: Create item
+
+| State | What the reader sees |
+|---|---|
+| `success` | "Item created" |
+
+## Acceptance
+
+- [ ] The reader can create an item and receives `201` with the item.
+- [ ] A missing name is rejected with `name_required` and status `422`.
+
+## Tasks
+
+- [ ] Add `POST /items`.
+
+## Decisions
+
+| ID | From | Question | Answer | Source | Status | Date |
+|---|---|---|---|---|---|---|
+| D1 | Q1 | Should the item be public? | Yes. | feature.md §Open questions Q1 | assumed | 2026-11-04 |
+
+## Open questions
+
+Q1. Should the item be public?
+- Recommendation: No.
+- Owner: reader
+- Status: answered (D1)

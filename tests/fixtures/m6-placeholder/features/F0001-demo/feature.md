@@ -14,6 +14,10 @@ Reader.
 
 None
 
+## Reads
+
+None
+
 ## Related
 
 None
@@ -28,7 +32,7 @@ None
 
 ## Rules
 
-- The <name> is required.
+- The TBD is required.
 - On success, return `201` with the item and show "Item created".
 
 ## Data
