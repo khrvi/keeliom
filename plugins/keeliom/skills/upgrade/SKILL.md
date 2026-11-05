@@ -41,9 +41,9 @@ description: Upgrade an existing Keeliom project to the current sections and che
 5. Update `app.md`:
    - add `Roles`, `Data model`, `API conventions` and `Repositories` from the
      code;
-   - set `Status: ready` when no `TBD` remains; otherwise `draft`;
-   - keep every feature's status when `app.md` is `draft`, and list each
-     remaining `TBD` in `app.md` as an owner action;
+   - set `Status: ready` when no `TBD` remains; otherwise `draft`. When
+     `app.md` is `draft`, keep every feature's status and list each remaining
+     `TBD` in `app.md` as an owner action;
    - write `Users` as a `| User | Description |` table;
    - write `Data model` with `Entity | Owner | Key fields | Notes`;
    - remove `Readers` and copy it into each feature's `Reads`;
