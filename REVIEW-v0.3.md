@@ -25,7 +25,7 @@ This release answers 14 findings against v0.2.3.
 
 ## Verification
 
-- [ ] `claude plugin validate plugins/keeliom`
-- [ ] `claude plugin validate .`
-- [ ] `CHECK.md` on `examples/generic-app` reports `Project OK`.
-- [ ] `bash tests/run.sh` passes every fixture.
+- [x] `claude plugin validate plugins/keeliom`
+- [x] `claude plugin validate .`
+- [x] `CHECK.md` on `examples/generic-app` reports `Project OK`.
+- [x] `bash tests/run.sh` passes every fixture.
