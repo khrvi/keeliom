@@ -154,14 +154,14 @@ Change entry format:
 ```markdown
 # 0002 — Trim title and author
 
-- **Keeliom:** 0.2.0
+- **Keeliom:** 0.3.0
 - **Date:** 2026-10-30
 - **Reason:** Readers sometimes paste values with spaces.
 - **Changed:**
   - `Rules`: title and author are trimmed before saving.
   - `Acceptance`: added a criterion.
-- **Before:** values were saved as entered.
-- **After:** values are trimmed before saving.
+- **Before:** `values were saved as entered.`
+- **After:** `values are trimmed before saving.`
 - **Related:** None
 - **Corrects:** None
 - **Decisions:** D1

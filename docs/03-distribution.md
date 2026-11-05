@@ -165,7 +165,7 @@ Keeliom is plain Markdown. You can:
    every fixture copy.
 5. Run `CHECK.md` on `examples/generic-app`. Expect `Project OK`.
 6. Run `bash tests/run.sh`. Every expected check ID appears, and every `- none`
-   fixture prints `NO FINDINGS`.
+   fixture prints `Project OK` with no finding line.
 7. Run `review-project` on the example.
 8. Run `claude plugin validate ./plugins/keeliom --strict` and
    `claude plugin validate . --strict`.

@@ -36,25 +36,19 @@
 7. Run `CHECK.md`. `Project OK` is required only when no owner action remains.
    Otherwise list every finding and the owner action.
 
-## From 0.1.0 to 0.2.3
+## From 0.1.0
 
-1. Update `RULES.md` and `CHECK.md` from the plugin templates.
+1. Run the project's current `CHECK.md`. Keep the result as the baseline.
 2. Add `Roles`, `Data model`, `API conventions` and `Repositories` (or `None`)
-   to `app.md`. Remove `Tests` from `Stack`.
+   to `app.md`, using the columns in the 0.3.0 template. Remove `Tests` from
+   `Stack`.
 3. Add `Decisions`, `Related` and structured `Open questions` to every feature.
-4. Do not edit old change entries. Add one migration change entry per feature
-   with `Keeliom: 0.2.3`. Its `Source` is `owner:<name>, <date>` for the
-   upgrade decision and `code:path` for each fact read from code.
-5. Add `Replaced by` to deprecated features.
-6. New change entries carry `Keeliom: 0.2.3`, `Decisions` and `Source`.
-7. Run `CHECK.md` before the migration. Keep the result as the baseline.
-8. Set `KEELIOM_VERSION` to the value in the plugin's
-   `templates/KEELIOM_VERSION` (0.2.3).
-9. Run `CHECK.md` after the version bump. `Project OK` is required only when no
-   owner action remains. Otherwise list every finding and the owner action.
+4. Add `Replaced by` to deprecated features.
+5. Continue with "From 0.2.x to 0.3.0" from step 1. That section updates
+   `RULES.md`, `CHECK.md` and `KEELIOM_VERSION` and adds the migration entries.
 
 Old change entries may keep code paths in `Related`. M11 and M21 exempt entries
-without `Keeliom:`.
+without `Keeliom:`. M20 exempts entries older than 0.3.0.
 
 ## Rollback
 

@@ -7,7 +7,7 @@
 
 ## 1. Principle
 
-Start simple. In v0.2:
+Start simple. In v0.3:
 
 - one app — one `app.md`;
 - one feature — one directory `features/F0001-name/`;
