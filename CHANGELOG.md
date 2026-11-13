@@ -1,5 +1,40 @@
 # Changelog
 
+## 0.4.0 — 2026-11-13
+
+### Added
+
+- `feature.md` for people and `spec.md` for agents.
+- `spec.md` rules `R<n>`, stable and never reused. Other files cite
+  `F00xx R<n>`.
+- `plans/` for human documents that span features.
+- Generated `STATUS.md`.
+- `app.md` `Check overrides` and `Language:`.
+- Decision status `replaced by D<n>`.
+- Skills `setup`, `feature`, `check` and `migrate`.
+- Checks `K1`–`K9`.
+- `tests/lint.sh`, `tests/skills.sh` and `tests/migrate.sh`.
+
+### Changed
+
+- The rules live in the plugin, in `rules/RULES.md` and `rules/CHECK.md`.
+- Change entries have five fields: `Date`, `Reason`, `Changed`, `Decisions`
+  and `Source`.
+- The Decisions table is `| ID | Decision | Source | Status |`.
+- `Depends on` merges behavior, data and relation references. Cycles are
+  allowed.
+- Statuses are `draft`, `ready`, `done` and `deprecated`.
+- `Repositories` is optional and required only when `app.md` lists more than
+  one.
+- The project version lives in `app.md` as `Keeliom:`.
+
+### Removed
+
+- The project-level `RULES.md`, `CHECK.md` and `KEELIOM_VERSION`.
+- `Jobs`, `Release:`, `Acceptance`, `Reads` and `Related` as separate fields.
+- The six old skills.
+- The 36 `M`/`S`/`C` checks.
+
 ## 0.3.0 — 2026-11-04
 
 ### Added

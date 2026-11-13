@@ -8,7 +8,7 @@
     {
       "name": "keeliom",
       "source": "./plugins/keeliom",
-      "description": "Bootstrap, create, change, and import Keeliom feature specs.",
+      "description": "Set up, write, check and migrate Keeliom feature specs.",
       "license": "MIT",
       "category": "development",
       "tags": ["spec", "documentation", "llm"]

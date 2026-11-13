@@ -11,24 +11,25 @@ Keeliom spec framework plugin for Claude Code.
 
 ## Skills
 
-- `bootstrap` — create `app.md`, `RULES.md`, `CHECK.md`, `KEELIOM_VERSION`, and
-  `features/` in a project.
-- `create-feature` — create a feature spec from a brief or ticket.
-- `change-feature` — change a feature and record the reason.
-- `import-feature` — document an existing feature from code.
-- `review-project` — run a project-wide second pass over the spec and code.
-- `upgrade` — migrate an existing project to the current sections and checks.
+- `setup` — set up a new or existing project, or import features from code.
+- `feature` — create or change a feature from a brief, ticket or plan.
+- `check` — run the checks and write `STATUS.md`.
+- `migrate` — migrate a 0.2.x or 0.3 project to 0.4.
+
+## Rules
+
+`rules/` contains the formats and statuses (`RULES.md`) and the checks
+(`CHECK.md`). Every other file cites them.
 
 ## Templates
 
-`templates/` contains:
+`templates/` shows the shape of the project files:
 
 - `app.md`
 - `brief.md`
-- `RULES.md`
-- `CHECK.md`
-- `KEELIOM_VERSION`
+- `keeliom-block.md`
 - `feature/feature.md`
+- `feature/spec.md`
 - `feature/changes/0001-initial.md`
 
 ## Docs

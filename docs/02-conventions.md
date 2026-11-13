@@ -1,284 +1,98 @@
 # 02 — Conventions
 
 - **Status:** draft
-- **Date:** 2026-10-30
+- **Date:** 2026-11-13
 - **Related:** [`README.md`](../README.md), [`01-flow.md`](01-flow.md)
 
-## 1. Project structure
+This page explains why the conventions exist. The formats themselves live in
+[`RULES.md`](../plugins/keeliom/rules/RULES.md).
 
-```
-<project>/
-  app.md
-  RULES.md
-  CHECK.md
-  KEELIOM_VERSION
-  changes/
-  features/
-    F0001-games-list/
-      brief.md
-      feature.md
-      changes/
-        0001-initial.md
-    F0002-registration/
-      brief.md
-      feature.md
-      changes/
-        0001-initial.md
-  src/
-```
+## 1. One home per fact
 
-`brief.md` is optional, but if present it must not be empty.
+A rule is written once. `RULES.md` holds the formats, `CHECK.md` holds the
+checks, a skill holds process steps, a template shows the shape. Other files
+cite the home instead of restating it.
 
-## 2. `app.md`
+Why: v0.3 repeated the same grammar in four places. A rule change meant four
+edits, and they drifted.
 
-`Status: draft` or `Status: ready`.
+## 2. Two files per reader
 
-Required sections:
+[`feature.md`](../plugins/keeliom/rules/RULES.md#featuremd) is written for
+developers and product owners. [`spec.md`](../plugins/keeliom/rules/RULES.md#specmd)
+is written for agents and code.
 
-1. `One-liner` — one sentence about the app.
-2. `Users` — a `| User | Description |` table of domain users.
-3. `Jobs` — what jobs they need to do.
-4. `Scope` — what is in scope.
-5. `Non-goals` — what is out of scope.
-6. `Glossary` — terms.
-7. `Invariants` — what is always true.
-8. `Stack` — language, framework, database. The test command lives in
-   `Repositories`.
-9. `Roles` — exact access-role values and what each can do.
-10. `Data model` — `| Entity | Owner | Key fields | Notes |`. One entity has
-    one owner feature. The store type goes in `Stack` and `Notes`.
-11. `API conventions` — single-resource shape, collection shape, errors, search
-    pagination, field naming, enums, auth, CSRF, sign-in and sign-out,
-    idempotency, response coverage.
-12. `Repositories` — path, role, language, exact test commands, notes. A
-    command may be `None — <reason>`.
+Why: a human reading a feature does not need error codes and field types. An
+agent implementing it does. Splitting by reader keeps both files short.
 
-Optional sections: `Locales` and `Accessibility`. If not used, write `None`.
+`feature.md` comes first. `spec.md` adds precision to it. If they repeat each
+other, one of them is wrong.
 
-## 3. Feature
+## 3. Stable rule IDs
 
-### 3.1. `brief.md`
+A rule is `R<n>`. Numbers are never reused and a removed rule retires its
+number. Other features, plans and notes cite `F00xx R<n>`.
 
-A short description from the product owner or a ticket. It does not have to
-follow a template. Recommended sections:
+Why: code review comments, plans and tickets point at a rule by ID. Renumbering
+breaks those references.
 
-- `Source` — ticket/link/author.
-- `Raw description` — the original text.
-- `Known constraints` — constraints.
-- `Acceptance ideas` — acceptance ideas.
+## 4. Decisions with sources
 
-`brief.md` is the original intent. The source of truth for behavior is
-`feature.md`.
+Every decision has a source: the owner, a brief, a plan or a code path. A
+decision records what the owner chose, not what the agent suggested.
 
-### 3.2. `feature.md`
+Why: the expensive part of a spec is the reasoning behind a choice. A source
+lets a later reader check the choice against the original request.
 
-Every `feature.md` starts with these lines directly under the title:
+An `assumed` decision marks a choice the owner has not confirmed. A `ready`
+feature has none.
 
-- `Status: <value>`
-- `Release: <value>` optional; `None` when no release is planned.
-- `Repositories: <path>[, <path>]` optional; required when `Repositories` has
-  more than one row.
-- `Replaced by: <F00xx>` only when `Status: deprecated`.
+When a decision stops holding, its row stays and its status becomes
+`replaced by D<n>`. Why: the history of the decision stays readable, and no one
+mistakes the old choice for a current one.
 
-Required sections:
+## 5. Slim history
 
-1. `Why` — why the feature exists.
-2. `Who` — who uses it.
-3. `Depends on` — feature IDs whose behavior this feature calls, or `None`.
-4. `Reads` — feature IDs whose data this feature reads or writes, or `None`.
-5. `Related` — feature IDs referenced outside `Depends on` and `Reads`, or
-   `None`.
-6. `In scope` — what is included.
-7. `Out of scope` — what is excluded.
-8. `Rules` — behavior rules.
-9. `Acceptance` — acceptance criteria as checkboxes.
-10. `Tasks` — tasks as checkboxes.
-11. `Decisions` — table
-    `ID | From | Question | Answer | Source | Status | Date`. `From` is `Q<n>`,
-    `legacy §<section>`, or `None`. `From: None` means the decision has no
-    predecessor question. `Status` is `approved` or `assumed`.
-12. `Open questions` — `Q<n>. <question>` followed by `Recommendation:`,
-    `Owner:` and `Status: open` or `Status: answered (D<n>)`, or `None`.
+A change entry is written when a requirement or a decision changes. Review
+fixes, wording and format migrations go in the commit message.
 
-Optional sections:
-
-- `Data` — entities and fields.
-- `API` — endpoints.
-- `Screens` — screens and states.
-
-Rule: if an optional section applies, it is required. If not, write `None`.
-
-A `Data`, `API` or `Tasks` line may start with `In <path>:` when the claim
-belongs to one repository. C1 checks that line against that repository.
-
-### 3.3. Intake
-
-1. The LLM reads `app.md`, `brief.md`, the template, `RULES.md`, and `CHECK.md`.
-2. It extracts what is already known into the sections required by `CHECK.md`
-   M4.
-3. It lists the missing decisions.
-4. It asks only about the missing items:
-   - recommended default;
-   - 1–3 alternatives;
-   - one-line consequence.
-5. If there is no answer: `TBD` and `Status: draft`.
-6. It fills `feature.md`.
-7. It creates `changes/0001-initial.md`.
-8. It runs `CHECK.md`.
-9. It does not write code.
-
-## 4. History: `changes/`
-
-Each feature has a `changes/` directory:
-
-```
-changes/
-  0001-initial.md
-  0002-trim-title.md
-```
-
-Rules:
-
-- `0001-initial.md` is required.
-- Following files are numbered `0002`, `0003`, ...
-- Name: `NNNN-<short-reason>.md`.
-- History is append-only: old files are never edited.
-- To correct an earlier entry, add a new entry with `Corrects: NNNN`.
-- `feature.md` is the current state; `changes/` is how it changed.
-- New entries have `Keeliom`, `Decisions` and `Source`.
-- `Before` and `After` quote the changed text in backticks.
-- The project root has a `changes/` directory for `app.md` changes.
-
-Change entry format:
-
-```markdown
-# 0002 — Trim title and author
-
-- **Keeliom:** 0.3.0
-- **Date:** 2026-10-30
-- **Reason:** Readers sometimes paste values with spaces.
-- **Changed:**
-  - `Rules`: title and author are trimmed before saving.
-  - `Acceptance`: added a criterion.
-- **Before:** `values were saved as entered.`
-- **After:** `values are trimmed before saving.`
-- **Related:** None
-- **Corrects:** None
-- **Decisions:** D1
-- **Source:** owner:product-owner, 2026-10-30
-```
-
-`Reason` is required. A patch without a reason is not a change entry. A real
-diff is optional in v0.1; add `## Diff` later if exactness is needed.
-
-## 5. Naming
-
-- Feature directory: `F0001-games-list/`.
-- Spec: `feature.md`.
-- Brief: `brief.md`.
-- History: `changes/0001-initial.md`.
-- kebab-case, ASCII, no spaces.
-- IDs: `F0001`–`F9999`, always four digits. No hierarchy or prefixes in v0.1.
-- Fixed width keeps lexicographic order.
+Why: v0.3 history was 40% process churn. A reader looking for why a requirement
+changed had to filter out formatting noise.
 
 ## 6. Statuses
 
-```
-draft -> ready -> in_progress -> done -> deprecated
-```
+`draft`, `ready`, `done`, `deprecated`. Ticket systems track who works on what.
 
-Back transitions:
+Why: a spec status answers one question: is this feature ready or shipped? The
+old status for work in progress duplicated the ticket system and went stale.
 
-- `ready`, `in_progress` or `done` -> `draft` when scope or decisions change.
-- `done` -> `ready` when behavior changes and the spec is complete.
-- `done` or `ready` -> `in_progress` when implementation resumes.
-- `ready` -> `ready` and `in_progress` -> `in_progress` for a complete behavior
-  change. Add a change entry.
+## 7. Language
 
-| Status | Meaning |
-|---|---|
-| `draft` | The feature is being written |
-| `ready` | The spec is complete and implementation has not started. Every Decision is `approved` |
-| `in_progress` | Implementation is underway |
-| `done` | Acceptance is met, tasks are closed |
-| `deprecated` | The capability was replaced; the feature links to its replacement |
+`app.md` sets `Language:`. The prose follows it. Headings, keys and IDs stay
+English.
 
-## 7. Changing a feature
+Why: an agent parses the headings and the keys. The prose is for the people who
+work in that language.
 
-- A feature describes a capability, not a change.
-- If the same capability changes, edit the existing `feature.md` and add a
-  change entry.
-- If a new user goal is added, create a new feature.
-- If a capability is replaced, mark the old one `deprecated` and link to the new
-  one.
-- A bug fix edits the existing feature, its `Acceptance`/tests, and adds a
-  change entry.
-- A cross-cutting change is a new platform feature or an `app.md` update.
-- IDs never change and are never reused.
-- If behavior changes, move the status back to
-  `draft`/`ready`/`in_progress`.
-- Add `Depends on` for behavior calls and `Reads` for shared data.
-- If a change relates to a dependency or read, write it in `Related`.
+## 8. Plans
 
-These rules are copied into the project's `RULES.md`, so a project can change a
-feature without the Keeliom repository.
+A plan is a free-form document that spans features. It is a proposal and a
+record of reasoning. Features are the current truth.
 
-## 8. `CHECK.md`
+Why: release and redesign documents describe several features at once. A
+feature file cannot hold them, and there is no useful section format for them.
 
-v0.3.0 checks:
+## 9. Check overrides
 
-`CHECK.md` runs three passes:
+A project can record an exception in `app.md §Check overrides`. The exception
+names a check ID and a reason. `check` applies it and prints it.
 
-1. Mechanical (M1–M18 and M20–M25) — sections, IDs, links, fields, status,
-   relations, decisions, source and project changes.
-2. Semantic (S1–S9) — contradictions, scope coverage, terminology, acceptance
-   measurability, source coverage, shared-rule drift, implicit dependency,
-   change-entry accuracy and traceability.
-3. Code (C1–C3) — entities, fields, routes and roles against the repository.
+Why: a real project has wording overlaps that a check cannot distinguish from a
+defect. An override keeps the exception visible instead of loosening the check
+for everyone.
 
-36 checks: 24 mechanical, 9 semantic, 3 code. One rule set applies to every
-project. `KEELIOM_VERSION` only tells `upgrade` whether migration is needed.
+## 10. Checks
 
-`CHECK.md` reports a per-feature result and `Project OK`. See the template for
-the exact checks.
-
-`CHECK.md` is an instruction for an LLM or a human. No CLI or runtime.
-
-## 9. `RULES.md`, `CHECK.md`, plugin skills
-
-- `RULES.md` — how to generate: read order, intake, change rules, do not
-  invent, task order, status updates, required change entry. It is
-  self-contained.
-- `CHECK.md` — how to validate: checks, output format, do not fix without a
-  request.
-- Keeliom plugin `bootstrap` — create the project files.
-- Keeliom plugin `create-feature` — build a feature from a brief/ticket.
-- Keeliom plugin `change-feature` — change a feature and record the reason.
-- Keeliom plugin `import-feature` — document an existing feature from code.
-
-All of it is plain Markdown.
-
-## 10. Brownfield
-
-If the project already exists:
-
-- `brief.md` describes **current** behavior, not desired behavior.
-- `feature.md` describes what already exists.
-- `changes/0001-initial.md` contains `Reason: Imported from existing code.`
-- `Related` holds feature IDs or `None`. `Source` holds code paths.
-- `Depends on` lists behavior calls. `Reads` lists shared data.
-- Statuses:
-  - `done` — the code implements it and acceptance is verified;
-  - `in_progress` — there are gaps or unverified behavior;
-  - `draft` — documentation is incomplete.
-- Do not use `ready` for imported features.
-- Do not change code during import.
-- Import core/shared first, then the rest.
-
-## 11. What comes next
-
-- **v0.3.0** — simplification: one rule set, `Reads`, Decisions `Status`.
-- **v0.4** — Blueprint → Canon → Living Spec layers.
-- **v0.5** — optional tooling.
-
-Do not add anything that the current flow does not need before v0.2.
+The checks live in [`CHECK.md`](../plugins/keeliom/rules/CHECK.md). There are
+nine, each catching a defect a person would otherwise miss. `check` prints the
+findings and writes `STATUS.md`.

@@ -138,6 +138,48 @@ assert_no_file "$root/plugins/keeliom/skills/import-feature"
 assert_no_file "$root/plugins/keeliom/skills/create-feature"
 assert_no_file "$root/plugins/keeliom/skills/change-feature"
 
+# --- docs
+
+# Every relative Markdown link in the top-level docs must resolve.
+assert_links_resolve() {
+  local file link target found=0
+  for file in "$@"; do
+    while IFS= read -r link; do
+      case "$link" in
+      http* | '#'* | mailto:*) continue ;;
+      esac
+      link=${link%%#*}
+      [ -n "$link" ] || continue
+      target=$(cd "$(dirname "$file")" 2>/dev/null && cd "$(dirname "$link")" 2>/dev/null &&
+        printf '%s/%s\n' "$(pwd -P)" "$(basename "$link")") || target=""
+      case "$target" in
+      "$root"/*)
+        if [ ! -e "$target" ]; then
+          fail "link $link in ${file#"$root"/} does not exist"
+          found=1
+        fi
+        ;;
+      *)
+        fail "link $link in ${file#"$root"/} escapes the repo"
+        found=1
+        ;;
+      esac
+    done < <(grep -oE '\]\([^)]+\)' "$file" | sed -E 's/^\]\(//; s/\)$//')
+  done
+  [ "$found" -eq 0 ] && pass "relative links resolve"
+}
+
+assert_no_grep 'bootstrap|create-feature|change-feature|import-feature|review-project|upgrade skill|KEELIOM_VERSION|in_progress' \
+  "$root/README.md" "$root"/docs/*.md "$root/plugins/keeliom/README.md"
+assert_links_resolve "$root/README.md" "$root"/docs/*.md
+
+docs_skill_lines=$(grep -cE '^- `(setup|feature|check|migrate)`' "$root/README.md")
+if [ "$docs_skill_lines" -eq 4 ]; then
+  pass "README lists exactly the four skills"
+else
+  fail "README lists $docs_skill_lines skill bullets; expected 4"
+fi
+
 # --- version
 
 assert_grep '"version": "0\.4\.0"' "$root/plugins/keeliom/.claude-plugin/plugin.json"

@@ -1,150 +1,105 @@
 # 01 — Flow
 
 - **Status:** draft
-- **Date:** 2026-10-30
+- **Date:** 2026-11-13
 - **Related:** [`README.md`](../README.md),
   [`02-conventions.md`](02-conventions.md)
 
 ## 1. Principle
 
-Start simple. In v0.3:
+Each file has one reader:
 
-- one app — one `app.md`;
-- one feature — one directory `features/F0001-name/`;
-- input — `brief.md` or a ticket;
-- current state — `feature.md`, with `Status`, `Release`, `Repositories`,
-  `Depends on`, `Reads` and Decisions `Status`;
-- history — `changes/0001-initial.md`, `0002-...md`;
-- `RULES.md` — generation;
-- `CHECK.md` — validation;
-- Keeliom plugin skills — LLM instructions;
-- no CLI, Ruby, Node, terminal, or env.
+- `feature.md` is for developers and product owners.
+- `spec.md` is for agents and code.
+- `changes/` records why a requirement or a decision changed.
+- `STATUS.md` tells anyone the state of the project.
+
+The plugin holds the rules. A project holds its specs.
 
 ## 2. Flow
 
 ```
-0. brief.md or ticket
-1. app.md with Status, Users table and Data model
-2. create-feature -> feature.md
-3. changes/0001-initial.md
-4. CHECK.md
-5. LLM/developer reads app.md + brief.md + feature.md + RULES.md
-6. implements tasks in order
-7. checks tasks, updates status
-8. CHECK.md
-9. next feature
+0. brief.md, a ticket or a plan
+1. setup: app.md and the Keeliom block
+2. feature: feature.md first
+3. feature: spec.md derived from it
+4. changes/NNNN-<slug>.md when a requirement or decision changed
+5. check: findings and STATUS.md
+6. implement the spec.md rules
+7. check passes, then Status: done
 ```
 
-Project-level `changes/` records `app.md` changes.
+`feature.md` is agreed before `spec.md` is written. `spec.md` never drives
+`feature.md`.
 
-### Intake
+## 3. Intake
 
-- The product owner provides a short description or a ticket.
-- The LLM extracts what is already known into the template.
-- The LLM asks **only** about missing decisions.
-- For each question: recommended default, alternatives, one-line consequence.
-- If there is no answer: `TBD` and `Status: draft`.
-- The LLM fills `feature.md` and creates `changes/0001-initial.md`.
-- The LLM runs `CHECK.md` and reports the result.
+- The product owner provides a brief, a ticket or a plan.
+- The skill extracts what is already known into `feature.md`.
+- It asks only about decisions the input leaves open.
+- For each question: a recommendation, one to three alternatives and the
+  consequence.
+- Without an answer, the item stays `Q<n>` and the feature stays `draft`.
+- A pasted brief is saved as `brief.md` and never edited.
 
-### Changing an existing feature
+## 4. Changing a feature
 
 ```
-1. change-feature
-2. changes/NNNN-<slug>.md with a reason
-3. update feature.md
-4. CHECK.md
+1. feature: add the decision
+2. feature: update Description and spec.md rules
+3. changes/NNNN-<slug>.md with the reason
+4. check
 ```
 
-## 3. Source of truth
+Existing rule numbers stay. A new rule gets the next number. A removed rule
+retires its number.
 
-- `feature.md` is the current state.
+## 5. Plans
+
+`plans/` holds human documents that span features: a redesign, a release, a
+phase. Keeliom prescribes no sections.
+
+A plan is a proposal. Once its content lands in features, `feature.md` and
+`spec.md` are the current truth. Plans are not kept in sync.
+
+A decision or a change entry may cite `plans/<file>.md §<section>` as its
+source.
+
+## 6. Source of truth
+
+- `feature.md` and `spec.md` are the current state.
 - `changes/` is append-only history.
-- `brief.md` is the original intent, not the source of truth for behavior.
-- `app.md` + `features/*/feature.md` is the spec.
-- Code follows the spec.
-- If code and spec disagree, stop and ask.
+- `brief.md` is the original intent.
+- Code follows `spec.md`. If code and spec disagree, stop and ask.
 - If spec and reality disagree, fix the spec, not the code silently.
 
-## 4. Who writes what
+## 7. Who writes what
 
 | Artifact | Who |
 |---|---|
 | `brief.md` | product owner |
-| `app.md` | owner + LLM |
-| `features/*/feature.md` | owner + LLM |
-| `features/*/changes/*` | owner + LLM |
-| `RULES.md` | framework |
-| `CHECK.md` | framework |
-| `skills/*` | framework |
-| `src/` | developer + LLM |
-| `tasks` | developer + LLM |
-
-## 5. Rules
-
-1. One directory per feature.
-2. Fixed sections.
-3. `Acceptance` uses checkboxes.
-4. `Tasks` uses checkboxes.
-5. No `TBD` in `ready`. Every Decision is `approved`.
-6. If a decision is missing, the LLM stops and asks.
-7. If a section does not apply, write `None`; do not delete the section.
-8. Any edit to `feature.md` other than a checkbox or `Status` requires a new
-   change entry.
-9. Old change entries are never edited.
-10. The LLM asks only about missing decisions and offers a default.
-11. A feature that spans repositories lists them in `Repositories:`.
-12. `Depends on` holds behavior calls. `Reads` holds shared data.
-
-## 6. Layers later
-
-The long-term model is **Blueprint → Canon → Living Spec**.
-
-In v0.1 they are merged into one feature file. Split them when there is a real
-need:
-
-- the feature file is longer than ~200 lines;
-- several people work on the feature;
-- separate API/data/UI contracts are needed;
-- different views are needed for the owner, the LLM, and the developer.
-
-Until then, layers only add noise.
-
-## 7. Errors
-
-| Error | Detected by |
-|---|---|
-| Missing required section | `CHECK.md` |
-| `TBD` in `ready` | `CHECK.md` |
-| Missing `Acceptance` | `CHECK.md` |
-| Missing `Tasks` | `CHECK.md` |
-| Missing `changes/0001-initial.md` | `CHECK.md` |
-| Change without a change entry | review |
-| Code without a spec | review |
-| Spec without code | review |
+| `app.md` | owner + agent |
+| `feature.md` | owner + agent |
+| `spec.md` | owner + agent |
+| `changes/*` | owner + agent |
+| `plans/*` | owner |
+| `STATUS.md` | `check` |
+| the plugin's rules and skills | framework |
+| `src/` | developer + agent |
 
 ## 8. Brownfield: the project already exists
 
-If code already exists, import the existing capabilities first, then reference
-and change them.
-
-Order:
-
-1. Inventory: routes, controllers, models, screens, tests.
-2. Group by user goal, not by code structure.
-3. Import core/shared first: entities, access, navigation.
-4. For each capability, use `import-feature`.
-5. Imported features: `done` if behavior is verified; `in_progress` if there
-   are gaps; `draft` if documentation is incomplete.
-6. Do not use `ready` for imported features.
-7. Do not change code during import.
-8. Only after the import, add new features and changes.
+1. Run `setup mode=existing`. It fills `app.md` from the code, including
+   `Repositories`.
+2. Inventory the routes, models, screens and tests.
+3. Group them by user goal, not by code structure.
+4. Run `setup import=<capability>` for the core capabilities first: entities,
+   access, navigation.
+5. An imported feature gets `Source: code:<path>`. It is never `ready`.
+6. Do not change code during import.
+7. After the import, add new features and changes normally.
 
 ## 9. When to add complexity
 
-- **v0.3** — simplification: one rule set, `Reads`, Decisions `Status`.
-- **v0.4** — split Blueprint → Canon → Living Spec.
-- **v0.5** — optional tooling.
-
-The signal: people or LLMs start getting confused by the current simple version.
-If they do not, do not add complexity.
+The signal: people or agents start getting confused by the current simple
+version. If they do not, do not add complexity.

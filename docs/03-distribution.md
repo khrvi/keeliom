@@ -1,17 +1,17 @@
 # 03 — Distribution
 
 - **Status:** draft
-- **Date:** 2026-10-30
+- **Date:** 2026-11-13
 - **Related:** [`README.md`](../README.md), [`01-flow.md`](01-flow.md),
   [`02-conventions.md`](02-conventions.md)
 
 ## 1. Principle
 
-Keeliom is distributed as a **Claude Code plugin**. Install it once; a project
+Keeliom is distributed as a Claude Code plugin. Install it once. A project
 receives only generated working files, not the framework.
 
-This removes copy/vendor: a project does not store a copy of Keeliom and does not
-drift from it by version.
+This removes copy and vendor. A project does not store a copy of the rules, so
+it cannot drift from them.
 
 ## 2. Repository layout
 
@@ -23,26 +23,28 @@ keeliom/
     keeliom/
       .claude-plugin/
         plugin.json
+      rules/
+        RULES.md
+        CHECK.md
       skills/
-        bootstrap/SKILL.md
-        create-feature/SKILL.md
-        change-feature/SKILL.md
-        import-feature/SKILL.md
+        setup/SKILL.md
+        feature/SKILL.md
+        check/SKILL.md
+        migrate/SKILL.md
       templates/
         app.md
         brief.md
-        RULES.md
-        CHECK.md
-        KEELIOM_VERSION
+        keeliom-block.md
         feature/feature.md
+        feature/spec.md
         feature/changes/0001-initial.md
   docs/
   examples/
+  tests/
 ```
 
-The marketplace and the plugin are separate directories. The plugin is copied
-into the Claude Code cache as a whole, so `templates/` must stay inside
-`plugins/keeliom/`.
+The plugin copies into the Claude Code cache as a whole, so `rules/` and
+`templates/` stay inside `plugins/keeliom/`.
 
 ## 3. Install
 
@@ -75,101 +77,89 @@ ID is `keeliom@keeliom`.
 
 ## 4. New project
 
-1. Run the `bootstrap` skill in the project directory.
-2. Fill in `app.md`, including `Status`, the `Users` table, `Roles`, `Data
-   model` with `Entity | Owner | Key fields | Notes`, `API conventions`,
-   optional `Locales` and `Accessibility`, and `Repositories`.
-3. Create `brief.md` and `feature.md` with `create-feature`.
-4. Run `CHECK.md`.
-5. Implement.
+1. Run `setup mode=new` in the project directory.
+2. It writes `app.md` from the template with `Status: draft` and
+   `Language: English`.
+3. It creates `features/` and `changes/`.
+4. It writes the Keeliom block into `CLAUDE.md` and `AGENTS.md`.
+5. Fill the `TBD` markers, then run `feature`.
 
 ## 5. Existing project
 
-1. Run `bootstrap` with `mode: existing`. It asks before overwriting any file.
-2. Fill in `app.md` **as-is**, including `Status`, the `Users` table, `Roles`,
-   `Data model` with `Entity | Owner | Key fields | Notes`, `API conventions`,
-   optional `Locales` and `Accessibility`, and `Repositories`.
-3. Inventory: routes, controllers, models, screens, tests.
-4. Import core/shared with `import-feature`.
-5. Then use `create-feature` and `change-feature`.
-6. Do not change code during import.
-7. Imported features: `done`, `in_progress`, or `draft`; do not use `ready`.
+1. Run `setup mode=existing`. It reads the code and fills `app.md` as-is,
+   including `Repositories`.
+2. Inventory the routes, models, screens and tests.
+3. Import the core capabilities with `setup import=<capability>`.
+4. Then use `feature` for new work.
+5. Do not change code during import.
 
 ## 6. What goes into the project
 
 - `app.md`
-- `RULES.md`
-- `CHECK.md`
-- `KEELIOM_VERSION`
+- `STATUS.md`
+- `CLAUDE.md` and `AGENTS.md`
 - `features/`
 - `changes/` for `app.md` changes
-- `TODO.md` for `import-first` findings
-- `src/`
+- `plans/` when the owner wants it
 
-Not copied:
+Not copied: the plugin's `rules/`, `skills/` and `templates/`, the docs and the
+examples. They live in the installed plugin.
 
-- `skills/`;
-- `templates/`;
-- `docs/`;
-- `examples/`;
-- plugin manifests.
+## 7. The Keeliom block
 
-They live in the installed plugin.
+`setup` and `migrate` write one block into `CLAUDE.md` and `AGENTS.md`, between
+`<!-- keeliom:start -->` and `<!-- keeliom:end -->`. The block points at
+`app.md`, the feature files and the rules, and it states the working rules.
 
-## 7. Updating a project
+A file without the markers gets the block appended. A file with the markers has
+only that range replaced. Everything outside the markers belongs to the
+project.
+
+## 8. Updating a project
 
 1. Update the plugin.
 2. Read `CHANGELOG.md`.
-3. Run the `upgrade` skill in the project. It reports the changes first. On
-   confirmation it updates `RULES.md`, `CHECK.md`, `app.md` and each feature,
-   then runs `CHECK.md`.
-4. If the skill cannot run, follow [`upgrade.md`](upgrade.md) by hand.
-5. Do not overwrite `app.md`, `features/`, or `src/`.
+3. Run `migrate` in `report` mode. It prints every planned change and writes
+   nothing.
+4. Run `migrate` in `apply` mode. It needs a clean git working tree.
+5. Do not edit an old change entry.
 
-`KEELIOM_VERSION` shows which framework version the project uses.
+A project records its version as `Keeliom:` in `app.md`. A skill compares the
+major and minor parts with the plugin version.
 
-## 8. Non-Claude Code
+## 9. Non-Claude Code
 
 Keeliom is plain Markdown. You can:
 
-- point the LLM at the Keeliom repository and ask it to follow the plugin's
-  `skills/*/SKILL.md`;
-- copy the plugin's `skills/` and `templates/` into the LLM environment;
-- work only with the project's `RULES.md`/`CHECK.md`; they are self-contained.
+- point the LLM at this repository and ask it to follow `rules/` and
+  `skills/<name>/SKILL.md`;
+- copy the plugin's `rules/`, `skills/` and `templates/` into the LLM
+  environment;
+- give the LLM the Keeliom block text and the rules URL from the block.
 
-## 9. Plugin notes
+## 10. Plugin notes
 
 - The marketplace entry `name` and `plugin.json` `name` must match.
 - Skills live at `plugins/keeliom/skills/<name>/SKILL.md`.
 - Skills reference plugin files through `${CLAUDE_PLUGIN_ROOT}`.
-- `templates/` must stay inside the plugin directory; paths above the plugin
-  root are not copied into the cache.
-- `version` in `plugin.json` controls releases. Bump it to publish an update.
-  The marketplace entry has no `version`; `plugin.json` is the only copy.
-- Validate with `claude plugin validate ./plugins/keeliom --strict` and
-  `claude plugin validate . --strict`.
-
-## 10. Why plugin by default
-
-- One-command install and update.
-- Versioning and marketplace updates.
-- Skills and templates are bundled together.
-- No copy/vendor into every project.
+- `rules/` and `templates/` must stay inside the plugin directory. Paths above
+  the plugin root are not copied into the cache.
+- `version` in `plugin.json` controls releases. The marketplace entry has no
+  version.
+- Validate with `claude plugin validate ./plugins/keeliom` and
+  `claude plugin validate .`.
 
 ## 11. Release checklist
 
 1. Bump `version` in `plugins/keeliom/.claude-plugin/plugin.json`.
-2. Bump `plugins/keeliom/templates/KEELIOM_VERSION` to the same value.
+2. Update the rules URL in `templates/keeliom-block.md` to the new tag.
 3. Update `README.md` and `CHANGELOG.md`.
-4. Diff `templates/RULES.md` and `templates/CHECK.md` against the example and
-   every fixture copy.
-5. Run `CHECK.md` on `examples/generic-app`. Expect `Project OK`.
-6. Run `bash tests/run.sh`. Every expected check ID appears, and every `- none`
-   fixture prints `Project OK` with no finding line.
-7. Run `review-project` on the example.
-8. Run `claude plugin validate ./plugins/keeliom --strict` and
-   `claude plugin validate . --strict`.
+4. Run `bash tests/lint.sh`.
+5. Run `bash tests/run.sh`. Every fixture passes.
+6. Run `bash tests/skills.sh` and `bash tests/migrate.sh`.
+7. Run `check` on `examples/generic-app`. Expect `Project OK`.
+8. Run `claude plugin validate ./plugins/keeliom` and
+   `claude plugin validate .`.
 9. Tag `v<version>`.
 
-`plugin.json` is the source of the plugin version. `templates/KEELIOM_VERSION`
-carries the same number into new projects.
+`plugin.json` is the single copy of the plugin version.
