@@ -2,7 +2,6 @@
 
 Status: ready
 Release: None
-Repositories: None
 
 ## Why
 

@@ -56,6 +56,40 @@ scenario_check_status() {
   fi
 }
 
+scenario_check_older() {
+  local dir="$tmp/check_older"
+  cp -R "$root/tests/fixtures/version-old" "$dir"
+  run_skill "$dir" "/keeliom:check" >"$tmp/check_older.out" 2>&1
+
+  if grep -q 'Migration required: run the migrate skill\.' "$tmp/check_older.out"; then
+    pass "check_older: prints the migration message"
+  else
+    fail "check_older: no migration message"
+    sed 's/^/    /' "$tmp/check_older.out" | head -20
+  fi
+  assert_file "$dir/STATUS.md"
+}
+
+scenario_setup_old_project() {
+  local dir="$tmp/setup_old_project"
+  cp -R "$root/tests/migrate/v0.3-input" "$dir"
+  cp "$dir/app.md" "$tmp/setup_old_app.orig"
+  run_skill "$dir" "/keeliom:setup mode=existing" >"$tmp/setup_old.out" 2>&1
+
+  if cmp -s "$tmp/setup_old_app.orig" "$dir/app.md"; then
+    pass "setup_old: app.md unchanged"
+  else
+    fail "setup_old: setup rewrote the old app.md"
+    diff "$tmp/setup_old_app.orig" "$dir/app.md" | head -20
+  fi
+  if grep -q 'Migration required' "$tmp/setup_old.out"; then
+    pass "setup_old: prints the migration message"
+  else
+    fail "setup_old: no migration message"
+    sed 's/^/    /' "$tmp/setup_old.out" | head -20
+  fi
+}
+
 scenario_setup_new() {
   local dir="$tmp/setup_new"
   mkdir -p "$dir"
@@ -114,6 +148,16 @@ EOF
   else
     fail "setup_block: $starts blocks"
   fi
+  if grep -q 'Old Keeliom block\.' "$dir/CLAUDE.md"; then
+    fail "setup_block: old block kept"
+  else
+    pass "setup_block: old block replaced"
+  fi
+  if grep -q 'This project uses Keeliom\.' "$dir/CLAUDE.md"; then
+    pass "setup_block: template text present"
+  else
+    fail "setup_block: template text missing"
+  fi
 }
 
 scenario_feature_unattended() {
@@ -165,6 +209,7 @@ scenario_feature_change() {
   local dir="$tmp/feature_change"
   cp -R "$root/tests/fixtures/_base" "$dir"
   cp "$dir/features/F0001-demo/changes/0001-initial.md" "$tmp/entry.orig"
+  grep -E '^- R[12]\.' "$dir/features/F0001-demo/spec.md" >"$tmp/rules.orig"
 
   run_skill "$dir" "/keeliom:feature F0001 change: names are limited to 40 characters. Owner approved. unattended" \
     >"$tmp/feature_change.out" 2>&1
@@ -186,6 +231,12 @@ scenario_feature_change() {
   assert_grep '^- R1\.' "$dir/features/F0001-demo/spec.md"
   assert_grep '^- R2\.' "$dir/features/F0001-demo/spec.md"
   assert_grep '^- R3\.' "$dir/features/F0001-demo/spec.md"
+  grep -E '^- R[12]\.' "$dir/features/F0001-demo/spec.md" >"$tmp/rules.after"
+  if cmp -s "$tmp/rules.orig" "$tmp/rules.after"; then
+    pass "feature_change: R1 and R2 unchanged"
+  else
+    fail "feature_change: R1 or R2 changed"
+  fi
 }
 
 if [ $# -gt 1 ]; then

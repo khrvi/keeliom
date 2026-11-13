@@ -48,25 +48,23 @@ for fixture in "${fixtures[@]}"; do
       sed 's/^/    /' "$actual" | head -40
       fail=1
     fi
-    continue
-  fi
-
-  ids=$(grep -oE '\bK[0-9]+\b' "$expected" | sort -u)
-  line_specs=$(sed -n 's/^- line: //p' "$expected")
-  if [ -z "$ids" ] && [ -z "$line_specs" ]; then
-    echo "FAIL: no expectation in $expected"
-    fail=1
-  fi
-  while IFS= read -r id; do
-    [ -n "$id" ] || continue
-    if grep -qF "[$id]" "$actual"; then
-      echo "ok: $id"
-    else
-      echo "FAIL: missing $id"
-      sed 's/^/    /' "$actual" | head -40
+  else
+    ids=$(grep -oE '\bK[0-9]+\b' "$expected" | sort -u)
+    if [ -z "$ids" ] && [ -z "$(sed -n 's/^- line: //p' "$expected")" ]; then
+      echo "FAIL: no expectation in $expected"
       fail=1
     fi
-  done <<<"$ids"
+    while IFS= read -r id; do
+      [ -n "$id" ] || continue
+      if grep -qF "[$id]" "$actual"; then
+        echo "ok: $id"
+      else
+        echo "FAIL: missing $id"
+        sed 's/^/    /' "$actual" | head -40
+        fail=1
+      fi
+    done <<<"$ids"
+  fi
 
   while IFS= read -r line; do
     [ -n "$line" ] || continue

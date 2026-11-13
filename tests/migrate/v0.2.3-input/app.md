@@ -1,16 +1,12 @@
 # Notes
 
-Status: ready
-
 ## One-liner
 
 A small app where a member keeps private notes.
 
 ## Users
 
-| User | Description |
-|---|---|
-| Member | Writes and reads notes. |
+- Member: writes and reads notes.
 
 ## Jobs
 
@@ -50,23 +46,15 @@ A small app where a member keeps private notes.
 
 ## Data model
 
-| Entity | Owner | Key fields | Notes |
-|---|---|---|---|
-| Note | F0001-add-note | id, title | none |
+| Table | Owner | Readers | Key columns | Notes |
+|---|---|---|---|---|
+| Note | F0001-add-note | F0002-list-notes | id, title | none |
 
 ## API conventions
 
 - Single resource: JSON object.
 - Collection: JSON array.
 - Errors: `Code | Status | When`
-
-## Locales
-
-None
-
-## Accessibility
-
-None
 
 ## Repositories
 

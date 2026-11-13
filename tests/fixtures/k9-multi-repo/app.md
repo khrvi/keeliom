@@ -52,5 +52,5 @@ A demo app where a member keeps a list of items.
 
 | Path | Role | Language | Test commands | Notes |
 |---|---|---|---|---|
-| api | api | Markdown | none | none |
-| web | web | Markdown | none | none |
+| src/api | api | Markdown | none | none |
+| src/web | web | Markdown | none | none |

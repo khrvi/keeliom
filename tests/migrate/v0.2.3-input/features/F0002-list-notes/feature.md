@@ -1,8 +1,7 @@
 # F0002 — List notes
 
 Status: ready
-Release: None
-Repositories: None
+Release: 1.0
 
 ## Why
 

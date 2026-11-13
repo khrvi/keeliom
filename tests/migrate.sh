@@ -59,10 +59,17 @@ assert_old_entries_unchanged() {
 }
 
 assert_applied() {
-  local dir=$1 input=$2 name
+  local dir=$1 input=$2 name before after new fields
   for name in $(cd "$input/features" && ls -d */ | tr -d '/'); do
     assert_file "$dir/features/$name/feature.md"
     assert_file "$dir/features/$name/spec.md"
+    before=$(find "$input/features/$name/changes" -type f | wc -l | tr -d ' ')
+    after=$(find "$dir/features/$name/changes" -type f | wc -l | tr -d ' ')
+    if [ "$after" -eq "$before" ]; then
+      pass "$name gains no entry"
+    else
+      fail "$name has $after entries, expected $before"
+    fi
   done
   assert_old_entries_unchanged "$dir" "$input"
   assert_no_file "$dir/RULES.md"
@@ -70,6 +77,28 @@ assert_applied() {
   assert_no_file "$dir/KEELIOM_VERSION"
   assert_grep '^Keeliom: 0\.4\.0$' "$dir/app.md"
   assert_no_grep '^## Jobs$' "$dir/app.md"
+
+  before=0
+  [ -d "$input/changes" ] && before=$(find "$input/changes" -type f | wc -l | tr -d ' ')
+  after=$(find "$dir/changes" -type f | wc -l | tr -d ' ')
+  new=$(find "$dir/changes" -name '*-migrate-0.4.md' | head -n 1)
+  if [ "$after" -eq $((before + 1)) ] && [ -n "$new" ]; then
+    pass "exactly one new project entry"
+    fields=$(grep -cE '^- *\*{0,2}(Date|Reason|Changed|Decisions|Source)' "$new")
+    if [ "$fields" -eq 5 ]; then
+      pass "migration entry has five fields"
+    else
+      fail "migration entry has $fields field lines"
+    fi
+  else
+    fail "project changes/ went from $before to $after files"
+  fi
+
+  if grep -q '<!-- keeliom:start -->' "$dir/CLAUDE.md" 2>/dev/null; then
+    pass "CLAUDE.md has the block"
+  else
+    fail "CLAUDE.md has no block"
+  fi
 }
 
 case_report_writes_nothing() {
@@ -83,47 +112,19 @@ case_report_writes_nothing() {
     fail "report: files changed"
     git -C "$dir" status --porcelain | sed 's/^/    /'
   fi
+  if grep -q 'F0001' "$out"; then
+    pass "report: names a feature"
+  else
+    fail "report: names no feature"
+  fi
 }
 
 case_apply_v03() {
-  local dir out before after new name
+  local dir out
   dir=$(prepare "$root/tests/migrate/v0.3-input")
   out="$tmp/apply_v03.out"
   apply "$dir" "$out"
-
   assert_applied "$dir" "$root/tests/migrate/v0.3-input"
-
-  before=$(find "$root/tests/migrate/v0.3-input/changes" -type f | wc -l | tr -d ' ')
-  after=$(find "$dir/changes" -type f | wc -l | tr -d ' ')
-  new=$(find "$dir/changes" -name '*-migrate-0.4.md' | head -n 1)
-  if [ "$after" -eq $((before + 1)) ] && [ -n "$new" ]; then
-    pass "v0.3: exactly one new project entry"
-    local fields
-    fields=$(grep -cE '^- *\*{0,2}(Date|Reason|Changed|Decisions|Source)' "$new")
-    if [ "$fields" -eq 5 ]; then
-      pass "v0.3: migration entry has five fields"
-    else
-      fail "v0.3: migration entry has $fields field lines"
-    fi
-  else
-    fail "v0.3: project changes/ went from $before to $after files"
-  fi
-
-  for name in $(cd "$root/tests/migrate/v0.3-input/features" && ls -d */ | tr -d '/'); do
-    before=$(find "$root/tests/migrate/v0.3-input/features/$name/changes" -type f | wc -l | tr -d ' ')
-    after=$(find "$dir/features/$name/changes" -type f | wc -l | tr -d ' ')
-    if [ "$after" -eq "$before" ]; then
-      pass "v0.3: $name gains no entry"
-    else
-      fail "v0.3: $name has $after entries, expected $before"
-    fi
-  done
-
-  if grep -q '<!-- keeliom:start -->' "$dir/CLAUDE.md" 2>/dev/null; then
-    pass "v0.3: CLAUDE.md has the block"
-  else
-    fail "v0.3: CLAUDE.md has no block"
-  fi
 }
 
 case_apply_v023() {
@@ -134,6 +135,14 @@ case_apply_v023() {
 
   assert_applied "$dir" "$root/tests/migrate/v0.2.3-input"
   assert_no_grep '^Release:' "$dir/features"
+  assert_grep '^Status: ' "$dir/app.md"
+  assert_grep '\| User \| Description \|' "$dir/app.md"
+  assert_grep '\| Entity \| Owner \| Key fields \| Notes \|' "$dir/app.md"
+  if grep -q 'plans/release' "$out"; then
+    pass "v0.2.3: report offers a release plan"
+  else
+    fail "v0.2.3: no release plan offer"
+  fi
 
   local feature="$dir/features/F0001-add-note/feature.md"
   if grep -qE '^(- )?Q2\.' "$feature"; then
@@ -172,10 +181,48 @@ case_unnumbered() {
   else
     pass "unnumbered: meta-decision row gone"
   fi
+  if grep -qE '^\| D4 \|' "$feature"; then
+    fail "unnumbered: D4 row kept"
+  else
+    pass "unnumbered: D4 row gone"
+  fi
   if grep -Eq '^\| D2 \|.*replaced by D3 \|' "$feature"; then
     pass "unnumbered: D2 marked replaced by D3"
   else
     fail "unnumbered: D2 not marked replaced by D3"
+  fi
+}
+
+case_per_feature() {
+  local dir out
+  dir=$(prepare "$root/tests/migrate/v0.2.3-input")
+  out="$tmp/per_feature.out"
+  run_skill "$dir" "/keeliom:migrate mode=apply owner=maintainer confirm=yes F0001" >"$out" 2>&1
+
+  assert_file "$dir/features/F0001-add-note/spec.md"
+  assert_no_file "$dir/features/F0002-list-notes/spec.md"
+  if grep -q '^Keeliom: 0\.4\.0$' "$dir/app.md"; then
+    fail "per-feature: app.md was migrated"
+  else
+    pass "per-feature: app.md untouched"
+  fi
+  if ls "$dir"/changes/*-migrate-0.4.md >/dev/null 2>&1; then
+    fail "per-feature: project entry written"
+  else
+    pass "per-feature: no project entry"
+  fi
+  assert_file "$dir/KEELIOM_VERSION"
+
+  git -C "$dir" add -A
+  git -C "$dir" -c user.email=test@example.com -c user.name=test commit -qm partial
+
+  run_skill "$dir" "/keeliom:migrate mode=apply owner=maintainer confirm=yes" >"$tmp/per_feature_rest.out" 2>&1
+  assert_file "$dir/features/F0002-list-notes/spec.md"
+  assert_grep '^Keeliom: 0\.4\.0$' "$dir/app.md"
+  if ls "$dir"/changes/*-migrate-0.4.md >/dev/null 2>&1; then
+    pass "per-feature: the full run writes the project entry"
+  else
+    fail "per-feature: the full run wrote no project entry"
   fi
 }
 
@@ -186,7 +233,7 @@ case_dirty_tree() {
   out="$tmp/dirty_tree.out"
   apply "$dir" "$out"
 
-  if grep -qi 'clean' "$out"; then
+  if grep -qi 'not clean\|clean working tree' "$out"; then
     pass "dirty tree: output mentions a clean tree"
   else
     fail "dirty tree: output does not mention a clean tree"
@@ -209,6 +256,7 @@ case_rerun() {
   local dir out
   dir=$(prepare "$root/tests/migrate/v0.3-input")
   apply "$dir" "$tmp/rerun-first.out"
+  assert_grep '^Keeliom: 0\.4\.0$' "$dir/app.md"
   git -C "$dir" add -A
   git -C "$dir" -c user.email=test@example.com -c user.name=test commit -qm migrated
   out="$tmp/rerun.out"
