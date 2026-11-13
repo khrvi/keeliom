@@ -1,10 +1,12 @@
 # TBD — app name
 
+Keeliom: 0.4.0
 Status: draft
+Language: English
 
 ## One-liner
 
-TBD — what the app does in one sentence.
+TBD — one sentence: what the app does and for whom.
 
 ## Users
 
@@ -12,17 +14,13 @@ TBD — what the app does in one sentence.
 |---|---|
 | TBD | TBD — what this user does |
 
-## Jobs
-
-- TBD — job to be done
-
 ## Scope
 
-- TBD — what is in scope
+- TBD — a behavior the app has.
 
 ## Non-goals
 
-- TBD — what is explicitly out of scope
+- TBD — a behavior the app does not have.
 
 ## Glossary
 
@@ -32,7 +30,7 @@ TBD — what the app does in one sentence.
 
 ## Invariants
 
-- TBD — what is always true
+- TBD — a rule that is always true.
 
 ## Stack
 
@@ -50,21 +48,11 @@ TBD — what the app does in one sentence.
 
 | Entity | Owner | Key fields | Notes |
 |---|---|---|---|
-| TBD | TBD | TBD | TBD — table, collection, document or key namespace |
+| TBD | F0001 | TBD | TBD |
 
-## API conventions
+## Conventions
 
-- Single resource: TBD — shape
-- Collection: TBD — shape
-- Errors: `Code | Status | When`
-- Search: TBD — pagination rule
-- Field naming: TBD — rule
-- Enums: TBD — rule
-- Auth: TBD — rule
-- CSRF: TBD — rule
-- Sign-in and sign-out: TBD — rule
-- Idempotency: TBD — rule
-- Response coverage: every generated and returned `Data` field appears in a response.
+None
 
 ## Locales
 
@@ -74,8 +62,6 @@ None
 
 None
 
-## Repositories
+## Check overrides
 
-| Path | Role | Language | Test commands | Notes |
-|---|---|---|---|---|
-| TBD | TBD | TBD | TBD — exact command or `None — <reason>` | TBD |
+None

@@ -1,72 +1,29 @@
 # F0001 — TBD — feature name
 
 Status: draft
-Release: None
-Repositories: None
+Source: TBD — brief.md, a ticket ID, a URL, plans/<file>.md, or code:<path>
 
-## Why
+## Overview
 
-TBD — why this feature exists.
+TBD — a short paragraph: what the feature does and why.
 
-## Who
+## Description
 
-TBD — who uses it.
+### TBD — topic
 
-## Depends on
-
-None
-
-## Reads
-
-None
-
-## Related
-
-None
-
-## In scope
-
-- TBD — what is included
+TBD — what the user experiences.
 
 ## Out of scope
 
-- TBD — what is excluded
-
-## Rules
-
-- TBD — behavior rule
-
-## Data
-
-None
-
-## API
-
-None
-
-## Screens
-
-None
-
-## Acceptance
-
-- [ ] TBD — observable result
-
-## Tasks
-
-- [ ] TBD — implementation step
+- TBD — excluded work, with the owning feature when one exists.
 
 ## Decisions
 
-None
-
-When a decision exists, use the table `ID | From | Question | Answer | Source | Status | Date`.
+| ID | Decision | Source | Status |
+|---|---|---|---|
+| D1 | TBD | TBD | assumed |
 
 ## Open questions
 
-Q1. TBD — question
-- Recommendation: TBD — default
-- Owner: TBD — owner
-- Status: open
-
-An answered question keeps its number and uses `Status: answered (D<n>)`.
+- Q1. TBD
+  Recommendation: TBD. Owner: TBD.

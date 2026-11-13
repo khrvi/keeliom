@@ -62,6 +62,69 @@ else
   pass "RULES.md outside §Version names no removed field"
 fi
 
+# --- templates
+
+app_tpl="$root/plugins/keeliom/templates/app.md"
+assert_file "$app_tpl"
+assert_grep '^Keeliom: 0\.4\.0$' "$app_tpl"
+assert_grep '^Status: draft$' "$app_tpl"
+assert_grep '^Language: English$' "$app_tpl"
+for heading in 'One-liner' 'Users' 'Scope' 'Non-goals' 'Glossary' 'Invariants' \
+  'Stack' 'Roles' 'Data model'; do
+  assert_grep "^## $heading\$" "$app_tpl"
+done
+assert_no_grep '^## Jobs$|^## API conventions$' "$app_tpl"
+
+feature_tpl="$root/plugins/keeliom/templates/feature/feature.md"
+assert_file "$feature_tpl"
+assert_grep '^Status: draft$' "$feature_tpl"
+assert_grep '^Source: TBD' "$feature_tpl"
+for heading in 'Overview' 'Description' 'Out of scope' 'Decisions' 'Open questions'; do
+  assert_grep "^## $heading\$" "$feature_tpl"
+done
+assert_no_grep '^## Why$|^## Acceptance$|^## Tasks$|^Release:' "$feature_tpl"
+
+spec_tpl="$root/plugins/keeliom/templates/feature/spec.md"
+assert_file "$spec_tpl"
+assert_grep '^Depends on: None$' "$spec_tpl"
+assert_grep '^## Rules$' "$spec_tpl"
+assert_grep '^- R1\. TBD' "$spec_tpl"
+
+entry_tpl="$root/plugins/keeliom/templates/feature/changes/0001-initial.md"
+assert_file "$entry_tpl"
+assert_no_grep 'Keeliom:' "$entry_tpl"
+entry_fields=$(grep -cE '^- (Date|Reason|Changed|Decisions|Source):' "$entry_tpl")
+entry_keys=$(grep -cE '^- [A-Za-z]+:' "$entry_tpl")
+if [ "$entry_fields" -eq 5 ] && [ "$entry_keys" -eq 5 ]; then
+  pass "initial entry has exactly the five fields"
+else
+  fail "initial entry has $entry_fields field lines and $entry_keys bullet keys; expected 5 and 5"
+fi
+
+block_tpl="$root/plugins/keeliom/templates/keeliom-block.md"
+assert_file "$block_tpl"
+if [ "$(head -n 1 "$block_tpl")" = '<!-- keeliom:start -->' ]; then
+  pass "block starts with the start marker"
+else
+  fail "block does not start with <!-- keeliom:start -->"
+fi
+if [ "$(tail -n 1 "$block_tpl")" = '<!-- keeliom:end -->' ]; then
+  pass "block ends with the end marker"
+else
+  fail "block does not end with <!-- keeliom:end -->"
+fi
+block_lines=$(wc -l <"$block_tpl" | tr -d ' ')
+if [ "$block_lines" -le 15 ]; then
+  pass "block is $block_lines lines"
+else
+  fail "block is $block_lines lines; expected at most 15"
+fi
+assert_grep 'https://github\.com/khrvi/keeliom/blob/v0\.4\.0/plugins/keeliom/rules/RULES\.md' "$block_tpl"
+
+assert_no_file "$root/plugins/keeliom/templates/RULES.md"
+assert_no_file "$root/plugins/keeliom/templates/CHECK.md"
+assert_no_file "$root/plugins/keeliom/templates/KEELIOM_VERSION"
+
 # --- version
 
 assert_grep '"version": "0\.4\.0"' "$root/plugins/keeliom/.claude-plugin/plugin.json"

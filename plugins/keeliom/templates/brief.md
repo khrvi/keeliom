@@ -5,7 +5,7 @@
 - Ticket: TBD — link or ID
 - Author: TBD — name
 
-The initial change entry's `Source` points to this brief.
+`feature.md` `Source:` points to this brief.
 
 ## Raw description
 
