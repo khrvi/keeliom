@@ -17,8 +17,12 @@ A missing required file is a K1 finding.
 ## Version
 
 Compare `app.md` `Keeliom:` with the installed plugin version as
-`RULES.md §Version` says. Run the checks either way. Print a mismatch message
-as the last line of the output.
+`RULES.md §Version` says.
+
+- Project older: run the checks, then print
+  `Migration required: run the migrate skill.` as the last line.
+- Project newer: print
+  `Plugin is older than the project: update the keeliom plugin.` and stop.
 
 ## Checks
 
@@ -36,9 +40,11 @@ as the last line of the output.
   deprecated.
 - `spec.md` has `Depends on`. Every feature ID there exists. A cycle is not a
   finding.
-- `Repositories` paths in `feature.md` match rows in `app.md`. The line is
-  absent when `app.md` has one repository. It is required when `app.md` has
-  more than one.
+- `Repositories` paths in `spec.md` match rows in `app.md`. The line is
+  optional when `app.md` has at most one repository. It is required when
+  `app.md` has more than one.
+- When the project has code, meaning a `src/` directory or a feature with
+  `Source: code:<path>`, `app.md` has a `Repositories` section.
 - A `ready` or `done` feature requires `app.md Status: ready`.
 
 ### K2 — No pending work
@@ -65,7 +71,8 @@ as the last line of the output.
   `Decisions`, or in the project-level migration entry.
 - A migrated project is one with a project-level entry named
   `*-migrate-0.4.md`. In it, the five fields are required only in entries
-  dated after the migration entry. Older entries must only be sequential.
+  dated on or after the migration entry. Older entries must only be
+  sequential.
 - Project-level `changes/` follows the same rules.
 
 ### K5 — Traceability and coverage
@@ -151,10 +158,11 @@ A feature is `OK` when its own checks have no errors. `app.md` passes when it
 has no errors. `Project OK` requires every feature result and `app.md` to be
 `OK`.
 
-Print one line per feature:
+Print one line per feature that has no errors:
 
     OK features/F0001-add-book
 
+A feature with an error gets no `OK` line. Its findings are its result.
 Warnings are listed after the `OK` lines. A warning does not change `OK`.
 
 ## Output
@@ -170,10 +178,9 @@ Example:
 
     features/F0001-add-book/spec.md §Rules [K2] error: "TBD" — the rule still has a placeholder.
     features/F0001-add-book/changes/0001-initial.md §Source [K4] error: "" — the entry has no Source.
-    OK features/F0001-add-book
     OK features/F0002-list-books
-    1 error, 0 warnings, 0 unverifiable
-    Project OK
+    2 errors, 0 warnings, 0 unverifiable
+    Project has errors
 
 The last line is `Project OK` when no errors remain, otherwise
 `Project has errors`.

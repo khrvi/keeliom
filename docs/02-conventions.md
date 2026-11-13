@@ -68,11 +68,12 @@ old status for work in progress duplicated the ticket system and went stale.
 
 ## 7. Language
 
-`app.md` sets `Language:`. The prose follows it. Headings, keys and IDs stay
-English.
+`app.md` sets `Language:`. The prose follows it. Fixed section headings,
+header keys and IDs stay English. A `Description` subsection heading follows
+the language, because it is prose and rules cite it.
 
-Why: an agent parses the headings and the keys. The prose is for the people who
-work in that language.
+Why: an agent parses the fixed headings and the keys. The prose is for the
+people who work in that language.
 
 ## 8. Plans
 

@@ -33,8 +33,9 @@ and does not repeat it. A skill cites a section as `RULES.md §<heading>`.
 - `feature.md`, `spec.md`, `changes/` and `plans/` are written in that
   language.
 - `brief.md` stays in the language it arrived in.
-- Headings, header keys, IDs and code identifiers are English. Never translate
-  them.
+- Fixed section headings and header keys are English. Never translate them.
+- A `Description` subsection heading follows `Language`. Rules cite it as
+  `(§<heading>)`.
 
 ## Plans
 
@@ -110,8 +111,8 @@ The reader enters a title, an author and, optionally, an ISBN.
 
 - Header lines: `Status`, `Source`, and `Replaced by: F00xx` when the feature
   is deprecated.
-- `Source` is a ticket ID, a URL, `brief.md`, `plans/<file>.md`, or
-  `code:<path>`.
+- `Source` is `owner:<name>, <date>`, a ticket ID, a URL, `brief.md`,
+  `plans/<file>.md`, or `code:<path>`.
 - Required sections: `Overview`, `Description`, `Out of scope`, `Decisions`,
   `Open questions`.
 - `Overview` is a short paragraph: what the feature does and why.
@@ -165,7 +166,7 @@ Repositories: None
 ```
 
 - Header lines: `Depends on`, and `Repositories` when `app.md` lists more
-  than one repository.
+  than one repository. The `Repositories` line is optional otherwise.
 - `Depends on` lists feature IDs or `None`. It merges behavior, data and
   relation references from v0.3. Cycles are allowed.
 - Required section: `Rules`.
@@ -199,10 +200,12 @@ Repositories: None
 - Five fields, with these keys: `Date`, `Reason`, `Changed`, `Decisions`,
   `Source`.
 - `Decisions` lists IDs or `None`.
-- Write an entry when a requirement or a decision changes: any `feature.md`
-  change other than `Status`, or a `spec.md` behavior change.
-- Write no entry for spec maintenance: review fixes, wording, format
-  migrations, rule renumbering. Those go in the git commit message.
+- Write an entry when a requirement or a decision changes: a `feature.md`
+  change that adds, removes or alters a requirement or a decision, or a
+  `spec.md` behavior change.
+- Write no entry for maintenance: review fixes, wording that keeps the
+  requirement, format migrations, rule renumbering. Those go in the git commit
+  message.
 - Entries are append-only. To correct one, add an entry whose `Reason` names
   the corrected entry number.
 - Files are `NNNN-<slug>.md`, sequential, never reused.
@@ -229,9 +232,12 @@ Repositories: None
   `Keeliom: <version>` in `app.md`.
 - Compare the major and minor parts. Ignore the patch.
 - A project with `KEELIOM_VERSION` and no `Keeliom:` header counts as older.
-- Project older: run, then print `Migration required: run the migrate skill.`
-- Project newer: print `Plugin is older than the project: update the keeliom
-  plugin.` and stop.
+- `check` runs an older project, then prints
+  `Migration required: run the migrate skill.` as the last line.
+- `setup` and `feature` stop on an older project with the same message.
+  `migrate` is the way out.
+- Any skill stops on a newer project and prints
+  `Plugin is older than the project: update the keeliom plugin.`
 
 ## Project instructions
 
