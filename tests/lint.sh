@@ -125,6 +125,11 @@ assert_no_file "$root/plugins/keeliom/templates/RULES.md"
 assert_no_file "$root/plugins/keeliom/templates/CHECK.md"
 assert_no_file "$root/plugins/keeliom/templates/KEELIOM_VERSION"
 
+# --- skills
+
+assert_file "$root/plugins/keeliom/skills/check/SKILL.md"
+assert_no_file "$root/plugins/keeliom/skills/review-project"
+
 # --- version
 
 assert_grep '"version": "0\.4\.0"' "$root/plugins/keeliom/.claude-plugin/plugin.json"
