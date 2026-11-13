@@ -35,6 +35,17 @@
 - The six old skills.
 - The 36 `M`/`S`/`C` checks.
 
+### Verification
+
+- [x] `claude plugin validate plugins/keeliom` and `claude plugin validate .`
+  pass.
+- [x] `bash tests/lint.sh` passes.
+- [x] `bash tests/run.sh` passes every fixture.
+- [x] `bash tests/skills.sh` and `bash tests/migrate.sh` pass.
+- [x] `git grep -nE '/Users/'` returns nothing.
+- [ ] Owner check: `migrate` in `report` mode on the owner's private projects,
+  with one proposed `feature.md` read in each. Not run in this session.
+
 ## 0.3.0 — 2026-11-04
 
 ### Added

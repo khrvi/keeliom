@@ -35,7 +35,7 @@ assert_relative_paths_resolve() {
 
 # --- privacy
 
-assert_no_grep '/Users/' "$root/README.md" "$root/docs" "$root/plugins" "$root/examples" "$root/tests/fixtures"
+assert_no_grep '/Users[/]' "$root/README.md" "$root/docs" "$root/plugins" "$root/examples" "$root/tests/fixtures"
 assert_relative_paths_resolve "$root/plugins" "$root/examples" "$root/tests/fixtures"
 
 # --- rules
