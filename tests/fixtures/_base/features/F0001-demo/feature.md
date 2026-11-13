@@ -1,87 +1,27 @@
-# F0001 — Demo
+# F0001 — Create item
 
 Status: ready
-Release: None
-Repositories: None
+Source: owner:demo, 2026-11-13
 
-## Why
+## Overview
 
-The reader needs the item.
+A member creates an item so it appears in their list.
 
-## Who
+## Description
 
-Reader.
+### Creating an item
 
-## Depends on
-
-None
-
-## Reads
-
-None
-
-## Related
-
-None
-
-## In scope
-
-- Create an item.
+The member enters a name and saves. A name is required and must be unique.
 
 ## Out of scope
 
-- Delete an item.
-
-## Rules
-
-- The name is required.
-- On success, return `201` with the item and show "Item created".
-
-## Data
-
-| Field | Type | Rules |
-|---|---|---|
-| `id` | integer | generated |
-| `name` | string | required |
-
-## API
-
-```
-POST /items
-```
-
-Response `201`:
-
-```json
-{ "id": 1, "name": "Thing" }
-```
-
-Errors:
-
-| Code | Status | When |
-|---|---|---|
-| `name_required` | 422 | name is missing |
-
-## Screens
-
-Screen: Create item
-
-| State | What the reader sees |
-|---|---|
-| `success` | "Item created" |
-
-## Acceptance
-
-- [ ] The reader can create an item and receives `201` with the item.
-- [ ] A missing name is rejected with `name_required` and status `422`.
-
-## Tasks
-
-- [ ] Add `POST /items`.
+- Editing an item.
 
 ## Decisions
 
-None
+| ID | Decision | Source | Status |
+|---|---|---|---|
+| D1 | Item names are unique. | owner:demo, 2026-11-13 | approved |
 
 ## Open questions
 

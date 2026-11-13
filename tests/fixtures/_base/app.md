@@ -1,79 +1,49 @@
-# Fixture
+# Demo
 
+Keeliom: 0.4.0
 Status: ready
+Language: English
 
 ## One-liner
 
-A fixture.
+A demo app where a member keeps a list of items.
 
 ## Users
 
 | User | Description |
 |---|---|
-| Reader | Uses it. |
-
-## Jobs
-
-- Do the job.
+| Member | Creates and views items. |
 
 ## Scope
 
-- The job.
+- Create an item.
 
 ## Non-goals
 
-- Nothing.
+- Sharing items.
 
 ## Glossary
 
 | Term | Meaning |
 |---|---|
-| Item | A thing. |
+| Item | A named record a member creates. |
 
 ## Invariants
 
-- An item has a name.
+- An item name is unique.
 
 ## Stack
 
-- Language: Markdown
-- Framework: none
-- Database: none
+- Language: Markdown only
 
 ## Roles
 
 | Role | Can do |
 |---|---|
-| Reader | Uses the item. |
+| member | create and view items |
 
 ## Data model
 
 | Entity | Owner | Key fields | Notes |
 |---|---|---|---|
-| Item | F0001-demo | id, name | F0001 owns it. |
-
-## API conventions
-
-- Single resource: a JSON object.
-- Collection: a JSON array.
-- Errors: `Code | Status | When`
-- Search: none.
-- Field naming: snake_case.
-- Enums: none.
-- Auth: none.
-- CSRF: not applicable.
-- Sign-in and sign-out: not applicable.
-- Idempotency: `POST /items` is not idempotent.
-- Response coverage: every generated and returned `Data` field appears in a response.
-
-## Locales
-
-None
-
-## Accessibility
-
-None
-
-## Repositories
-
-None
+| Item | F0001 | id, name | none |

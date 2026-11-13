@@ -1,22 +1,35 @@
 # Tests
 
-`fixtures/` holds small Keeliom projects. Each one has an
-`expected-findings.md` that names the check the fixture must produce.
-
-## Runner
-
-`run.sh` asks the `claude` CLI to run each fixture's `CHECK.md` and fails when
-an expected check ID is missing from the output.
+Two scripts. `lint.sh` is deterministic. `run.sh` needs the `claude` CLI.
 
 ```bash
-bash tests/run.sh
+bash tests/lint.sh          # the repository itself
+bash tests/run.sh           # every fixture
+bash tests/run.sh _base     # one fixture
 ```
 
-The runner needs the `claude` CLI. It is optional; the framework itself has no
-runtime.
+## Lint
 
-`- none` in an `expected-findings.md` means the fixture must print `Project OK`
-and no finding line.
+`lint.sh` checks the repository: privacy, versions, rule files, templates and
+docs. It reads no project outside this repo and calls no model.
 
-`_base/` is a clean fixture. Its `expected-findings.md` says `- none`. It is the
-starting point for new fixtures and runs with the rest.
+## Fixtures
+
+`fixtures/` holds small Keeliom projects. Each one has an
+`expected-findings.md` that names what `CHECK.md` must report.
+
+- `_base/` is clean and expects `- none`. Every other fixture is a copy with
+  one defect.
+- A fixture has `app.md`, `features/F0001-demo/feature.md`,
+  `features/F0001-demo/spec.md` and `features/F0001-demo/changes/0001-initial.md`.
+  It has no `RULES.md`, `CHECK.md` or `KEELIOM_VERSION`; the plugin owns the
+  rules.
+- A code fixture adds a `src/` folder of Markdown files that stand in for code.
+
+## Expectations
+
+- `- none` means the output contains `Project OK` and no finding line.
+- `- K<n>` means the output contains `[K<n>]`.
+- `- line: <text>` means the output contains that text verbatim.
+
+`run.sh` prints the full output of a failing fixture.

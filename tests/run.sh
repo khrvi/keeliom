@@ -1,56 +1,83 @@
 #!/usr/bin/env bash
-set -euo pipefail
+# Runs the plugin's CHECK.md against every fixture through the claude CLI.
+# Usage: bash tests/run.sh [fixture]
+set -uo pipefail
 
-root="$(cd "$(dirname "$0")/.." && pwd)"
+root="$(cd "$(dirname "$0")/.." && pwd -P)"
 fail=0
+outdir=$(mktemp -d)
+trap 'rm -rf "$outdir"' EXIT
 
-for fixture in "$root"/tests/fixtures/*/; do
-  name="$(basename "$fixture")"
+if [ $# -gt 1 ]; then
+  echo "usage: bash tests/run.sh [fixture]" >&2
+  exit 2
+fi
+
+fixtures=()
+if [ $# -eq 1 ]; then
+  if [ -d "$root/tests/fixtures/$1" ]; then
+    fixtures=("$root/tests/fixtures/$1")
+  else
+    echo "no such fixture: $1" >&2
+    exit 2
+  fi
+else
+  for dir in "$root"/tests/fixtures/*/; do
+    fixtures+=("${dir%/}")
+  done
+fi
+
+for fixture in "${fixtures[@]}"; do
+  name=$(basename "$fixture")
   expected="$fixture/expected-findings.md"
   [ -f "$expected" ] || continue
 
-  actual="$(mktemp)"
   echo "== $name =="
-  claude -p "Read $fixture/CHECK.md and run it on the project in $fixture. Use the Output format in CHECK.md. Do not modify any file." > "$actual"
+  actual="$outdir/$name.out"
+  if ! claude -p "Read $root/plugins/keeliom/rules/RULES.md and $root/plugins/keeliom/rules/CHECK.md. The installed plugin version is 0.4.0. Run the checks on the project in $fixture. Use the Output format in CHECK.md. Do not create or modify any file, including STATUS.md." >"$actual" 2>&1; then
+    echo "FAIL: claude exited nonzero"
+    fail=1
+  fi
 
-  if grep -q '^- none$' "$expected"; then
-    if grep -qE '^[[:space:]*]*Project OK[[:space:]*]*$' "$actual" && ! grep -qE '\[[MSC][0-9]+\] (error|warn|unverifiable):' "$actual"; then
+  if grep -qx -- '- none' "$expected"; then
+    if grep -qE '^[[:space:]*]*Project OK[[:space:]*]*$' "$actual" &&
+      ! grep -qE '\[K[0-9]+\] (error|warn|unverifiable):' "$actual"; then
       echo "ok: none"
     else
-      echo "unexpected finding"
+      echo "FAIL: expected no findings"
+      sed 's/^/    /' "$actual" | head -40
       fail=1
     fi
-    rm -f "$actual"
     continue
   fi
 
-  ids="$(grep -oE '\b[MSC][0-9]+\b' "$expected" | sort -u)"
-  if [ -z "$ids" ]; then
-    echo "no check IDs in $expected"
+  ids=$(grep -oE '\bK[0-9]+\b' "$expected" | sort -u)
+  line_specs=$(sed -n 's/^- line: //p' "$expected")
+  if [ -z "$ids" ] && [ -z "$line_specs" ]; then
+    echo "FAIL: no expectation in $expected"
     fail=1
-    rm -f "$actual"
-    continue
   fi
-
   while IFS= read -r id; do
+    [ -n "$id" ] || continue
     if grep -qF "[$id]" "$actual"; then
       echo "ok: $id"
     else
-      echo "missing: $id"
+      echo "FAIL: missing $id"
+      sed 's/^/    /' "$actual" | head -40
       fail=1
     fi
-  done <<< "$ids"
+  done <<<"$ids"
 
-  if [ "$name" = "old-version" ]; then
-    if grep -q 'Upgrade required' "$actual"; then
-      echo "ok: upgrade"
+  while IFS= read -r line; do
+    [ -n "$line" ] || continue
+    if grep -qF -- "$line" "$actual"; then
+      echo "ok: line present"
     else
-      echo "missing: upgrade"
+      echo "FAIL: missing line: $line"
+      sed 's/^/    /' "$actual" | head -40
       fail=1
     fi
-  fi
-
-  rm -f "$actual"
+  done < <(sed -n 's/^- line: //p' "$expected")
 done
 
 exit "$fail"
