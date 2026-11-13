@@ -21,6 +21,20 @@ description: Set up Keeliom in a new or existing project, or import existing fea
    `${CLAUDE_PLUGIN_ROOT}/templates/feature/changes/0001-initial.md`
 5. In existing mode, the code
 
+## Version
+
+Compare `app.md` `Keeliom:` with the plugin version in
+`${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`, ignoring the patch, as
+`RULES.md §Version` says.
+
+- No `app.md`: skip the version check. Use the input mode, or `new` when
+  there is none.
+- Project older, including a project with the version file and no `Keeliom:`
+  header: print `Migration required: run the migrate skill.` and stop. Never
+  write a 0.4 file into an older project.
+- Project newer: print
+  `Plugin is older than the project: update the keeliom plugin.` and stop.
+
 ## New project
 
 1. Copy `templates/app.md` to `app.md`. Keep `Status: draft` and
@@ -37,8 +51,10 @@ description: Set up Keeliom in a new or existing project, or import existing fea
 ## Existing project
 
 1. Read the code and the existing docs.
-2. Fill `app.md` from them, using the template shape. Add `Repositories` with
-   one row per repository: path, role, language, test commands and notes.
+2. When `app.md` is missing, fill it from the code using the template shape.
+   When `app.md` exists, keep its content and only add a section the owner
+   asks for. Add `Repositories` with one row per repository: path, role,
+   language, test commands and notes.
 3. Create `features/` and `changes/` when missing.
 4. Write the Keeliom block.
 5. Import a feature only on request, or when `import=` names a capability.

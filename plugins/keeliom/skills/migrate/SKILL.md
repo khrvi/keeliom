@@ -29,8 +29,10 @@ change entry.
 
 ## Detect
 
-- Current: `app.md` has `Keeliom: 0.4.x`. Print `Keeliom is already current.`
-  and stop.
+- Current: `app.md` has `Keeliom: 0.4.x` and every feature has `spec.md`.
+  Print `Keeliom is already current.` and stop.
+- Partially migrated: `app.md` has `Keeliom: 0.4.x` but some feature has no
+  `spec.md`. Migrate those features, then run the project steps.
 - Older: `KEELIOM_VERSION` exists and `app.md` has no `Keeliom:` header. Both
   0.2.3 and 0.3.0 are accepted.
 - Older than 0.2.0: refuse and stop.
@@ -42,10 +44,20 @@ change entry.
 - `report`: print every planned change and the new prose. Write nothing.
 - `apply`: run `git status --porcelain`. When it is not empty, print
   `The working tree is not clean. Commit or stash your changes, then run migrate again.`
-  and change no file. Ask once, then write. `confirm=yes` accepts.
+  and change no file. When the project is not a git repository, print
+  `Migration needs a git repository.` and stop. Ask once, then write.
+  `confirm=yes` accepts.
+
+## One feature
+
+With `F00xx`, migrate only that feature. Do not touch `app.md`, the project
+`changes/`, the rules files or the Keeliom block. Those are project steps and
+run once, after the last feature. If any feature still has no `spec.md` after
+the call, write no project entry: it must list every feature.
 
 ## Per-feature steps
 
+0. Skip a feature that already has `spec.md`.
 1. Split `feature.md`.
    - New `feature.md`: the title; `Status` (`in_progress` becomes `ready`,
      others copied); `Source` from `brief.md`, a cited plan, or the first
@@ -69,8 +81,10 @@ change entry.
 4. Open questions. Keep open ones in the new format with their number:
    `- Q<n>. <question>` and indented `Recommendation: … Owner: …`. Remove
    answered ones; their Decision already exists.
-5. `brief.md` stays byte-identical.
-6. No per-feature change entry. The project entry covers it.
+5. Drop `Release:`. When any feature has a value other than `None`, list those
+   features in the report and offer `plans/release-<x>.md` that names them.
+6. `brief.md` stays byte-identical.
+7. No per-feature change entry. The project entry covers it.
 
 ## Project steps
 
@@ -79,6 +93,15 @@ change entry.
    `Users`. Rename `API conventions` to `Conventions` and keep its content.
    Move `CHECK.md §Project overrides` into `## Check overrides`, dropping
    overrides made unnecessary by allowing cycles.
+   - For a 0.2.x project, `app.md` has no `Status:` line. Add `Status: ready`
+     when no `TBD` remains, otherwise `draft`.
+   - Convert a bullet `Users` list, written `- <User>: <description>`, to the
+     `| User | Description |` table.
+   - Convert `Data model` from
+     `| Table | Owner | Readers | Key columns | Notes |` to
+     `| Entity | Owner | Key fields | Notes |`. Fold each row's `Readers`
+     into the features' `Depends on`.
+   - Leave `Locales` and `Accessibility` out when the source has neither.
 2. Move root plan files, release docs and similar documents into `plans/` when
    the owner agrees, and update `Source` paths that cite them. Leave legacy
    plan folders the owner wants in place.
