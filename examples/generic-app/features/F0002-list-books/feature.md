@@ -1,33 +1,24 @@
 # F0002 — List books
 
 Status: ready
+Source: CHANGELOG.md §0.2.0
 
-## Why
+## Overview
 
-The reader needs to see the books they own after adding them.
+A reader sees the books they own after adding them.
 
-## Who
+## Description
 
-Reader.
+### The book list
 
-## Depends on
+The reader sees a list of all books, newest first. Each row shows the title and
+the author, and the ISBN when it is present.
 
-F0001
+### List states
 
-## Reads
-
-F0001
-
-## Related
-
-None
-
-## In scope
-
-- A list of all books.
-- Title, author, and ISBN (if present) in each row.
-- Newest first.
-- Empty, loading, and error states.
+While the list loads, a skeleton is shown. When there are no books, the list
+shows "No books yet". When the request fails, the reader sees an error and a
+retry action.
 
 ## Out of scope
 
@@ -35,83 +26,6 @@ None
 - Pagination.
 - Editing and deleting.
 - Sorting options.
-
-## Rules
-
-- Show all books.
-- Sort by `created_at` descending.
-- Show title and author in every row.
-- Show ISBN only when it is present.
-- If there are no books, show "No books yet".
-- If loading, show a skeleton.
-- If the request fails, show an error and a retry action.
-
-## Data
-
-Reads `Book` (see F0001 for write rules):
-
-| Field | Type | Used for |
-|---|---|---|
-| `id` | integer | row key |
-| `title` | string | row |
-| `author` | string | row |
-| `isbn` | string | row, if present |
-| `created_at` | timestamp | sorting |
-
-## API
-
-```
-GET /books
-```
-
-Response `200`:
-
-```json
-[
-  {
-    "id": 1,
-    "title": "Dune",
-    "author": "Frank Herbert",
-    "isbn": "9780441013593",
-    "created_at": "2026-10-30T12:00:00Z"
-  }
-]
-```
-
-Errors:
-
-| Code | Status | When |
-|---|---|---|
-| `books_unavailable` | 503 | the list cannot be loaded |
-
-## Screens
-
-Screen: Book list
-
-| State | What the reader sees |
-|---|---|
-| `loading` | skeleton rows |
-| `empty` | "No books yet" |
-| `list` | rows with title, author, optional ISBN |
-| `error` | error message and retry button |
-
-## Acceptance
-
-- [ ] The reader sees all books.
-- [ ] A book added through F0001 appears in the list.
-- [ ] Each row shows title and author.
-- [ ] ISBN is shown only when present.
-- [ ] Books are sorted newest first.
-- [ ] An empty list shows "No books yet".
-- [ ] A failed request shows an error and a retry action.
-
-## Tasks
-
-- [ ] Add `GET /books`.
-- [ ] Add the book list screen.
-- [ ] Add loading, empty, and error states.
-- [ ] Add tests for the acceptance criteria.
-- [ ] Update the feature status to `done`.
 
 ## Decisions
 

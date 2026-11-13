@@ -1,6 +1,8 @@
 # Book Library
 
+Keeliom: 0.4.0
 Status: ready
+Language: English
 
 ## One-liner
 
@@ -11,11 +13,6 @@ A small personal library where a reader can add books and see what they own.
 | User | Description |
 |---|---|
 | Reader | Adds books and views the list. |
-
-## Jobs
-
-- Add a book I own.
-- See the books I own.
 
 ## Scope
 
@@ -61,7 +58,7 @@ A small personal library where a reader can add books and see what they own.
 |---|---|---|---|
 | Book | F0001-add-book | id, title, author, isbn, created_at | SQLite table. |
 
-## API conventions
+## Conventions
 
 - Single resource: JSON object.
 - Collection: JSON array.
@@ -80,6 +77,10 @@ A small personal library where a reader can add books and see what they own.
 None
 
 ## Accessibility
+
+None
+
+## Check overrides
 
 None
 
