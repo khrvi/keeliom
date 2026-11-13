@@ -42,7 +42,7 @@
 - [x] `bash tests/lint.sh` passes.
 - [x] `bash tests/run.sh` passes every fixture.
 - [x] `bash tests/skills.sh` and `bash tests/migrate.sh` pass.
-- [x] `git grep -nE '/Users/'` returns nothing.
+- [x] `git grep -nE '/Users[/]'` returns nothing.
 - [ ] Owner check: `migrate` in `report` mode on the owner's private projects,
   with one proposed `feature.md` read in each. Not run in this session.
 
