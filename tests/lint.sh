@@ -128,7 +128,13 @@ assert_no_file "$root/plugins/keeliom/templates/KEELIOM_VERSION"
 # --- skills
 
 assert_file "$root/plugins/keeliom/skills/check/SKILL.md"
+assert_file "$root/plugins/keeliom/skills/setup/SKILL.md"
+assert_file "$root/plugins/keeliom/skills/feature/SKILL.md"
 assert_no_file "$root/plugins/keeliom/skills/review-project"
+assert_no_file "$root/plugins/keeliom/skills/bootstrap"
+assert_no_file "$root/plugins/keeliom/skills/import-feature"
+assert_no_file "$root/plugins/keeliom/skills/create-feature"
+assert_no_file "$root/plugins/keeliom/skills/change-feature"
 
 # --- version
 
