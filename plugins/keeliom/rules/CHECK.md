@@ -68,6 +68,56 @@ as the last line of the output.
   dated after the migration entry. Older entries must only be sequential.
 - Project-level `changes/` follows the same rules.
 
+### K5 — Traceability and coverage
+
+- Every rule ends with a reference to an existing `Description` subsection of
+  the same feature (§<heading>), an existing Decision (D<n>), or both.
+- Every `Description` subsection is referenced by at least one rule.
+- Rule IDs are unique within a feature. Gaps are allowed: a retired number is
+  not reused.
+- Every `F00xx R<n>` citation names an existing feature and an existing rule
+  in it.
+- Cycle or not, `Depends on` is not a K5 subject.
+
+### K6 — Contradictions
+
+- `Description` against `Out of scope`.
+- `spec.md` against `feature.md`.
+- `spec.md` against `app.md` `Invariants` and `Conventions`.
+- Quote both sides of a contradiction.
+
+### K7 — Testable rules
+
+- A rule names an observable output: a status code, an error code, a message,
+  a field value, or a visible state. A value with a unit or a `test:<name>` is
+  also enough.
+- A word such as `clear`, `fast`, `correct`, `properly` or `handled correctly`
+  is not testable unless the rule also names the output.
+
+### K8 — Cross-feature
+
+- A rule about a shared entity agrees across every feature that states it.
+  Quote both rules.
+- Behavior or data owned by another feature appears in `Depends on`. The owner
+  comes from `app.md §Data model`.
+- Terms match `app.md §Glossary`, `§Roles` and `§Data model`. A term mismatch
+  is `warn`.
+- Cycles in `Depends on` are never a finding.
+
+### K9 — Code
+
+- Entities, fields, routes and roles named in `spec.md` exist in code, or a
+  `Tasks` item says `add <x>`.
+- A capability in code with no feature is `import-first`.
+- A `ready` feature whose rules are all implemented is flagged `set done`.
+- Run per repository. `In <repo>:` restricts a line to that repository. An
+  unmarked line is checked against every repository.
+- Skip K9 when `app.md` has no `Repositories` section, or when the feature has
+  `Repositories: None`.
+- Report `unverifiable` when the code cannot be read.
+
+Content language never causes a finding.
+
 ## Severity
 
 | Level | Meaning |
@@ -76,7 +126,13 @@ as the last line of the output.
 | `warn` | Reported. Does not block. |
 | `unverifiable` | The check could not run. Counted as a warning. |
 
-K1–K4 are `error`.
+- K1–K4 and K6 are `error`.
+- K5 and K7 are `error` when the feature is `ready` or `done`. They are `warn`
+  otherwise.
+- K8 is `error` when either affected feature is `ready` or `done`, and `warn`
+  otherwise. A term mismatch is always `warn`.
+- K9 is `error` when the code is readable, `unverifiable` otherwise. Its
+  `set done` finding is `warn`.
 
 ## Overrides
 
