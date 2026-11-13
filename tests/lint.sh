@@ -38,6 +38,30 @@ assert_relative_paths_resolve() {
 assert_no_grep '/Users/' "$root/README.md" "$root/docs" "$root/plugins" "$root/examples" "$root/tests/fixtures"
 assert_relative_paths_resolve "$root/plugins" "$root/examples" "$root/tests/fixtures"
 
+# --- rules
+
+rules="$root/plugins/keeliom/rules/RULES.md"
+assert_file "$rules"
+for heading in 'Project layout' 'Language' 'Plans' 'app\.md' 'feature\.md' 'spec\.md' \
+  'Change entries' 'Statuses' 'Version' 'Project instructions'; do
+  assert_grep "^## $heading\$" "$rules"
+done
+assert_grep '\| ID \| Decision \| Source \| Status \|' "$rules"
+assert_grep 'replaced by D<n>' "$rules"
+
+# The Version section is the one place allowed to name KEELIOM_VERSION.
+rules_body=""
+if [ -f "$rules" ]; then
+  rules_body=$(awk '/^## Version$/{skip=1; next} /^## /{skip=0} !skip' "$rules")
+else
+  fail "missing RULES.md, cannot scan for removed fields"
+fi
+if printf '%s\n' "$rules_body" | grep -Eq 'in_progress|Before:|After:|Corrects|Release:|KEELIOM_VERSION'; then
+  fail "RULES.md outside §Version names a removed field"
+else
+  pass "RULES.md outside §Version names no removed field"
+fi
+
 # --- version
 
 assert_grep '"version": "0\.4\.0"' "$root/plugins/keeliom/.claude-plugin/plugin.json"
