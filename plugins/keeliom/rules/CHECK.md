@@ -115,7 +115,7 @@ Compare `app.md` `Keeliom:` with the installed plugin version as
 
 - Entities, fields, routes and roles named in `spec.md` exist in code, or a
   `Tasks` item says `add <x>`.
-- A capability in code with no feature is `import-first`.
+- A capability in code with no feature is `import-first`. It is `warn`.
 - A `ready` feature whose rules are all implemented is flagged `set done`.
 - Run per repository. `In <repo>:` restricts a line to that repository. An
   unmarked line is checked against every repository.
@@ -139,7 +139,7 @@ Content language never causes a finding.
 - K8 is `error` when either affected feature is `ready` or `done`, and `warn`
   otherwise. A term mismatch is always `warn`.
 - K9 is `error` when the code is readable, `unverifiable` otherwise. Its
-  `set done` finding is `warn`.
+  `import-first` and `set done` findings are `warn`.
 
 ## Overrides
 
