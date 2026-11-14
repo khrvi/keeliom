@@ -121,6 +121,25 @@ scenario_setup_new() {
   assert_no_file "$dir/KEELIOM_VERSION"
 }
 
+scenario_setup_existing_code() {
+  local dir="$tmp/setup_existing_code"
+  mkdir -p "$dir/app"
+  git -C "$dir" init -q
+  printf 'def items():\n    return []\n' >"$dir/app/main.py"
+  run_skill "$dir" "/keeliom:setup" >"$tmp/setup_existing_code.out" 2>&1
+
+  assert_file "$dir/app.md"
+  if [ -f "$dir/app.md" ]; then
+    assert_grep '^Keeliom: 0\.4\.0$' "$dir/app.md"
+    assert_grep '^## Repositories$' "$dir/app.md"
+  fi
+  if grep -q '<!-- keeliom:start -->' "$dir/CLAUDE.md" 2>/dev/null; then
+    pass "setup_existing_code: CLAUDE.md has the block"
+  else
+    fail "setup_existing_code: CLAUDE.md has no block"
+  fi
+}
+
 scenario_setup_block_idempotent() {
   local dir="$tmp/setup_block_idempotent"
   mkdir -p "$dir"
