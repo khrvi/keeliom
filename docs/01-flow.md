@@ -85,7 +85,7 @@ source.
 | `plans/*` | owner |
 | `STATUS.md` | `check` |
 | the plugin's rules and skills | framework |
-| `src/` | developer + agent |
+| the code | developer + agent |
 
 ## 8. Brownfield: the project already exists
 

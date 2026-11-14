@@ -43,7 +43,7 @@ Compare `app.md` `Keeliom:` with the installed plugin version as
 - `Repositories` paths in `spec.md` match rows in `app.md`. The line is
   optional when `app.md` has at most one repository. It is required when
   `app.md` has more than one.
-- When the project has code, meaning a `src/` directory or a feature with
+- When the project has code (`RULES.md §Project layout`), or a feature has
   `Source: code:<path>`, `app.md` has a `Repositories` section.
 - A `ready` or `done` feature requires `app.md Status: ready`.
 
@@ -71,8 +71,8 @@ Compare `app.md` `Keeliom:` with the installed plugin version as
   `Decisions`, or in the project-level migration entry.
 - A migrated project is one with a project-level entry named
   `*-migrate-0.4.md`. In it, the five fields are required only in entries
-  dated on or after the migration entry. Older entries must only be
-  sequential.
+  dated after the migration entry. An entry dated the same day counts as
+  older. Older entries must only be sequential.
 - Project-level `changes/` follows the same rules.
 
 ### K5 — Traceability and coverage

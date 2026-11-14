@@ -7,8 +7,9 @@ description: Set up Keeliom in a new or existing project, or import existing fea
 
 ## Input
 
-- `mode=new` or `mode=existing`. Without a mode, use `new` when there is no
-  `app.md` and `existing` when there is one.
+- `mode=new` or `mode=existing`. Without a mode, use `existing` when there is
+  an `app.md` or the project has code (`RULES.md §Project layout`), and `new`
+  otherwise.
 - `import=<capability>`: import one capability that exists in code.
 
 ## Read first
@@ -27,8 +28,8 @@ Compare `app.md` `Keeliom:` with the plugin version in
 `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`, ignoring the patch, as
 `RULES.md §Version` says.
 
-- No `app.md`: skip the version check. Use the input mode, or `new` when
-  there is none.
+- No `app.md`: skip the version check. Use the input mode, or the default in
+  `Input`.
 - Project older, including a project with the version file and no `Keeliom:`
   header: print `Migration required: run the migrate skill.` and stop. Never
   write a 0.4 file into an older project.

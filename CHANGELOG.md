@@ -24,8 +24,8 @@
 - `Depends on` merges behavior, data and relation references. Cycles are
   allowed.
 - Statuses are `draft`, `ready`, `done` and `deprecated`.
-- `Repositories` is optional and required only when `app.md` lists more than
-  one.
+- `Repositories` is optional with one repository. `app.md` needs the section
+  when the project has code or lists more than one repository.
 - The project version lives in `app.md` as `Keeliom:`.
 
 ### Removed
