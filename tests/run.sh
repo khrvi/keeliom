@@ -27,6 +27,8 @@ else
   done
 fi
 
+installed_version=${KEELIOM_TEST_VERSION:-$(sed -n 's/.*"version": "\([^"]*\)".*/\1/p' "$root/plugins/keeliom/.claude-plugin/plugin.json" | head -n 1)}
+
 for fixture in "${fixtures[@]}"; do
   name=$(basename "$fixture")
   expected="$fixture/expected-findings.md"
@@ -34,7 +36,7 @@ for fixture in "${fixtures[@]}"; do
 
   echo "== $name =="
   actual="$outdir/$name.out"
-  if ! claude -p "Read $root/plugins/keeliom/rules/RULES.md and $root/plugins/keeliom/rules/CHECK.md. The installed plugin version is 0.4.0. Run the checks on the project in $fixture. Use the Output format in CHECK.md. Do not create or modify any file, including STATUS.md." >"$actual" 2>&1; then
+  if ! claude -p "Read $root/plugins/keeliom/rules/RULES.md and $root/plugins/keeliom/rules/CHECK.md. The installed plugin version is $installed_version. Run the checks on the project in $fixture. Use the Output format in CHECK.md. Do not create or modify any file, including STATUS.md." >"$actual" 2>&1; then
     echo "FAIL: claude exited nonzero"
     fail=1
   fi
@@ -76,6 +78,17 @@ for fixture in "${fixtures[@]}"; do
       fail=1
     fi
   done < <(sed -n 's/^- line: //p' "$expected")
+
+  while IFS= read -r line; do
+    [ -n "$line" ] || continue
+    if grep -qF -- "$line" "$actual"; then
+      echo "FAIL: unexpected line: $line"
+      sed 's/^/    /' "$actual" | head -40
+      fail=1
+    else
+      echo "ok: line absent"
+    fi
+  done < <(sed -n 's/^- no-line: //p' "$expected")
 done
 
 exit "$fail"

@@ -1,6 +1,6 @@
 # Book Library
 
-Keeliom: 0.4.0
+Keeliom: 0.5.0
 Status: ready
 Language: English
 

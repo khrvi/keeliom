@@ -4,4 +4,4 @@ Depends on: F0001
 
 ## Rules
 
-- R1. Nothing happens. (§Placeholder)
+- R1. Opening the other demo shows "No action available". (§Placeholder)

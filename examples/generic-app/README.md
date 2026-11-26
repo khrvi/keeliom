@@ -1,6 +1,6 @@
 # Generic example — Book Library
 
-This is a neutral example for Keeliom v0.4.0. It is not a real app and is not
+This is a neutral example for Keeliom v0.5.0. It is not a real app and is not
 tied to any project.
 
 ## Structure

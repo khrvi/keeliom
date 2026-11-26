@@ -75,13 +75,13 @@ assert_applied() {
   assert_no_file "$dir/RULES.md"
   assert_no_file "$dir/CHECK.md"
   assert_no_file "$dir/KEELIOM_VERSION"
-  assert_grep '^Keeliom: 0\.4\.0$' "$dir/app.md"
+  assert_grep '^Keeliom: 0\.5\.0$' "$dir/app.md"
   assert_no_grep '^## Jobs$' "$dir/app.md"
 
   before=0
   [ -d "$input/changes" ] && before=$(find "$input/changes" -type f | wc -l | tr -d ' ')
   after=$(find "$dir/changes" -type f | wc -l | tr -d ' ')
-  new=$(find "$dir/changes" -name '*-migrate-0.4.md' | head -n 1)
+  new=$(find "$dir/changes" -name '*-migrate-0.5.md' | head -n 1)
   if [ "$after" -eq $((before + 1)) ] && [ -n "$new" ]; then
     pass "exactly one new project entry"
     fields=$(grep -cE '^- *\*{0,2}(Date|Reason|Changed|Decisions|Source)' "$new")
@@ -201,12 +201,12 @@ case_per_feature() {
 
   assert_file "$dir/features/F0001-add-note/spec.md"
   assert_no_file "$dir/features/F0002-list-notes/spec.md"
-  if grep -q '^Keeliom: 0\.4\.0$' "$dir/app.md"; then
+  if grep -q '^Keeliom: 0\.5\.0$' "$dir/app.md"; then
     fail "per-feature: app.md was migrated"
   else
     pass "per-feature: app.md untouched"
   fi
-  if ls "$dir"/changes/*-migrate-0.4.md >/dev/null 2>&1; then
+  if ls "$dir"/changes/*-migrate-0.5.md >/dev/null 2>&1; then
     fail "per-feature: project entry written"
   else
     pass "per-feature: no project entry"
@@ -218,8 +218,8 @@ case_per_feature() {
 
   run_skill "$dir" "/keeliom:migrate mode=apply owner=maintainer confirm=yes" >"$tmp/per_feature_rest.out" 2>&1
   assert_file "$dir/features/F0002-list-notes/spec.md"
-  assert_grep '^Keeliom: 0\.4\.0$' "$dir/app.md"
-  if ls "$dir"/changes/*-migrate-0.4.md >/dev/null 2>&1; then
+  assert_grep '^Keeliom: 0\.5\.0$' "$dir/app.md"
+  if ls "$dir"/changes/*-migrate-0.5.md >/dev/null 2>&1; then
     pass "per-feature: the full run writes the project entry"
   else
     fail "per-feature: the full run wrote no project entry"
@@ -245,7 +245,7 @@ case_dirty_tree() {
     fail "dirty tree: unexpected changes"
     printf '%s\n' "$status" | sed 's/^/    /'
   fi
-  if grep -q '^Keeliom: 0\.4\.0$' "$dir/app.md"; then
+  if grep -q '^Keeliom: 0\.5\.0$' "$dir/app.md"; then
     fail "dirty tree: app.md was migrated"
   else
     pass "dirty tree: app.md was not migrated"
@@ -256,7 +256,7 @@ case_rerun() {
   local dir out
   dir=$(prepare "$root/tests/migrate/v0.3-input")
   apply "$dir" "$tmp/rerun-first.out"
-  assert_grep '^Keeliom: 0\.4\.0$' "$dir/app.md"
+  assert_grep '^Keeliom: 0\.5\.0$' "$dir/app.md"
   git -C "$dir" add -A
   git -C "$dir" -c user.email=test@example.com -c user.name=test commit -qm migrated
   out="$tmp/rerun.out"
@@ -271,6 +271,26 @@ case_rerun() {
     pass "rerun: no file changed"
   else
     fail "rerun: files changed"
+    git -C "$dir" status --porcelain | sed 's/^/    /'
+  fi
+}
+
+case_compatible_v04() {
+  local dir out
+  dir=$(prepare "$root/tests/fixtures/version-compatible")
+  out="$tmp/compatible_v04.out"
+  apply "$dir" "$out"
+
+  if grep -q 'already current' "$out"; then
+    pass "v0.4: reports already current"
+  else
+    fail "v0.4: no already current message"
+    sed 's/^/    /' "$out" | head -30
+  fi
+  if [ -z "$(git -C "$dir" status --porcelain)" ]; then
+    pass "v0.4: no file changed"
+  else
+    fail "v0.4: files changed"
     git -C "$dir" status --porcelain | sed 's/^/    /'
   fi
 }

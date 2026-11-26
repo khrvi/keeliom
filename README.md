@@ -1,8 +1,8 @@
 # Keeliom
 
-- **Status:** v0.4.0
-- **Version:** 0.4.0
-- **Date:** 2026-11-13
+- **Status:** v0.5.0
+- **Version:** 0.5.0
+- **Date:** 2026-11-26
 - **Location:** standalone repository.
 - **Name:** Keeliom — Keel (stability) + Axiom (foundational truths).
 
@@ -14,7 +14,7 @@ environment. An LLM or a human reads the files and works from them.
 Each fact has one home. The plugin holds the rules. A project holds its specs.
 A feature is split by reader: `feature.md` for people, `spec.md` for agents.
 
-## Flow v0.4
+## Flow v0.5
 
 1. Run `setup` to write `app.md` and the Keeliom block.
 2. The product owner writes `brief.md`, a ticket or a plan.
@@ -91,7 +91,7 @@ The plugin bundles four skills:
 - `feature` — create or change one feature from a brief or ticket, or generate
   every required feature from a plan.
 - `check` — run the checks and write `STATUS.md`.
-- `migrate` — migrate a 0.2.x or 0.3 project to 0.4.
+- `migrate` — migrate a 0.2.x or 0.3 project to 0.5.
 
 Skills live in `plugins/keeliom/skills/`, rules in `plugins/keeliom/rules/`,
 templates in `plugins/keeliom/templates/`. For local development, run these
@@ -112,14 +112,14 @@ LLM at it or copy the plugin's `rules/`, `skills/` and `templates/`.
 
 ## What comes later
 
-- v0.5: optional tooling, only if needed.
+- Optional tooling, only if needed.
 
 ## Documents
 
 1. [01 — Flow](docs/01-flow.md)
 2. [02 — Conventions](docs/02-conventions.md)
 3. [03 — Distribution](docs/03-distribution.md)
-4. [Migrate to 0.4](docs/migrate.md)
+4. [Migrate to 0.5](docs/migrate.md)
 5. [Plugin rules](plugins/keeliom/rules/RULES.md)
 6. [Plugin skills](plugins/keeliom/skills/)
 7. [Plugin templates](plugins/keeliom/templates/)
@@ -140,7 +140,8 @@ LLM at it or copy the plugin's `rules/`, `skills/` and `templates/`.
   placeholder, 36 checks.
 - **v0.4** — one file per reader: `feature.md` and `spec.md`. Rules live in the
   plugin. Slim change entries. 9 checks and 4 skills.
-- **v0.5** — optional tooling, only if needed.
+- **v0.5** — whole-plan generation, capability ownership, deeper spec checks
+  and visible warnings.
 
 ## License
 
@@ -148,4 +149,4 @@ MIT. See [`LICENSE`](LICENSE).
 
 ## Repository
 
-Standalone git repository. Tag releases as `v<version>`, for example `v0.4.0`.
+Standalone git repository. Tag releases as `v<version>`, for example `v0.5.0`.

@@ -55,7 +55,7 @@ and does not repeat it. A skill cites a section as `RULES.md §<heading>`.
 ```markdown
 # Book Library
 
-Keeliom: 0.4.0
+Keeliom: 0.5.0
 Status: ready
 Language: English
 ```
@@ -238,6 +238,8 @@ Repositories: None
 - The plugin version is the source of truth. A project records it as
   `Keeliom: <version>` in `app.md`.
 - Compare the major and minor parts. Ignore the patch.
+- Exception: a 0.4.x project is current with a 0.5.x plugin. The 0.5 release
+  adds no required project-file changes.
 - A project with `KEELIOM_VERSION` and no `Keeliom:` header counts as older.
 - `check` runs an older project, then prints
   `Migration required: run the migrate skill.` as the last line.

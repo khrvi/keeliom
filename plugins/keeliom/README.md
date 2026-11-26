@@ -15,7 +15,7 @@ Keeliom spec framework plugin for Claude Code.
 - `feature` — create or change one feature from a brief or ticket, or generate
   every required feature from a plan.
 - `check` — run the checks and write `STATUS.md`.
-- `migrate` — migrate a 0.2.x or 0.3 project to 0.4.
+- `migrate` — migrate a 0.2.x or 0.3 project to 0.5.
 
 ## Rules
 

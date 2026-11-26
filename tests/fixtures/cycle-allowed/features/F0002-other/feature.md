@@ -12,17 +12,17 @@ A second feature kept next to the first.
 
 ### Placeholder
 
-Nothing happens here.
+The other demo displays `No action available`.
 
 ## Out of scope
 
-- Everything.
+- Editing items.
 
 ## Decisions
 
 | ID | Decision | Source | Status |
 |---|---|---|---|
-| D1 | Nothing happens. | owner:demo, 2026-11-13 | approved |
+| D1 | The other demo displays `No action available`. | owner:demo, 2026-11-13 | approved |
 
 ## Open questions
 

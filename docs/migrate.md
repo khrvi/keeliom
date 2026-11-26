@@ -1,4 +1,4 @@
-# Migrate to 0.4
+# Migrate to 0.5
 
 - **Status:** draft
 - **Date:** 2026-11-13
@@ -8,7 +8,7 @@
 
 - Update the plugin.
 - Commit or stash everything. `apply` needs a clean git working tree.
-- Read the 0.4.0 entry in [`CHANGELOG.md`](../CHANGELOG.md).
+- Read the 0.5.0 entry in [`CHANGELOG.md`](../CHANGELOG.md).
 - Old change entries are never edited, renamed or deleted.
 
 ## What migration does
@@ -22,17 +22,17 @@
    `replaced by D<n>` on the old row, then removes the meta row.
 5. Keeps open questions, with their numbers. Removes answered ones.
 6. Copies `Depends on`, and folds the data and relation references into it.
-7. Adds `Keeliom: 0.4.0` and `Language:` to `app.md`. Folds `Jobs` into the
+7. Adds `Keeliom: 0.5.0` and `Language:` to `app.md`. Folds `Jobs` into the
    one-liner and the users. Renames `API conventions` to `Conventions`.
 8. Moves root plan documents into `plans/` when the owner agrees.
 9. Deletes `RULES.md`, `CHECK.md` and the version file, and writes the Keeliom
    block into `CLAUDE.md` and `AGENTS.md`.
-10. Adds one project entry `changes/NNNN-migrate-0.4.md`. A feature gets no
+10. Adds one project entry `changes/NNNN-migrate-0.5.md`. A feature gets no
     migration entry.
 11. Runs `check` and writes `STATUS.md`.
 
 Both 0.2.x and 0.3 projects are accepted directly. Anything older than 0.2.0 is
-refused.
+refused. Existing 0.4.x projects are current with 0.5 and need no migration.
 
 ## Steps
 

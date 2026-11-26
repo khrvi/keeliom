@@ -67,7 +67,7 @@ fi
 
 app_tpl="$root/plugins/keeliom/templates/app.md"
 assert_file "$app_tpl"
-assert_grep '^Keeliom: 0\.4\.0$' "$app_tpl"
+assert_grep '^Keeliom: 0\.5\.0$' "$app_tpl"
 assert_grep '^Status: draft$' "$app_tpl"
 assert_grep '^Language: English$' "$app_tpl"
 for heading in 'One-liner' 'Users' 'Scope' 'Non-goals' 'Glossary' 'Invariants' \
@@ -120,7 +120,7 @@ if [ "$block_lines" -le 15 ]; then
 else
   fail "block is $block_lines lines; expected at most 15"
 fi
-assert_grep 'https://github\.com/khrvi/keeliom/blob/v0\.4\.0/plugins/keeliom/rules/RULES\.md' "$block_tpl"
+assert_grep 'https://github\.com/khrvi/keeliom/blob/v0\.5\.0/plugins/keeliom/rules/RULES\.md' "$block_tpl"
 
 assert_no_file "$root/plugins/keeliom/templates/RULES.md"
 assert_no_file "$root/plugins/keeliom/templates/CHECK.md"
@@ -182,8 +182,13 @@ else
   fail "README lists $docs_skill_lines skill bullets; expected 4"
 fi
 
+assert_grep '^- \*\*Date:\*\* 2026-11-26$' "$root/README.md"
+assert_grep '^## Flow v0\.5$' "$root/README.md"
+assert_grep '^- \*\*v0\.5\*\* — whole-plan generation, capability ownership, deeper spec checks$' "$root/README.md"
+assert_no_grep 'write a 0\.4 file into an older project' "$root/plugins/keeliom/skills/setup/SKILL.md"
+
 # --- version
 
-assert_grep '"version": "0\.4\.0"' "$root/plugins/keeliom/.claude-plugin/plugin.json"
+assert_grep '"version": "0\.5\.0"' "$root/plugins/keeliom/.claude-plugin/plugin.json"
 
 finish

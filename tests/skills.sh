@@ -113,7 +113,7 @@ scenario_setup_new() {
 
   assert_file "$dir/app.md"
   if [ -f "$dir/app.md" ]; then
-    assert_grep '^Keeliom: 0\.4\.0$' "$dir/app.md"
+    assert_grep '^Keeliom: 0\.5\.0$' "$dir/app.md"
     assert_grep '^Status: draft$' "$dir/app.md"
     assert_grep '^Language: English$' "$dir/app.md"
   fi
@@ -145,7 +145,7 @@ scenario_setup_existing_code() {
 
   assert_file "$dir/app.md"
   if [ -f "$dir/app.md" ]; then
-    assert_grep '^Keeliom: 0\.4\.0$' "$dir/app.md"
+    assert_grep '^Keeliom: 0\.5\.0$' "$dir/app.md"
     assert_grep '^## Repositories$' "$dir/app.md"
   fi
   if grep -q '<!-- keeliom:start -->' "$dir/CLAUDE.md" 2>/dev/null; then

@@ -1,5 +1,35 @@
 # Changelog
 
+## 0.5.0 — 2026-11-26
+
+### Added
+
+- Whole-plan `feature` generation creates the complete required feature set.
+- In-memory plan coverage assigns requirements, exclusions and unresolved
+  choices before one final check.
+- Optional `app.md` `Capabilities` ownership and K8 behavior dependencies.
+- Generated `STATUS.md` `Warnings` column.
+- K6 checks for internal closed definitions and operation outcome counters.
+- Whole-plan and check regressions for the new behavior.
+
+### Changed
+
+- K7 reports unresolved values even when a rule has `test:<name>`.
+- Unattended plan choices stay as declared questions in draft features.
+- Explicit closed lists keep feature-specific field projections valid.
+- Legacy migration targets 0.5.0. Existing 0.4.x projects need no file
+  migration because their project format remains valid.
+- New K6 internal contradictions are errors for every feature status.
+
+### Verification
+
+- [x] `claude plugin validate plugins/keeliom` and `claude plugin validate .`
+  pass.
+- [x] `bash tests/lint.sh` passes.
+- [x] `bash tests/run.sh` passes every fixture.
+- [x] `bash tests/skills.sh` and `bash tests/migrate.sh` pass.
+- [x] `git grep -nE '/Users[/]'` returns nothing.
+
 ## 0.4.0 — 2026-11-13
 
 ### Added

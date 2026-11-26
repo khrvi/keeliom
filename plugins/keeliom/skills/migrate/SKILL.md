@@ -1,6 +1,6 @@
 ---
 name: migrate
-description: Migrate a Keeliom 0.2.x or 0.3 project to 0.4 without editing old change entries.
+description: Migrate a Keeliom 0.2.x or 0.3 project to 0.5 without editing old change entries.
 ---
 
 # Migrate
@@ -29,14 +29,15 @@ change entry.
 
 ## Detect
 
-- Current: `app.md` has `Keeliom: 0.4.x` and every feature has `spec.md`.
-  Print `Keeliom is already current.` and stop.
-- Partially migrated: `app.md` has `Keeliom: 0.4.x` but some feature has no
-  `spec.md`. Migrate those features, then run the project steps.
+- Current: `app.md` has `Keeliom: 0.4.x` or `Keeliom: 0.5.x` and every feature
+  has `spec.md`. Print `Keeliom is already current.` and stop.
+- Partially migrated: `app.md` has `Keeliom: 0.4.x` or `Keeliom: 0.5.x` but
+  some feature has no `spec.md`. Migrate those features, then run the project
+  steps.
 - Older: `KEELIOM_VERSION` exists and `app.md` has no `Keeliom:` header. Both
   0.2.3 and 0.3.0 are accepted.
 - Older than 0.2.0: refuse and stop.
-- Newer than 0.4: print
+- Newer than 0.5: print
   `Plugin is older than the project: update the keeliom plugin.` and stop.
 
 ## Modes
@@ -88,7 +89,7 @@ the call, write no project entry: it must list every feature.
 
 ## Project steps
 
-1. `app.md`: add `Keeliom: 0.4.0` under the title and `Language: English` (or
+1. `app.md`: add `Keeliom: 0.5.0` under the title and `Language: English` (or
    the language the existing specs use). Fold `Jobs` into `One-liner` and
    `Users`. Rename `API conventions` to `Conventions` and keep its content.
    Move `CHECK.md §Project overrides` into `## Check overrides`, dropping
@@ -109,7 +110,7 @@ the call, write no project entry: it must list every feature.
    Offer to retire `TODO.md`. Write the Keeliom block (see `setup`) into
    `CLAUDE.md` and `AGENTS.md`. Point out notes made unnecessary by the new
    rules.
-4. Write one project entry `changes/NNNN-migrate-0.4.md` with the five fields.
+4. Write one project entry `changes/NNNN-migrate-0.5.md` with the five fields.
    `Changed` lists every feature split. `Decisions` lists the carried IDs per
    feature, for example `F0007: D1–D12`. `Source` is
    `owner:<owner>, <YYYY-MM-DD>`.

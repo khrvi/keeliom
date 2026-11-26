@@ -73,8 +73,8 @@ Compare `app.md` `Keeliom:` with the installed plugin version as
 - Every Decision ID in `feature.md` appears in at least one entry's
   `Decisions`, or in the project-level migration entry.
 - A migrated project is one with a project-level entry named
-  `*-migrate-0.4.md`. In it, the five fields are required only in entries
-  dated after the migration entry. An entry dated the same day counts as
+  `*-migrate-0.4.md` or `*-migrate-0.5.md`. In it, the five fields are required
+  only in entries dated after the migration entry. An entry dated the same day counts as
   older. Older entries must only be sequential.
 - Project-level `changes/` follows the same rules.
 

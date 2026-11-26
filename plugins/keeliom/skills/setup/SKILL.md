@@ -32,7 +32,7 @@ Compare `app.md` `Keeliom:` with the plugin version in
   `Input`.
 - Project older, including a project with the version file and no `Keeliom:`
   header: print `Migration required: run the migrate skill.` and stop. Never
-  write a 0.4 file into an older project.
+  write current template files into an older project.
 - Project newer: print
   `Plugin is older than the project: update the keeliom plugin.` and stop.
 

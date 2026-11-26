@@ -9,5 +9,5 @@ entry. Spec maintenance goes in the commit message only.
 
 When the feature ships, run `keeliom:check` and set `Status: done`.
 
-Rules: the `keeliom` plugin, or https://github.com/khrvi/keeliom/blob/v0.4.0/plugins/keeliom/rules/RULES.md
+Rules: the `keeliom` plugin, or https://github.com/khrvi/keeliom/blob/v0.5.0/plugins/keeliom/rules/RULES.md
 <!-- keeliom:end -->
