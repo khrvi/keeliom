@@ -68,9 +68,13 @@ Language: English
 - `Roles` is a table `| Role | Can do |`. Roles are access roles only.
 - `Data model` is a table `| Entity | Owner | Key fields | Notes |`. `Owner`
   is the feature ID that owns the entity.
+- `Capabilities` follows `Data model` when present. It is `None` or a table
+  `| Capability | Owner | Notes |`. It names shared behavior, gives each unique
+  name one existing feature ID as `Owner`, and adds no dependency by declaring
+  it. Capability ownership metadata alone is not an app requirement change.
 - `Repositories` is required when the project has code. It is a table
   `| Path | Role | Language | Test commands | Notes |`.
-- Optional sections: `Conventions` (free text), `Locales`, `Accessibility`,
+- Other optional sections: `Conventions` (free text), `Locales`, `Accessibility`,
   `Check overrides`.
 - `Check overrides` is a bullet list. Each bullet names a check ID and the
   reason. `check` applies them and prints each applied override.

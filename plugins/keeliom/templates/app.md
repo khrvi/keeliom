@@ -50,6 +50,10 @@ TBD — one sentence: what the app does and for whom.
 |---|---|---|---|
 | TBD | F0001 | TBD | TBD |
 
+## Capabilities
+
+None
+
 ## Conventions
 
 None

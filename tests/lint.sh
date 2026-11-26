@@ -47,6 +47,7 @@ for heading in 'Project layout' 'Language' 'Plans' 'app\.md' 'feature\.md' 'spec
   assert_grep "^## $heading\$" "$rules"
 done
 assert_grep '\| ID \| Decision \| Source \| Status \|' "$rules"
+assert_grep '\| Capability \| Owner \| Notes \|' "$rules"
 assert_grep 'replaced by D<n>' "$rules"
 
 # The Version section is the one place allowed to name KEELIOM_VERSION.
@@ -70,7 +71,7 @@ assert_grep '^Keeliom: 0\.4\.0$' "$app_tpl"
 assert_grep '^Status: draft$' "$app_tpl"
 assert_grep '^Language: English$' "$app_tpl"
 for heading in 'One-liner' 'Users' 'Scope' 'Non-goals' 'Glossary' 'Invariants' \
-  'Stack' 'Roles' 'Data model'; do
+  'Stack' 'Roles' 'Data model' 'Capabilities'; do
   assert_grep "^## $heading\$" "$app_tpl"
 done
 assert_no_grep '^## Jobs$|^## API conventions$' "$app_tpl"

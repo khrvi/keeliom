@@ -46,6 +46,9 @@ Compare `app.md` `Keeliom:` with the installed plugin version as
 - When the project has code (`RULES.md §Project layout`), or a feature has
   `Source: code:<path>`, `app.md` has a `Repositories` section.
 - A `ready` or `done` feature requires `app.md Status: ready`.
+- An `app.md` `Capabilities` table has the exact `Capability | Owner | Notes`
+  header. Capability names are unique, and every `Owner` names an existing
+  feature. A missing section or `None` is valid.
 
 ### K2 — No pending work
 
@@ -91,6 +94,19 @@ Compare `app.md` `Keeliom:` with the installed plugin version as
 - `Description` against `Out of scope`.
 - `spec.md` against `feature.md`.
 - `spec.md` against `app.md` `Invariants` and `Conventions`.
+- Rules against other Rules, and Rules against `Data`, `API` and `Screens` in
+  the same spec. Compare any two explicit closed definitions in those sections.
+- A definition is closed only with `one of`, `only`, `exactly`, `complete`, or
+  an equivalent limit. Examples, illustrative responses, open-ended lists and
+  unmarked field projections are open. A Data table may contain only the fields
+  used by this feature.
+- Named states, outcomes, fields and errors must agree with an explicit closed
+  definition that excludes them.
+- Separate counters for an operation's named outcomes cover every mutually
+  exclusive outcome of that operation. A later outcome needs its own counter,
+  or an explicit statement that excludes it from counting. This comparison needs
+  no closed-list marker.
+- Do not infer an unnamed state or outcome from a verb alone.
 - Quote both sides of a contradiction.
 
 ### K7 — Testable rules
@@ -100,6 +116,15 @@ Compare `app.md` `Keeliom:` with the installed plugin version as
   also enough.
 - A word such as `clear`, `fast`, `correct`, `properly` or `handled correctly`
   is not testable unless the rule also names the output.
+- A reference such as `selected`, `chosen`, `configured`, `agreed`, or an
+  owner's value needs a concrete definition in the same rule, another cited
+  rule, the feature, or `app.md`. The reference is unresolved when no definition
+  supplies that value or policy. A concrete approved or assumed Decision can
+  supply the definition; K3 still decides whether an assumption blocks ready.
+- These references are semantic, never substring findings. A defined configured
+  preference or a selected collection used as a domain term is not unresolved.
+- A matching `Q<n>` records an unresolved choice but does not make its rule
+  testable. A `test:<name>` also does not resolve an undefined value or policy.
 
 ### K8 — Cross-feature
 
@@ -107,6 +132,10 @@ Compare `app.md` `Keeliom:` with the installed plugin version as
   Quote both rules.
 - Behavior or data owned by another feature appears in `Depends on`. The owner
   comes from `app.md §Data model`.
+- Semantic use of a capability owned by another feature also appears in
+  `Depends on`. The owner comes from `app.md §Capabilities`. Declaring a
+  capability creates no dependency, self-use needs no self-dependency, and a
+  word substring alone does not prove use.
 - Terms match `app.md §Glossary`, `§Roles` and `§Data model`. A term mismatch
   is `warn`.
 - Cycles in `Depends on` are never a finding.
@@ -195,12 +224,14 @@ The first line is:
 
 Then one table, sorted by feature ID:
 
-    | Feature | Status | Open questions | Assumed decisions | Tasks | Errors |
-    |---|---|---|---|---|---|
-    | F0001 Add book | done | 0 | 0 | 6/6 | 0 |
-    | F0004 Delete book | draft | 2 | 1 | — | 0 |
+    | Feature | Status | Open questions | Assumed decisions | Tasks | Errors | Warnings |
+    |---|---|---|---|---|---|---|
+    | F0001 Add book | done | 0 | 0 | 6/6 | 0 | 0 |
+    | F0004 Delete book | draft | 2 | 1 | — | 0 | 1 |
 
 - `Feature` is the ID, a space, and the title without the dash.
 - `Open questions` and `Assumed decisions` are counts.
 - `Tasks` is `<ticked>/<total>`, or `—` when the feature has no tasks.
 - `Errors` is the number of error findings for the feature.
+- `Warnings` is the number of `warn` and `unverifiable` findings for the
+  feature.

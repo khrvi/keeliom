@@ -1,0 +1,4 @@
+- K6
+- line: storage_full
+- line: name_required
+- line: name_taken

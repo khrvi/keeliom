@@ -56,6 +56,21 @@ scenario_check_status() {
   fi
 }
 
+scenario_check_status_warnings() {
+  local dir="$tmp/check_status_warnings"
+  cp -R "$root/tests/fixtures/k7-undefined-draft" "$dir"
+  run_skill "$dir" "/keeliom:check" >"$tmp/check_status_warnings.out" 2>&1
+
+  assert_grep '^\| Feature \| Status \| Open questions \| Assumed decisions \| Tasks \| Errors \| Warnings \|$' "$dir/STATUS.md"
+  assert_grep '^\| F0001 Create item \| draft \| 1 \| 0 \| — \| 0 \| 1 \|$' "$dir/STATUS.md"
+  if diff -r -x STATUS.md "$root/tests/fixtures/k7-undefined-draft" "$dir" >"$tmp/check_status_warnings.diff" 2>&1; then
+    pass "check_status_warnings: no other file changed"
+  else
+    fail "check_status_warnings: other files changed"
+    sed 's/^/    /' "$tmp/check_status_warnings.diff" | head -40
+  fi
+}
+
 scenario_check_older() {
   local dir="$tmp/check_older"
   cp -R "$root/tests/fixtures/version-old" "$dir"

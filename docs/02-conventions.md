@@ -83,7 +83,16 @@ record of reasoning. Features are the current truth.
 Why: release and redesign documents describe several features at once. A
 feature file cannot hold them, and there is no useful section format for them.
 
-## 9. Check overrides
+## 9. Capability ownership
+
+[`app.md`](../plugins/keeliom/rules/RULES.md#appmd) can assign shared behavior
+to an owning feature. A feature that uses another feature's capability declares
+that owner in `Depends on`, just as it does for a shared entity.
+
+Why: a dependency on behavior need not involve a data entity. Naming the owner
+lets K8 find the missing dependency without storing behavior in `Data model`.
+
+## 10. Check overrides
 
 A project can record an exception in `app.md §Check overrides`. The exception
 names a check ID and a reason. `check` applies it and prints it.
@@ -92,7 +101,7 @@ Why: a real project has wording overlaps that a check cannot distinguish from a
 defect. An override keeps the exception visible instead of loosening the check
 for everyone.
 
-## 10. Checks
+## 11. Checks
 
 The checks live in [`CHECK.md`](../plugins/keeliom/rules/CHECK.md). There are
 nine, each catching a defect a person would otherwise miss. `check` prints the
