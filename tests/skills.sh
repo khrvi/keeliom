@@ -239,6 +239,149 @@ EOF
   fi
 }
 
+scenario_feature_plan_set() {
+  local dir="$tmp/feature_plan_set"
+  cp -R "$root/tests/fixtures/_base" "$dir"
+  mkdir -p "$dir/plans"
+  cat >"$dir/plans/library-rollout.md" <<'EOF'
+# Library rollout
+
+## List books
+
+List each book's title and author, newest first. `Book search` finds books by
+title or author. The maximum search result count is undecided.
+
+## Edit books
+
+The member uses Book search to pick a book, then edits its title and author.
+The complete edit states are `editing`, `saving`, `success`, and `error`.
+
+## Project exclusion
+
+Sharing libraries with other members is outside this rollout.
+EOF
+  cp "$dir/plans/library-rollout.md" "$tmp/feature_plan_set.plan.orig"
+  grep '^Status:' "$dir/app.md" >"$tmp/feature_plan_set.status.orig"
+
+  run_skill "$dir" "/keeliom:feature plans/library-rollout.md unattended" \
+    >"$tmp/feature_plan_set.out" 2>&1
+
+  local list="$dir/features/F0002-list-books"
+  local edit="$dir/features/F0003-edit-books"
+  assert_file "$list/feature.md"
+  assert_file "$list/spec.md"
+  assert_file "$list/changes/0001-initial.md"
+  assert_file "$edit/feature.md"
+  assert_file "$edit/spec.md"
+  assert_file "$edit/changes/0001-initial.md"
+  assert_grep '^Source: plans/library-rollout\.md$' "$list/feature.md"
+  assert_grep '^Source: plans/library-rollout\.md$' "$edit/feature.md"
+  assert_grep '[Tt]itle' "$list/feature.md"
+  assert_grep '[Aa]uthor' "$list/feature.md"
+  assert_grep '[Nn]ewest.*first' "$list/feature.md"
+  assert_grep 'Book search' "$list/feature.md"
+  assert_grep 'Book search' "$list/spec.md"
+  assert_grep '[Ee]dit' "$edit/feature.md"
+  assert_grep '[Tt]itle' "$edit/feature.md"
+  assert_grep '[Aa]uthor' "$edit/feature.md"
+  assert_grep 'Book search' "$edit/spec.md"
+  assert_grep '^Depends on: .*F0002' "$edit/spec.md"
+  assert_grep '\| Book search \| F0002 \|' "$dir/app.md"
+  assert_grep '[Ss]haring libraries' "$dir/app.md"
+  grep '^Status:' "$dir/app.md" >"$tmp/feature_plan_set.status.after"
+  if cmp -s "$tmp/feature_plan_set.status.orig" "$tmp/feature_plan_set.status.after"; then
+    pass "feature_plan_set: app Status unchanged"
+  else
+    fail "feature_plan_set: app Status changed"
+  fi
+
+  local entry count fields
+  count=$(find "$dir/changes" -type f -name '*.md' 2>/dev/null | wc -l | tr -d ' ')
+  entry=$(find "$dir/changes" -type f -name '*.md' 2>/dev/null | head -n 1)
+  if [ "$count" -eq 1 ] && [ -n "$entry" ]; then
+    pass "feature_plan_set: one project change entry"
+    fields=$(grep -cE '^- *\*{0,2}(Date|Reason|Changed|Decisions|Source)' "$entry")
+    if [ "$fields" -eq 5 ]; then
+      pass "feature_plan_set: project entry has five fields"
+    else
+      fail "feature_plan_set: project entry has $fields field lines"
+    fi
+    assert_grep '^- Decisions: None$' "$entry"
+    assert_grep '^- Source: plans/library-rollout\.md$' "$entry"
+    assert_grep '[Nn]on-goals|[Nn]on-goal|[Ss]haring libraries' "$entry"
+  else
+    fail "feature_plan_set: found $count project change entries"
+  fi
+
+  assert_grep '^Status: draft$' "$list/feature.md"
+  assert_grep '^- Q[0-9]+\..*[Rr]esult.*([Ll]imit|[Mm]aximum)|^- Q[0-9]+\..*([Ll]imit|[Mm]aximum).*[Rr]esult' "$list/feature.md"
+  assert_no_grep '^\| D[0-9]+ \|.*([Rr]esult|[Ll]imit).*\| (approved|assumed) \|$' "$list/feature.md" "$edit/feature.md"
+  assert_grep '(one of|only|exactly).*`editing`.*`saving`.*`success`.*`error`' "$edit/spec.md"
+  if cmp -s "$tmp/feature_plan_set.plan.orig" "$dir/plans/library-rollout.md"; then
+    pass "feature_plan_set: plan unchanged"
+  else
+    fail "feature_plan_set: plan changed"
+  fi
+  if [ ! -f "$list/feature.md" ] ||
+    ! grep -q '^Source: plans/library-rollout\.md$' "$edit/feature.md" 2>/dev/null; then
+    sed 's/^/    /' "$tmp/feature_plan_set.out" | head -80
+    find "$dir/features" -maxdepth 4 -type f -print | sort
+    grep -REn '^#|^Status:|^Source:|^- Q|[Nn]ewest|Book search' "$dir/features" | head -120
+  fi
+  if [ -f "$list/feature.md" ] &&
+    ! grep -Eq '[Nn]ewest.*first' "$list/feature.md"; then
+    sed 's/^/    /' "$list/feature.md" | head -60
+  fi
+
+  run_skill "$dir" "/keeliom:check" >"$tmp/feature_plan_set.check.out" 2>&1
+  if grep -qE '\[K[14]\]' "$tmp/feature_plan_set.check.out"; then
+    fail "feature_plan_set: check reports K1 or K4"
+    sed 's/^/    /' "$tmp/feature_plan_set.check.out" | head -40
+  else
+    pass "feature_plan_set: check reports no K1 or K4"
+  fi
+}
+
+scenario_feature_plan_metadata() {
+  local dir="$tmp/feature_plan_metadata"
+  cp -R "$root/tests/fixtures/_base" "$dir"
+  mkdir -p "$dir/plans"
+  cat >"$dir/plans/library-list.md" <<'EOF'
+# Library list
+
+List each book's title and author, newest first. `Book search` finds books by
+title or author. Book search is shared behavior owned by the list feature.
+EOF
+  cp "$dir/plans/library-list.md" "$tmp/feature_plan_metadata.plan.orig"
+
+  run_skill "$dir" "/keeliom:feature plans/library-list.md unattended" \
+    >"$tmp/feature_plan_metadata.out" 2>&1
+
+  local feature="$dir/features/F0002-list-books"
+  assert_file "$feature/feature.md"
+  assert_file "$feature/spec.md"
+  assert_file "$feature/changes/0001-initial.md"
+  assert_grep '^Source: plans/library-list\.md$' "$feature/feature.md"
+  assert_grep '\| Book search \| F0002 \|' "$dir/app.md"
+  local count
+  count=$(find "$dir/changes" -type f -name '*.md' 2>/dev/null | wc -l | tr -d ' ')
+  if [ "$count" -eq 0 ]; then
+    pass "feature_plan_metadata: no project change entry"
+  else
+    fail "feature_plan_metadata: found $count project change entries"
+  fi
+  if [ ! -f "$feature/feature.md" ] || [ "$count" -ne 0 ]; then
+    sed 's/^/    /' "$tmp/feature_plan_metadata.out" | head -60
+    find "$dir/features" -maxdepth 4 -type f -print | sort
+    find "$dir/changes" -type f -name '*.md' -exec sed 's/^/    /' {} \; 2>/dev/null | head -40
+  fi
+  if cmp -s "$tmp/feature_plan_metadata.plan.orig" "$dir/plans/library-list.md"; then
+    pass "feature_plan_metadata: plan unchanged"
+  else
+    fail "feature_plan_metadata: plan changed"
+  fi
+}
+
 scenario_feature_change() {
   local dir="$tmp/feature_change"
   cp -R "$root/tests/fixtures/_base" "$dir"

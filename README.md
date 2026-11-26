@@ -88,7 +88,8 @@ Keeliom is a Claude Code plugin marketplace:
 The plugin bundles four skills:
 
 - `setup` — set up a new or existing project, or import features from code.
-- `feature` — create or change a feature from a brief, ticket or plan.
+- `feature` — create or change one feature from a brief or ticket, or generate
+  every required feature from a plan.
 - `check` — run the checks and write `STATUS.md`.
 - `migrate` — migrate a 0.2.x or 0.3 project to 0.4.
 

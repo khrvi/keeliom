@@ -65,6 +65,15 @@ A plan is a proposal. Once its content lands in features, `feature.md` and
 A decision or a change entry may cite `plans/<file>.md §<section>` as its
 source.
 
+Passing a plan to `feature` generates every missing feature required by that
+plan in one run. The skill assigns its requirements, exclusions and unresolved
+choices in memory. It updates `app.md` `Non-goals` and `Capabilities` when
+needed, reviews the complete output, then runs one `check`.
+
+In unattended mode, an unresolved plan choice stays a question and its feature
+stays `draft`. Capability metadata alone adds no project change entry. The plan
+file stays unchanged. No coverage file is created.
+
 ## 6. Source of truth
 
 - `feature.md` and `spec.md` are the current state.
